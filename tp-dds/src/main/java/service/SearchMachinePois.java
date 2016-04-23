@@ -1,24 +1,18 @@
 package service;
 
-import domain.Cordinate;
-import domain.Poi;
+import domainPOI.Coordinate;
+import domainPOI.Poi;
 
 public class SearchMachinePois {
 	
-	private Cordinate cordinates;
-	
-	
-	
-	
+	private Coordinate cordinates;
 	
 	private boolean isNearby(Poi unPoi){
 		return unPoi.isNearby(cordinates);
 	}
 	
 	
-	private boolean isAvailable(Poi unPoi){
-		
-		
+	private boolean isAvailable(Poi unPoi){	
 		return true;
 		
 	}
