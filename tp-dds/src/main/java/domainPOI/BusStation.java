@@ -14,7 +14,7 @@ public class BusStation extends Poi {
 	}
 	
 	public String getType(){
-		return "Bus Statition";
+		return "Bus Station";
 	}
 	
 
