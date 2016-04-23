@@ -5,7 +5,7 @@ import domainPOI.Poi;
 public class PoiDatabaseManager {
 	
 
-	public Poi searchPoi(){
+	public Poi searchPoi(String poiName){
 	//TO DO	
 	}
 	
