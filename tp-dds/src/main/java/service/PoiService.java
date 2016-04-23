@@ -3,11 +3,14 @@ package service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.maps.GeoApiContext;
+
 import domainPOI.Coordinate;
 import domainPOI.Poi;
 
 public class PoiService {
 	private PoiDatabaseManager databaseManager;
+	private Coordinate cordinates;
 	
 	
 	
