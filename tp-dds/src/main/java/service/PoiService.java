@@ -6,18 +6,18 @@ import java.util.List;
 import com.google.maps.GeoApiContext;
 
 import domainPOI.Coordinate;
+import domainPOI.GeoLocation;
 import domainPOI.Poi;
 
 public class PoiService {
 	private PoiDatabaseManager databaseManager;
 	private Coordinate cordinates;
+	private GeoLocation geoLocation;
 	
 	
 	
 	public Poi searchPoi(String poiName){
 		return databaseManager.searchPoi(poiName);
-		
-		
 	}
 	
 	public List<String> obtainPoiInformation(){
@@ -38,7 +38,8 @@ public class PoiService {
 	public boolean areNear(String poiName1, String poiName2){
 		Poi poi1 =searchPoi(poiName1);
 		Poi poi2=searchPoi(poiName2);
-		return poi1.isNearby(poi2.getCordinate());
+		
+		return poi1.isNearBy(poi2.getCordinate());
 	}
 	
 	public boolean isEnable(String poiName){

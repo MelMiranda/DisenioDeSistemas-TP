@@ -49,7 +49,7 @@ public abstract class Poi implements PoiInterface {
 	}
 
 
-	public boolean isNearby(Coordinate cordinatePoi) {
+	public boolean isNearBy(Coordinate cordinatePoi) {
 		return (Math.pow((this.cordinate.getLatitude()-cordinatePoi.getLatitude()),2)+Math.pow((this.cordinate.getLongitude()-cordinatePoi.getLongitude()), 2))<5;
 	}
 
