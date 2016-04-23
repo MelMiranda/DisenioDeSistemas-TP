@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +24,12 @@ public class GeoLocationTest {
 	
 	@Test
 	public void distanceTest(){
+		System.out.println(geoLocation.distanceFrom(coordinate1,coordinate2));
 		assertTrue(geoLocation.distanceFrom(coordinate1,coordinate2)<500);
+		
+		DateTime date=new DateTime();
+		
+		System.out.println(date.getDayOfWeek());
 	}
 
 
