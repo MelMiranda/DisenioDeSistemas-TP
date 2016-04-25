@@ -1,6 +1,7 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import com.google.maps.GeoApiContext;
@@ -13,8 +14,6 @@ public class PoiService {
 	private PoiDatabaseManager databaseManager;
 	private Coordinate coordinates;
 	private GeoLocation geoLocation;
-	
-	
 	
 	public Poi searchPoi(String poiName){
 		return databaseManager.searchPoi(poiName);

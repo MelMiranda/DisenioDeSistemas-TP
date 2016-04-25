@@ -56,7 +56,7 @@ public abstract class Poi implements PoiInterface {
 
 	
 	public boolean isEnable(){
-		return true; //TO DO
+		return true; //TODO
 	}
 	
 	/*public List<String> getMainInfo(){

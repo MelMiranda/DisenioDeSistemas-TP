@@ -1,46 +1,50 @@
 package domainPOI;
 
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.joda.time.DateTime;
-
 public class RangeOfAtention {
 
-	private int minHourOfAtention;
-	private int maxHourOfAtention;
-	private List<String> daysOfAtention;
+	private Date minHourOfAtention;
+	private Date maxHourOfAtention;
+	private List<String> daysWithoutAtention;
 
-	public RangeOfAtention(int minHourOfAtention, int maxHourOfAtention, List<String> daysOfAtention) {
-		super();
-		this.minHourOfAtention = minHourOfAtention;
-		this.maxHourOfAtention = maxHourOfAtention;
-		this.daysOfAtention = daysOfAtention;
+	public RangeOfAtention(String aMinHourOfAtention, String aMaxHourOfAtention, List<String> daysOfAtention) {
+		SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
+		try {
+			maxHourOfAtention = parser.parse(aMaxHourOfAtention);
+			minHourOfAtention= parser.parse(aMinHourOfAtention);
+			this.daysWithoutAtention = daysOfAtention;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public int getMinHourOfAtention() {
+	public Date getMinHourOfAtention() {
 		return minHourOfAtention;
 	}
 
-	public void setMinHourOfAtention(int minHourOfAtention) {
+	public void setMinHourOfAtention(Date minHourOfAtention) {
 		this.minHourOfAtention = minHourOfAtention;
 	}
 
-	public int getMaxHourOfAtention() {
+	public Date getMaxHourOfAtention() {
 		return maxHourOfAtention;
 	}
 
-	public void setMaxHourOfAtention(int maxHourOfAtention) {
+	public void setMaxHourOfAtention(Date maxHourOfAtention) {
 		this.maxHourOfAtention = maxHourOfAtention;
 	}
 
-	public List<String> getDaysOfAtention() {
-		return daysOfAtention;
+	public List<String> getDaysWithoutAtention() {
+		return daysWithoutAtention;
 	}
 
-	public void setDaysOfAtention(List<String> daysOfAtention) {
-		this.daysOfAtention = daysOfAtention;
+	public void setDaysWithoutAtention(List<String> daysWithoutAtention) {
+		this.daysWithoutAtention = daysWithoutAtention;
 	}
-	
+
+
 }
