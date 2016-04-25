@@ -25,7 +25,9 @@ public class GeoLocationTest {
 	public void distanceTest(){
 		assertTrue(geoLocation.distanceFrom(coordinate1,coordinate2)<500);
 	}
+	
 
+	
 
 	
 
