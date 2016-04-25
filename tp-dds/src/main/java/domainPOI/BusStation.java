@@ -10,8 +10,8 @@ public class BusStation extends Poi {
 	
 	public boolean isEnable(){
 		return true;
-		
 	}
+
 	
 	public String getType(){
 		return "Bus Station";

@@ -1,13 +1,16 @@
 package domainPOI;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import org.joda.time.DateTime;
 
 public class RangeOfAtention {
 
 	private int minHourOfAtention;
 	private int maxHourOfAtention;
-	private List<String> daysOfAtention = new ArrayList<String>();
+	private List<String> daysOfAtention;
 
 	public RangeOfAtention(int minHourOfAtention, int maxHourOfAtention, List<String> daysOfAtention) {
 		super();
@@ -39,5 +42,5 @@ public class RangeOfAtention {
 	public void setDaysOfAtention(List<String> daysOfAtention) {
 		this.daysOfAtention = daysOfAtention;
 	}
-
+	
 }
