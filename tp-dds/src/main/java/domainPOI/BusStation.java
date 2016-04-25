@@ -3,9 +3,9 @@ package domainPOI;
 public class BusStation extends Poi {
 	
 
-	
-	public boolean isNearBy(Coordinate cordinateMachine) {
-		return (Math.pow((this.cordinate.getLatitude()-cordinateMachine.getLatitude()),2)+Math.pow((this.cordinate.getLongitude()-cordinateMachine.getLongitude()), 2))<1;
+	@Override
+	public boolean isNearBy(Coordinate aCoordinate) {
+		return (geoLocation.distanceFrom(coordinate, aCoordinate)<100);
 	}
 	
 	public boolean isEnable(){

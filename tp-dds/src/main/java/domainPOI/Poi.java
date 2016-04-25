@@ -5,8 +5,9 @@ public abstract class Poi implements PoiInterface {
 	protected String name;
 	protected Address address;
 	protected String mainStreet;
-	protected Coordinate cordinate;
+	protected Coordinate coordinate;
 	protected RangeOfAtention rangeOfAtention;	
+	protected GeoLocation geoLocation;
 
 
 	public RangeOfAtention getRangeOfAtention() {
@@ -39,18 +40,18 @@ public abstract class Poi implements PoiInterface {
 
 
 
-	public Coordinate getCordinate() {
-		return cordinate;
+	public Coordinate getCoordinate() {
+		return coordinate;
 	}
 
 
-	public void setCordinate(Coordinate cordinate) {
-		this.cordinate = cordinate;
+	public void setCoordinate(Coordinate cordinate) {
+		this.coordinate = cordinate;
 	}
 
 
-	public boolean isNearBy(Coordinate cordinatePoi) {
-		return (Math.pow((this.cordinate.getLatitude()-cordinatePoi.getLatitude()),2)+Math.pow((this.cordinate.getLongitude()-cordinatePoi.getLongitude()), 2))<5;
+	public boolean isNearBy(Coordinate aCoordinate) {
+		return (geoLocation.distanceFrom(this.coordinate, aCoordinate)<500);
 	}
 
 	

@@ -11,14 +11,6 @@ public class Bank extends Poi {
 		this.rangeOfAtention = rangeOfAtention;
 	}
 
-
-
-	public boolean isNearBy(Coordinate cordinatePoi) {
-		return (Math.pow((this.cordinate.getLatitude()-cordinatePoi.getLatitude()),2)+Math.pow((this.cordinate.getLongitude()-cordinatePoi.getLongitude()), 2))<5;
-	}
-
-
-
 	public RangeOfAtention getRangeOfAtention() {
 		return rangeOfAtention;
 	}

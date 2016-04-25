@@ -2,14 +2,16 @@ package domainPOI;
 
 public class Comercial extends Poi {
 	
-	private int distanceProximity;
+	private int distanceProximityRadius;
+
 	
-	public Comercial(int aDistanceOfProximity){
-		distanceProximity=aDistanceOfProximity;	
+	public Comercial(int numberOfStreetsNearly){
+		distanceProximityRadius=numberOfStreetsNearly*100;	
 	}
 	
+	@Override
 	public boolean isNearBy(Coordinate cordinateMachine) {
-		return (Math.pow((this.getCordinate().getLatitude()-cordinateMachine.getLatitude()),2)+Math.pow((this.getCordinate().getLongitude()-cordinateMachine.getLongitude()), 2))<distanceProximity;
+		return geoLocation.insideCircleRange(coordinate, cordinateMachine, distanceProximityRadius);
 	}
 	
 	public String getType(){

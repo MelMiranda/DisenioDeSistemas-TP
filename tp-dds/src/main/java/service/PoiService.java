@@ -11,7 +11,7 @@ import domainPOI.Poi;
 
 public class PoiService {
 	private PoiDatabaseManager databaseManager;
-	private Coordinate cordinates;
+	private Coordinate coordinates;
 	private GeoLocation geoLocation;
 	
 	
@@ -33,13 +33,13 @@ public class PoiService {
 	}
 	
 	public Coordinate poiCoordinate(Poi poi){
-		return poi.getCordinate();
+		return poi.getCoordinate();
 	}
 	public boolean areNear(String poiName1, String poiName2){
 		Poi poi1 =searchPoi(poiName1);
 		Poi poi2=searchPoi(poiName2);
 		
-		return poi1.isNearBy(poi2.getCordinate());
+		return poi1.isNearBy(poi2.getCoordinate());
 	}
 	
 	public boolean isEnable(String poiName){
