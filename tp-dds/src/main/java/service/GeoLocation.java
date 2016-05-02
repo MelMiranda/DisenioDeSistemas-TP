@@ -1,4 +1,6 @@
-package domainPOI;
+package service;
+
+import domainPOI.Coordinate;
 
 //This class stores information about a location on Earth.  Locations are
 //specified using latitude and longitude.  The class includes a method for

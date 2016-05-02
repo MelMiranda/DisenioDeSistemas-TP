@@ -7,15 +7,16 @@ import java.util.List;
 import com.google.maps.GeoApiContext;
 
 import domainPOI.Coordinate;
-import domainPOI.GeoLocation;
 import domainPOI.Poi;
 
 public class PoiService {
 	private PoiDatabaseManager databaseManager;
+	private SearchDatabaseManager searchDatabaseManager;
 	private Coordinate coordinates;
 	private GeoLocation geoLocation;
 	
-	public Poi searchPoi(String poiName){
+	public List<Poi> searchPoi(String poiName){
+		saveSearch(poiName);
 		return databaseManager.searchPoi(poiName);
 	}
 	
@@ -24,7 +25,7 @@ public class PoiService {
 	}
 	
 	private void saveSearch(String poiName){
-		
+		searchDatabaseManager.saveSearch(poiName);
 	}
 
 	public String poiType(Poi poi){
@@ -34,15 +35,14 @@ public class PoiService {
 	public Coordinate poiCoordinate(Poi poi){
 		return poi.getCoordinate();
 	}
-	public boolean areNear(String poiName1, String poiName2){
-		Poi poi1 =searchPoi(poiName1);
-		Poi poi2=searchPoi(poiName2);
-		
+	public boolean areNear(Poi poi1, Poi poi2){
 		return poi1.isNearBy(poi2.getCoordinate());
 	}
+	public boolean isNear(Poi poi1){
+		return poi1.isNearBy(coordinates);
+	}
 	
-	public boolean isEnable(String poiName){
-		Poi poi= searchPoi(poiName);
+	public boolean isEnable(Poi poi){
 		return poi.isEnable();
 	}
 }

@@ -1,6 +1,9 @@
 package domainPOI;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public abstract class CGP extends Poi{
 	
@@ -8,15 +11,16 @@ public abstract class CGP extends Poi{
 	private ArrayList<CGPService> service;
 	
 	public boolean isNearBy(Coordinate coordinateMachine) {
-		return geoLocation.insideCircleRange(coordinate, coordinateMachine,communeRadius);
+		return geoLocation.distanceFrom(coordinate, coordinateMachine) < communeRadius;
 	}
 	
 	public String getType(){
 		return "CGP";
 	}
 	
-	public boolean isEnable(){
-		return true;//TO DO
-	}
+	
+		
+		
+	
 
 }

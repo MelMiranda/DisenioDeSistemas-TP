@@ -4,8 +4,9 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
+import service.GeoLocation;
 import domainPOI.Coordinate;
-import domainPOI.GeoLocation;
+
 
 public class GeoLocationTest {
 
