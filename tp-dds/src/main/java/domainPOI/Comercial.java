@@ -22,10 +22,12 @@ public class Comercial extends Poi {
 		}
 	}
 	
+	
+	
 	@Override
-	public boolean isNearBy(Coordinate coordinateMachine) {
-		return (geoLocation.distanceFrom(coordinate, coordinateMachine) < distanceProximityRadius);
-	}
+//	public boolean isNearBy(Coordinate coordinateMachine) {
+//		return (geoLocation.distanceFrom(coordinate, coordinateMachine) < distanceProximityRadius);
+//	}
 	
 	public String getType(){
 		return "Comercial";
@@ -41,6 +43,14 @@ public class Comercial extends Poi {
 		}else{
 			return isEnable;
 		}
+	}
+
+
+
+	@Override
+	public boolean isNearBy(Coordinate coordinate) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 

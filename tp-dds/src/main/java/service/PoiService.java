@@ -1,19 +1,25 @@
 package service;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-import com.google.maps.GeoApiContext;
+import org.apache.http.client.ClientProtocolException;
 
 import domainPOI.Coordinate;
 import domainPOI.Poi;
+import http.HttpRequest;
 
 public class PoiService {
 	private PoiDatabaseManager databaseManager;
 	private SearchDatabaseManager searchDatabaseManager;
+	
+	
 	private Coordinate coordinates;
-	private GeoLocation geoLocation;
+	private HttpRequest httpRequest;
+	
+	
+
 	
 	public List<Poi> searchPoi(String poiName){
 		saveSearch(poiName);
@@ -32,14 +38,17 @@ public class PoiService {
 		return poi.getType();
 	}
 	
-	public Coordinate poiCoordinate(Poi poi){
-		return poi.getCoordinate();
+
+	public PoiService(Coordinate coordinates, HttpRequest httpRequest) {
+		super();
+		this.coordinates = coordinates;
+		this.httpRequest = httpRequest;
 	}
-	public boolean areNear(Poi poi1, Poi poi2){
-		return poi1.isNearBy(poi2.getCoordinate());
-	}
-	public boolean isNear(Poi poi1){
-		return poi1.isNearBy(coordinates);
+
+
+
+	public boolean isNear(Poi poi1) throws ClientProtocolException, IOException{
+		return poi1.isNearBy(coordinates,this.httpRequest);
 	}
 	
 	public boolean isEnable(Poi poi){

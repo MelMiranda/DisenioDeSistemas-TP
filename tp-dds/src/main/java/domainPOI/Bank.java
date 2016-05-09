@@ -27,6 +27,12 @@ public class Bank extends Poi {
 	public String getType(){
 		return "Bank";
 	}
+
+	@Override
+	public boolean isNearBy(Coordinate coordinate) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 	
 }
