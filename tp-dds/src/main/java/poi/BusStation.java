@@ -21,7 +21,7 @@ public class BusStation extends Poi {
 	}
 
 	@Override
-	public boolean isNearBy(Coordinate coordinate) throws ClientProtocolException, IOException {
+	public boolean isNearby(Coordinate coordinate) throws ClientProtocolException, IOException {
 		double distance = this.getGoogleService().getDistance(coordinate, this.getCoordinate());
 		return distance < 100;
 	}

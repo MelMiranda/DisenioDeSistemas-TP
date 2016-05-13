@@ -20,7 +20,7 @@ public class PoiService {
 	}
 
 	public boolean isNearby(Poi poi1) throws ClientProtocolException, IOException {
-		return poi1.isNearBy(this.coordinates);
+		return poi1.isNearby(this.coordinates);
 	}
 
 	public boolean isavailable(Poi poi, Date date) {

@@ -49,6 +49,8 @@ public class RangeOfAtention {
 	public void setDaysWithoutAtention(List<String> daysWithoutAtention) {
 		this.daysWithoutAtention = daysWithoutAtention;
 	}
-
-
 }
+
+
+
+

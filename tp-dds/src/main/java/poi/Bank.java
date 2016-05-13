@@ -38,9 +38,7 @@ public class Bank extends Poi {
 	}
 
 	public String getType() {
-
 		return "Bank";
-
 	}
 
 	public boolean isNearBy(Coordinate coordinate) throws ClientProtocolException, IOException {

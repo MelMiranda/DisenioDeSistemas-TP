@@ -11,6 +11,6 @@ import domain.Coordinate;
 public interface PoiInterface {
 	
 	public boolean isAvailable(Date dasdfte);
-	boolean isNearBy(Coordinate coordinate) throws ClientProtocolException, IOException;
+	boolean isNearby(Coordinate coordinate) throws ClientProtocolException, IOException;
 	public String getType();
 }

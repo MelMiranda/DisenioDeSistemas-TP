@@ -7,21 +7,15 @@ import org.apache.http.client.ClientProtocolException;
 
 import domain.Address;
 import domain.Coordinate;
-import domain.RangeOfAtention;
 
 public class ComercialShop extends Poi {
 
-	private Date minCloseInterval;
-	private Date maxCloseInterval;
-	private CategoryType categoryType;
+	private CategoryShop category;
 
-	public ComercialShop(String name, Address address, String mainStreet, Coordinate coordinate,
-			RangeOfAtention rangeOfAtention, Date minCloseInterval, Date maxCloseInterval, CategoryType category) {
+	public ComercialShop(String name, Address address, String mainStreet, Coordinate coordinate, CategoryShop category) {
 		super(name, address, mainStreet, coordinate);
 
-		this.minCloseInterval = minCloseInterval;
-		this.maxCloseInterval = maxCloseInterval;
-		this.categoryType = category;
+		this.category = category;
 	}
 
 	public String getType() {
@@ -32,14 +26,13 @@ public class ComercialShop extends Poi {
 
 
 	@Override
-	public boolean isNearBy(Coordinate coordinatePoiService) throws ClientProtocolException, IOException {
-		return categoryType.isNearBy(coordinatePoiService, this.getCoordinate(), this.getGoogleService());
+	public boolean isNearby(Coordinate coordinatePoiService) throws ClientProtocolException, IOException {
+		return category.isNearby(coordinatePoiService, this.getCoordinate(), this.getGoogleService());
 	}
 
 	@Override
-	public boolean isAvailable(Date dasdfte) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isAvailable(Date date) {
+		return category.isAvailable(date,this.getAvailabilityService());
 	}
 
 }
