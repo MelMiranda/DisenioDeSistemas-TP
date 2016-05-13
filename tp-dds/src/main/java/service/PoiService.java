@@ -1,6 +1,7 @@
 package service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +13,16 @@ import poi.Poi;
 public class PoiService {
 
 	private Coordinate coordinates;
-	private List<Poi> allPois;
+	private List<Poi> allPois=new ArrayList<Poi>();
+	
+
+	public List<Poi> getAllPois() {
+		return allPois;
+	}
+
+	public void setAllPois(List<Poi> allPois) {
+		this.allPois = allPois;
+	}
 
 	public String poiType(Poi poi) {
 		return poi.getType();
@@ -30,4 +40,15 @@ public class PoiService {
 	public boolean isAvailable(Poi poi) {
 		return poi.isAvailable();
 	}
+	public List<Poi> searchPois(String string){
+		List<Poi> pois=new ArrayList<Poi>();
+		for (Poi poi : allPois) {
+			for (String text : poi.getData()) {
+				if(text.contains(string)){
+					pois.add(poi);
+				}				
+			}			
+		}
+		return pois;
+	}	
 }

@@ -14,8 +14,9 @@ public class ComercialShop extends Poi {
 
 	public ComercialShop(String name, Address address, Coordinate coordinate, CategoryShop category) {
 		super(name, address, coordinate);
-
 		this.category = category;
+		this.getData().add(this.getName());
+		this.getData().add(this.getAddress().getMainStreet());
 	}
 
 	public String getType() {

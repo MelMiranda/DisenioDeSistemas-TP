@@ -1,10 +1,10 @@
 package poi;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.List;
 import org.apache.http.client.ClientProtocolException;
-
 import ExternService.GoogleService.GoogleDistanceService;
 import domain.Address;
 import domain.Coordinate;
@@ -17,13 +17,26 @@ public abstract class Poi implements PoiInterface {
 	protected Coordinate coordinate;
 	protected GoogleDistanceService googleService = GoogleDistanceService.getInstance();
 	protected AvailabilityService availabilityService = AvailabilityService.getInstance();
-	
-	public Poi(String name, Address address, Coordinate coordinate){
-		this.name=name;
-		this.address=address;
-		this.coordinate=coordinate;
+	private List<String> data=new ArrayList<String>();
+
+	public Poi(String name, Address address, Coordinate coordinate) {
+		this.name = name;
+		this.address = address;
+		this.coordinate = coordinate;
 	}
 
+	@Override
+	public String toString() {
+		return "Poi [name=" + name + ", coordinate=" + coordinate + "]";
+	}
+
+	public List<String> getData() {
+		return data;
+	}
+
+	public void setData(List<String> data) {
+		this.data = data;
+	}
 
 	public GoogleDistanceService getGoogleService() {
 		return googleService;

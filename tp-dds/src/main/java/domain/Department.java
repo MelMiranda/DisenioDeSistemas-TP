@@ -2,6 +2,11 @@ package domain;
 
 public class Department extends Address {
 
+	public Department(String mainStreet) {
+		super(mainStreet);
+		// TODO Auto-generated constructor stub
+	}
+
 	private int floor;
 	private String department;
 	private String unit;

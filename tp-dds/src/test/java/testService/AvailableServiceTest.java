@@ -65,7 +65,7 @@ public class AvailableServiceTest {
 		cordinate2 = new Coordinate(lat2, lon2);
 		poiService = new PoiService(cordinate1);
 
-		bank = new Bank("Bank", new Address(), cordinate2);	
+		bank = new Bank("Bank", new Address(""), cordinate2);	
 		
 		schedules1 = new ArrayList<Schedule>();
 		schedulesRentas= new ArrayList<Schedule>();
@@ -77,8 +77,8 @@ public class AvailableServiceTest {
 		availabilityService= AvailabilityService.getInstance();
 		schoolLibrary= Library.getInstance(500);
 		
-		newsPapersShop= new ComercialShop("Diarios Sistemas", new Address(), cordinate1, newspapers);
-		schoolLibraryShop= new ComercialShop("Carrousel",new Address(),cordinate2,schoolLibrary);
+		newsPapersShop= new ComercialShop("Diarios Sistemas", new Address(""), cordinate1, newspapers);
+		schoolLibraryShop= new ComercialShop("Carrousel",new Address(""),cordinate2,schoolLibrary);
 		range1=new RangeOfAtention(schedules1, days1);
 		
 		schedulesRentas.add(new Schedule("10:30","20:00"));
@@ -98,7 +98,7 @@ public class AvailableServiceTest {
 		cgpServices.add(rentas);
 		cgpServices.add(cgpService);
 			
-		cgp2=new CGP("mauri", new Address(),  cordinate1, 300.0, cgpServices);
+		cgp2=new CGP("mauri", new Address(""),  cordinate1, 300.0, cgpServices);
 	}
 	
 

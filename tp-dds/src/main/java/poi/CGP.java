@@ -23,7 +23,13 @@ public class CGP extends Poi {
 		super(name, address, coordinate);
 		this.communeRadius = communeRadius;
 		this.services = services;
+		this.getData().add(this.getName());
+		for (CGPService cgpService : services) {
+			this.getData().add(cgpService.getServiceName());
+		}
+		this.getData().add("cgp");
 	}
+	
 
 	public double getCommuneRadius() {
 		return communeRadius;

@@ -34,7 +34,10 @@ public class Bank extends Poi {
 		days1.add(6);
 		
 		this.rangeOfAtention=new RangeOfAtention(schedules1, days1);
-	}
+		this.getData().add(this.getName());
+		this.getData().add(this.getAddress().getMainStreet());
+		this.getData().add("bank");
+		}
 
 	
 	

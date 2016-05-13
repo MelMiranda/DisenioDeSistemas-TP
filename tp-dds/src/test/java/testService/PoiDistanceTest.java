@@ -56,17 +56,18 @@ public class PoiDistanceTest {
 		cordinate3 = new Coordinate(0, 0);
 		poiService = new PoiService(cordinate1);
 		newspapers= Newspapers.getInstance(700);
-		newsPapersShop= new ComercialShop("Diarios Sistemas", new Address(), cordinate1, newspapers);
-		cgp = new CGP("CGP", new Address(), cordinate2, 700.0, new ArrayList<CGPService>());
-		busStation = new BusStation("Parada de Bus", new Address(), cordinate2);
-		bank = new Bank("Bank", new Address(), cordinate2);
-		bank2 = new Bank("Bank", new Address(),  cordinate3);
-		bank3=new Bank("Bank", new Address(),new Coordinate(-34.813208,-58.451356));
+		newsPapersShop= new ComercialShop("Diarios Sistemas", new Address(""), cordinate1, newspapers);
+		cgp = new CGP("CGP", new Address(""), cordinate2, 700.0, new ArrayList<CGPService>());
+		busStation = new BusStation("Parada de Bus", new Address(""), cordinate2,114);
+		bank = new Bank("Bank", new Address(""), cordinate2);
+		bank2 = new Bank("Bank", new Address(""),  cordinate3);
+		bank3=new Bank("Bank", new Address(""),new Coordinate(-34.813208,-58.451356));
 	}
 
 	@Test
 	public void GoogleServicetest() throws ClientProtocolException, IOException {
 		Assert.assertEquals(632.0, cgp.getGoogleService().getDistance(cordinate1, cordinate2));
+
 	}
 
 	@Test
