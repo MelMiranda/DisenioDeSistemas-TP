@@ -28,8 +28,7 @@ public abstract class Poi implements PoiInterface {
 		this.mainStreet = mainStreet;
 		this.coordinate = coordinate;
 		this.rangeOfAtention = rangeOfAtention;
-		this.googleService = googleService;
-	}
+		}
 
 	public GoogleDistanceService getGoogleService() {
 		return googleService;

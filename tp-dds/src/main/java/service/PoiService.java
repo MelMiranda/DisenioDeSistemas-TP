@@ -11,25 +11,12 @@ import http.HttpRequest;
 import poi.Poi;
 
 public class PoiService {
-	private PoiDatabaseManager databaseManager;
-	private SearchDatabaseManager searchDatabaseManager;
-	
+
 	
 	private Coordinate coordinates;
 	private HttpRequest httpRequest;
 	
-	public List<Poi> searchPoi(String poiName){
-		saveSearch(poiName);
-		return databaseManager.searchPoi(poiName);
-	}
-	
-	public List<String> obtainPoiInformation(){
-		return new ArrayList<String>();
-	}
-	
-	private void saveSearch(String poiName){
-		searchDatabaseManager.saveSearch(poiName);
-	}
+
 
 	public String poiType(Poi poi){
 		return poi.getType();

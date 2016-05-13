@@ -8,15 +8,17 @@ import java.util.ArrayList;
 import org.apache.http.client.ClientProtocolException;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ExternService.GoogleService.GoogleDistanceService;
+
+import static org.mockito.Mockito.*;
 import domain.Address;
 import domain.CGPService;
 import domain.Coordinate;
 import domain.RangeOfAtention;
-import http.HttpRequest;
 import junit.framework.Assert;
 import poi.Bank;
 import poi.BusStation;
@@ -33,6 +35,7 @@ public class PoiDistanceTest {
 	private Coordinate cordinate1;
 	private Coordinate cordinate2;
 	private Coordinate cordinate3;
+	private GoogleDistanceService googleDistanceService;
 
 	@Before
 	public void initialize() {
@@ -45,8 +48,11 @@ public class PoiDistanceTest {
 		cordinate1 = new Coordinate(lon1, lat1);
 		cordinate2 = new Coordinate(lon2, lat2);
 		cordinate3=new Coordinate(0, 0);
-		
+		googleDistanceService=mock(GoogleDistanceService.class);
 		poiService = new PoiService(cordinate1);
+		
+		
+		
 		cgp = new CGP("CGP", new Address(), "por ahi", cordinate2,
 				new RangeOfAtention("08:30", "08:30", new ArrayList<String>()), 700.0, new ArrayList<CGPService>());
 		busStation = new BusStation("Parada de Bus", new Address(), "por aca", cordinate2,
