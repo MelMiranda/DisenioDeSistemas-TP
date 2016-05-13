@@ -18,9 +18,6 @@ public class PoiService {
 	private Coordinate coordinates;
 	private HttpRequest httpRequest;
 	
-	
-
-	
 	public List<Poi> searchPoi(String poiName){
 		saveSearch(poiName);
 		return databaseManager.searchPoi(poiName);
@@ -39,10 +36,10 @@ public class PoiService {
 	}
 	
 
-	public PoiService(Coordinate coordinates, HttpRequest httpRequest) {
+	public PoiService(Coordinate coordinates) {
 		super();
 		this.coordinates = coordinates;
-		this.httpRequest = httpRequest;
+		this.httpRequest = httpRequest=new HttpRequest();
 	}
 
 

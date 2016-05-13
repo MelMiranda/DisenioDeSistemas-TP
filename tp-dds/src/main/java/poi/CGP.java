@@ -38,7 +38,6 @@ public class CGP extends Poi{
 
 	@Override
 	public String getType() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
