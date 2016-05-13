@@ -21,9 +21,9 @@ import junit.framework.Assert;
 import poi.Bank;
 import poi.BusStation;
 import poi.CGP;
-import poi.CategoryShop;
 import poi.ComercialShop;
 import poi.Newspapers;
+import poi.Poi;
 import service.PoiService;
 
 @SuppressWarnings("deprecation")
@@ -41,6 +41,9 @@ public class PoiDistanceTest {
 	private Coordinate cordinate2;
 	private Coordinate cordinate3;
 	private Coordinate cordinateNewspaper;
+	private Address address;
+	private Address address2;
+
 	
 	private ComercialShop comercialShop;
 	private Newspapers newspapers;
@@ -58,7 +61,10 @@ public class PoiDistanceTest {
 
 	@Before
 	public void initialize() {
-
+		address=new Address("Chicago");
+		address2=new Address("Buenos Aires");
+		
+		
 		double lat1 = -34.8128118;
 		double lon1 = -58.4516456;
 		double lat2 = -34.81725;
@@ -71,13 +77,13 @@ public class PoiDistanceTest {
 		poiService = new PoiService(cordinate1);
 		newspapers= new Newspapers(700);
 		
-		comercialShop= new ComercialShop("Diarios Sistemas", new Address(), cordinateNewspaper, newspapers);
+		comercialShop= new ComercialShop("Diarios Sistemas", address, cordinateNewspaper, newspapers);
 
-		cgp = new CGP("CGP", new Address(), cordinate2, 700.0, new ArrayList<CGPService>());
-		busStation = new BusStation("Parada de Bus", new Address(), cordinate2);
-		bank = new Bank("Bank", new Address(), cordinate2);
-		bank2 = new Bank("Bank", new Address(),  cordinate3);
-		bank3=new Bank("Bank", new Address(),new Coordinate(-34.813208,-58.451356));
+		cgp = new CGP("CGP", address, cordinate2, 700.0, new ArrayList<CGPService>());
+		busStation = new BusStation("114", address, cordinate2,114);
+		bank = new Bank("Bank", address, cordinate2);
+		bank2 = new Bank("Bank", address2,  cordinate3);
+		bank3=new Bank("Bank", address,new Coordinate(-34.813208,-58.451356));
 		
 
 		// ------------->2		
@@ -104,7 +110,7 @@ public class PoiDistanceTest {
 		cgpServices.add(cgpService);
 			
 		
-		cgp2=new CGP("mauri", new Address(),  cordinate1, 300.0, cgpServices);
+		cgp2=new CGP("mauri", address2,  cordinate1, 300.0, cgpServices);
 	}
 
 	@Test
@@ -162,4 +168,22 @@ public class PoiDistanceTest {
 		Assert.assertFalse(poiService.isavailable(bank, date));
 		LOGGER.info("");
 	}
+	
+	@Test
+	public void testSearch(){
+		poiService.getAllPois().add(busStation);
+		poiService.getAllPois().add(bank);
+		poiService.getAllPois().add(cgp);
+		for (Poi poi : poiService.searchPois("")) {
+			LOGGER.info("POI---> "+poi.toString());
+		}
+	Assert.assertFalse(poiService.searchPois("").isEmpty());
+	}
+		
+	@Test
+	public void testSearchString2(){
+		poiService.getAllPois().add(busStation);
+		System.out.println((poiService.searchPois("114").get(0).getName()));
+		Assert.assertTrue(poiService.searchPois("114").size()==1);
+	}	
 }
