@@ -3,7 +3,7 @@ package service;
 import java.util.ArrayList;
 import java.util.List;
 
-import domainPOI.Poi;
+import poi.Poi;
 
 public class PoiDatabaseManager {
 	

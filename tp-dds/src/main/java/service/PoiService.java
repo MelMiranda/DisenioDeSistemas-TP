@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 
-import domainPOI.Coordinate;
-import domainPOI.Poi;
+import domain.Coordinate;
 import http.HttpRequest;
+import poi.Poi;
 
 public class PoiService {
 	private PoiDatabaseManager databaseManager;
@@ -47,8 +47,8 @@ public class PoiService {
 
 
 
-	public boolean isNear(Poi poi1) throws ClientProtocolException, IOException{
-		return poi1.isNearBy(coordinates,this.httpRequest);
+	public boolean isNearby(Poi poi1) throws ClientProtocolException, IOException{
+		return poi1.isNearBy(this.coordinates);
 	}
 	
 	public boolean isEnable(Poi poi){
