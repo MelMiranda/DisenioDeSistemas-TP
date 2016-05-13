@@ -1,5 +1,9 @@
 package domain;
 
+import java.util.Date;
+
+import service.AvailabilityService;
+
 public class CGPService {
 
 	private String serviceName;
@@ -25,6 +29,11 @@ public class CGPService {
 
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
+	}
+	
+	public boolean isAvailable(Date date, AvailabilityService availabilityService){
+		boolean available=availabilityService.isAvailability(date, this.getRangeOfAtention());
+		return available;		
 	}
 
 }

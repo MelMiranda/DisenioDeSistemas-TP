@@ -21,6 +21,10 @@ public class RangeOfAtention {
 			e.printStackTrace();
 		}
 	}
+	
+	public RangeOfAtention(){
+		
+	}
 
 	public Date getMinHourOfAtention() {
 		return minHourOfAtention;

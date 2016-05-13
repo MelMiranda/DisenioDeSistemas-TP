@@ -1,12 +1,13 @@
-package domain;
+package poi;
 
 import java.io.IOException;
 import java.util.Date;
 
 import org.apache.http.client.ClientProtocolException;
 
-import poi.CategoryType;
-import poi.Poi;
+import domain.Address;
+import domain.Coordinate;
+import domain.RangeOfAtention;
 
 public class ComercialShop extends Poi {
 

@@ -1,7 +1,9 @@
 package poi;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 
@@ -10,6 +12,7 @@ import domain.Coordinate;
 import domain.RangeOfAtention;
 
 public class Bank extends Poi {
+	private RangeOfAtention rangeOfAtention;
 
 	public Bank() {
 		super();
@@ -17,6 +20,17 @@ public class Bank extends Poi {
 
 	public Bank(String name, Address address, String mainStreet, Coordinate coordinate){
 		super(name, address, mainStreet, coordinate);
+		this.rangeOfAtention=new RangeOfAtention();
+	}
+
+	
+	
+	public RangeOfAtention getRangeOfAtention() {
+		return rangeOfAtention;
+	}
+
+	public void setRangeOfAtention(RangeOfAtention rangeOfAtention) {
+		this.rangeOfAtention = rangeOfAtention;
 	}
 
 	public boolean isEnable() {
@@ -35,9 +49,8 @@ public class Bank extends Poi {
 	}
 
 	@Override
-	public boolean isAvailable(Date dasdfte) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isAvailable(Date date) {
+		return this.getAvailabilityService().isAvailability(date, this.getRangeOfAtention());
 	}
 	
 	

@@ -7,7 +7,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.junit.Before;
 import org.junit.Test;
 
-
 import domain.Address;
 import domain.CGPService;
 import domain.Coordinate;
