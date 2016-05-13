@@ -23,8 +23,6 @@ public class ComercialShop extends Poi {
 	}
 
 
-
-
 	@Override
 	public boolean isNearby(Coordinate coordinatePoiService) throws ClientProtocolException, IOException {
 		return category.isNearby(coordinatePoiService, this.getCoordinate(), this.getGoogleService());

@@ -22,15 +22,10 @@ public class Schedule {
 	}
 
 	public Schedule(String hourMin, String hourMax) {
-		super();
-		this.hourMax = "23:40";
-		this.hourMin = "10:25";
+		this.hourMax = hourMax;
+		this.hourMin =  hourMin;
 	}
 
-	public Schedule() {
-
-		this.hourMax = "23:40";
-		this.hourMin = "10:25";
-	}
+	
 
 }

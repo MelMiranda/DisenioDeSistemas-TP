@@ -24,6 +24,7 @@ public class AvailabilityService {
 		return instance;
 	}
 
+	
 	public boolean isAvailability(Date date, RangeOfAtention range) {
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.setTime(date);

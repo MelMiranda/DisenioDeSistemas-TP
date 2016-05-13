@@ -33,9 +33,6 @@ public class Bank extends Poi {
 		days1.add(5);
 		days1.add(6);
 		days1.add(7);
-
-		
-		
 		
 		this.rangeOfAtention=new RangeOfAtention(schedules1, days1);
 	}
