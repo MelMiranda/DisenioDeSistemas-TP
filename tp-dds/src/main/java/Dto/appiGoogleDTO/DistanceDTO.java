@@ -18,4 +18,12 @@ public class DistanceDTO {
 	public void setValue(int value) {
 		this.value = value;
 	}
+	@Override
+	public String toString() {
+		return "DistanceDTO [text=" + text + ", value=" + value + "]";
+	}
+
+	
+	
+	
 }

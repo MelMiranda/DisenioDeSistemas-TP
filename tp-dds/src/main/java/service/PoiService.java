@@ -1,21 +1,14 @@
 package service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.http.client.ClientProtocolException;
-
 import domain.Coordinate;
-import http.HttpRequest;
 import poi.Poi;
 
 public class PoiService {
 
 	
 	private Coordinate coordinates;
-	private HttpRequest httpRequest;
-	
 
 
 	public String poiType(Poi poi){
@@ -26,7 +19,6 @@ public class PoiService {
 	public PoiService(Coordinate coordinates) {
 		super();
 		this.coordinates = coordinates;
-		this.httpRequest = httpRequest=new HttpRequest();
 	}
 
 

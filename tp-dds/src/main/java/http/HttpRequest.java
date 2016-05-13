@@ -11,8 +11,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ExternService.GoogleService.GoogleDistanceService;
-
 public class HttpRequest {
 	private static final Logger LOGGER = LoggerFactory.getLogger(HttpRequest.class);
 	

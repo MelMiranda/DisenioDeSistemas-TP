@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import Dto.appiGoogleDTO.ApiDirectionsGoogleDTO;
+import Dto.appiGoogleDTO.DistanceDTO;
 import domain.Coordinate;
 import http.HttpRequest;
 import json.JsonFactory;
@@ -38,7 +39,10 @@ public class GoogleDistanceService {
 		InputStreamReader input = httpRequest.request(url);
 		dto = jsonFactory.fromJson(input, new TypeReference<ApiDirectionsGoogleDTO>() {
 		});
-		return dto.getRows().get(0).getElements().get(0).getDistance().getValue();
+		
+		DistanceDTO distance=dto.getRows().get(0).getElements().get(0).getDistance();
+		LOGGER.info(distance.toString());
+		return distance.getValue();
 
 	}
 
