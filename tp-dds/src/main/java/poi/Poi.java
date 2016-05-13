@@ -83,7 +83,7 @@ public abstract class Poi implements PoiInterface {
 		return this.googleService.getDistance(this.coordinate, cordinate) < 500;
 	}
 
-	public boolean isavailable(Date date) {
+	public boolean isAvailable(Date date) {
 		return false;
 	}
 

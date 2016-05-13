@@ -1,56 +1,34 @@
 package domain;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class RangeOfAtention {
+		
 
-	private Date minHourOfAtention;
-	private Date maxHourOfAtention;
-	private List<String> daysWithoutAtention;
-
-	public RangeOfAtention(String MinHourOfAtention, String MaxHourOfAtention, List<String> daysOfAtention) {
-		SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
-		try {
-			maxHourOfAtention = parser.parse(MaxHourOfAtention);
-			minHourOfAtention= parser.parse(MinHourOfAtention);
-			this.daysWithoutAtention = daysOfAtention;
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+	private List<Schedule> schedules;
+	private List<Integer> daysOfAttention;
+	
+	
+	public List<Schedule> getSchedules() {
+		return schedules;
+	}
+	public void setSchedules(List<Schedule> schedules) {
+		this.schedules = schedules;
+	}
+	public List<Integer> getDaysOfAttention() {
+		return daysOfAttention;
+	}
+	public void setDaysOfAttention(List<Integer> daysOfAttention) {
+		this.daysOfAttention = daysOfAttention;
+	}
+	public RangeOfAtention(List<Schedule> schedules, List<Integer> daysOfAttention) {
+		super();
+		this.schedules = schedules;
+		this.daysOfAttention = daysOfAttention;
 	}
 	
-	public RangeOfAtention(){
-		
-	}
+	
+	
+	
 
-	public Date getMinHourOfAtention() {
-		return minHourOfAtention;
-	}
-
-	public void setMinHourOfAtention(Date minHourOfAtention) {
-		this.minHourOfAtention = minHourOfAtention;
-	}
-
-	public Date getMaxHourOfAtention() {
-		return maxHourOfAtention;
-	}
-
-	public void setMaxHourOfAtention(Date maxHourOfAtention) {
-		this.maxHourOfAtention = maxHourOfAtention;
-	}
-
-	public List<String> getDaysWithoutAtention() {
-		return daysWithoutAtention;
-	}
-
-	public void setDaysWithoutAtention(List<String> daysWithoutAtention) {
-		this.daysWithoutAtention = daysWithoutAtention;
-	}
 }
-
-
-
-

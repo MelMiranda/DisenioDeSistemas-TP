@@ -10,6 +10,7 @@ import org.apache.http.client.ClientProtocolException;
 import domain.Address;
 import domain.Coordinate;
 import domain.RangeOfAtention;
+import domain.Schedule;
 
 public class Bank extends Poi {
 	private RangeOfAtention rangeOfAtention;
@@ -20,7 +21,23 @@ public class Bank extends Poi {
 
 	public Bank(String name, Address address, String mainStreet, Coordinate coordinate){
 		super(name, address, mainStreet, coordinate);
-		this.rangeOfAtention=new RangeOfAtention();
+		
+		List<Schedule> schedules1=new ArrayList<Schedule>();
+		schedules1.add(new Schedule("05:00", "08:00"));
+
+		List<Integer> days1=new ArrayList<Integer>();
+		days1.add(1);
+		days1.add(2);
+		days1.add(3);
+		days1.add(4);
+		days1.add(5);
+		days1.add(6);
+		days1.add(7);
+
+		
+		
+		
+		this.rangeOfAtention=new RangeOfAtention(schedules1, days1);
 	}
 
 	

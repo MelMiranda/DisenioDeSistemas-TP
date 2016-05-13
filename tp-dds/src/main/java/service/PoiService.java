@@ -24,6 +24,6 @@ public class PoiService {
 	}
 
 	public boolean isavailable(Poi poi, Date date) {
-		return poi.isavailable(date);
+		return poi.isAvailable(date);
 	}
 }
