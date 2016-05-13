@@ -16,7 +16,7 @@ public class ComercialShop extends Poi {
 
 	public ComercialShop(String name, Address address, String mainStreet, Coordinate coordinate,
 			RangeOfAtention rangeOfAtention, Date minCloseInterval, Date maxCloseInterval, CategoryType category) {
-		super(name, address, mainStreet, coordinate, rangeOfAtention);
+		super(name, address, mainStreet, coordinate);
 
 		this.minCloseInterval = minCloseInterval;
 		this.maxCloseInterval = maxCloseInterval;
@@ -27,20 +27,18 @@ public class ComercialShop extends Poi {
 		return "Comercial";
 	}
 
-	public boolean isEnable() {
-		Date dateTime = new Date();
 
-		boolean isEnable = super.isEnable();
-		if (!dateTime.before(minCloseInterval) || (!dateTime.after(maxCloseInterval))) {
-			return false;
-		} else {
-			return isEnable;
-		}
-	}
+
 
 	@Override
 	public boolean isNearBy(Coordinate coordinatePoiService) throws ClientProtocolException, IOException {
 		return categoryType.isNearBy(coordinatePoiService, this.getCoordinate(), this.getGoogleService());
+	}
+
+	@Override
+	public boolean isAvailable(Date dasdfte) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

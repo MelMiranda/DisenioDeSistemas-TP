@@ -1,7 +1,6 @@
 package poi;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.http.client.ClientProtocolException;
@@ -9,7 +8,7 @@ import org.apache.http.client.ClientProtocolException;
 import ExternService.GoogleService.GoogleDistanceService;
 import domain.Address;
 import domain.Coordinate;
-import domain.RangeOfAtention;
+import service.AvailabilityService;
 
 public abstract class Poi implements PoiInterface {
 
@@ -17,17 +16,15 @@ public abstract class Poi implements PoiInterface {
 	private Address address;
 	private String mainStreet;
 	private Coordinate coordinate;
-	private RangeOfAtention rangeOfAtention;
 	private GoogleDistanceService googleService = GoogleDistanceService.getInstance();
+	private AvailabilityService availabilityService = AvailabilityService.getInstance();
 
-	public Poi(String name, Address address, String mainStreet, Coordinate coordinate,
-			RangeOfAtention rangeOfAtention) {
+	public Poi(String name, Address address, String mainStreet, Coordinate coordinate) {
 		super();
 		this.name = name;
 		this.address = address;
 		this.mainStreet = mainStreet;
 		this.coordinate = coordinate;
-		this.rangeOfAtention = rangeOfAtention;
 		}
 
 	public GoogleDistanceService getGoogleService() {
@@ -38,20 +35,20 @@ public abstract class Poi implements PoiInterface {
 		this.googleService = googleService;
 	}
 
+	public AvailabilityService getAvailabilityService() {
+		return availabilityService;
+	}
+
+	public void setAvailabilityService(AvailabilityService availabilityService) {
+		this.availabilityService = availabilityService;
+	}
+
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public RangeOfAtention getRangeOfAtention() {
-		return rangeOfAtention;
-	}
-
-	public void setRangeOfAtention(RangeOfAtention rangeOfAtention) {
-		this.rangeOfAtention = rangeOfAtention;
 	}
 
 	public Poi() {
@@ -82,23 +79,12 @@ public abstract class Poi implements PoiInterface {
 		this.coordinate = cordinate;
 	}
 
-	public boolean isEnable() {
-		Date dateTime = new Date();
-		if (!dateTime.before(rangeOfAtention.getMaxHourOfAtention())
-				&& (!dateTime.after(rangeOfAtention.getMinHourOfAtention()))) {
-			return false;
-		} else {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("EEEEE");
-			for (String currentDay : rangeOfAtention.getDaysWithoutAtention()) {
-				if (dateFormat.format(dateTime) == currentDay) {
-					return false;
-				}
-			}
-			return true;
-		}
-	}
-
 	public boolean isNearby(Coordinate cordinate) throws ClientProtocolException, IOException {
 		return this.googleService.getDistance(this.coordinate, cordinate) < 500;
 	}
+
+	public boolean isavailable(Date date) {
+		return false;
+	}
+
 }

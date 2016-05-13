@@ -3,14 +3,13 @@ package poi;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.http.client.ClientProtocolException;
 
 import domain.Address;
 import domain.CGPService;
 import domain.Coordinate;
-import domain.RangeOfAtention;
-
 
 public class CGP extends Poi{
 	
@@ -19,9 +18,9 @@ public class CGP extends Poi{
 	
 	
 	
-	public CGP(String name, Address address, String mainStreet, Coordinate coordinate, RangeOfAtention rangeOfAtention,
+	public CGP(String name, Address address, String mainStreet, Coordinate coordinate,
 			double communeRadius, ArrayList<CGPService> services) {
-		super(name, address, mainStreet, coordinate, rangeOfAtention);
+		super(name, address, mainStreet, coordinate);
 		this.communeRadius = communeRadius;
 		this.services = services;
 	}
@@ -39,6 +38,14 @@ public class CGP extends Poi{
 	@Override
 	public String getType() {
 		return null;
+	}
+
+
+
+	@Override
+	public boolean isAvailable(Date dasdfte) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 

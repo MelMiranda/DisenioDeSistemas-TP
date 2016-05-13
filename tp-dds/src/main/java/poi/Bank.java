@@ -1,6 +1,7 @@
 package poi;
 
 import java.io.IOException;
+import java.util.Date;
 
 import org.apache.http.client.ClientProtocolException;
 
@@ -12,13 +13,10 @@ public class Bank extends Poi {
 
 	public Bank() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Bank(String name, Address address, String mainStreet, Coordinate coordinate,
-			RangeOfAtention rangeOfAtention) {
-		super(name, address, mainStreet, coordinate, rangeOfAtention);
-		// TODO Auto-generated constructor stub
+	public Bank(String name, Address address, String mainStreet, Coordinate coordinate){
+		super(name, address, mainStreet, coordinate);
 	}
 
 	public boolean isEnable() {
@@ -35,5 +33,13 @@ public class Bank extends Poi {
 		double distance = this.getGoogleService().getDistance(coordinate, this.getCoordinate());
 		return distance < 100;
 	}
+
+	@Override
+	public boolean isAvailable(Date dasdfte) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	
 
 }

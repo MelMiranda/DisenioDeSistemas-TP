@@ -1,12 +1,12 @@
 package poi;
 
 import java.io.IOException;
+import java.util.Date;
 
 import org.apache.http.client.ClientProtocolException;
 
 import domain.Address;
 import domain.Coordinate;
-import domain.RangeOfAtention;
 
 public class BusStation extends Poi {
 	
@@ -14,16 +14,10 @@ public class BusStation extends Poi {
 
 	public BusStation() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public BusStation(String name, Address address, String mainStreet, Coordinate coordinate,
-			RangeOfAtention rangeOfAtention) {
-		super(name, address, mainStreet, coordinate, rangeOfAtention);
-	}
-
-	public boolean isEnable() {
-		return true;
+	public BusStation(String name, Address address, String mainStreet, Coordinate coordinate) {
+		super(name, address, mainStreet, coordinate);
 	}
 
 	@Override
@@ -35,6 +29,12 @@ public class BusStation extends Poi {
 	@Override
 	public String getType() {
 		return null;
+	}
+
+	@Override
+	public boolean isAvailable(Date date) {
+		//boolean available =this.getAvailabilityService().isAvailability(date, this.getRangeOfAtention());
+		return true;
 	}
 
 }

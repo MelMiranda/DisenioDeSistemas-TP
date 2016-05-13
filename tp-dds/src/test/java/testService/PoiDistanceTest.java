@@ -1,7 +1,5 @@
 package testService;
 
-
-
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -13,7 +11,6 @@ import org.junit.Test;
 import domain.Address;
 import domain.CGPService;
 import domain.Coordinate;
-import domain.RangeOfAtention;
 import junit.framework.Assert;
 import poi.Bank;
 import poi.BusStation;
@@ -45,14 +42,10 @@ public class PoiDistanceTest {
 		cordinate3 = new Coordinate(0, 0);
 		poiService = new PoiService(cordinate1);
 
-		cgp = new CGP("CGP", new Address(), "por ahi", cordinate2,
-				new RangeOfAtention("08:30", "08:30", new ArrayList<String>()), 700.0, new ArrayList<CGPService>());
-		busStation = new BusStation("Parada de Bus", new Address(), "por aca", cordinate2,
-				new RangeOfAtention("08:30", "08:30", new ArrayList<String>()));
-		bank = new Bank("Bank", new Address(), "medrano", cordinate2,
-				new RangeOfAtention("08:30", "08:30", new ArrayList<String>()));
-		bank2 = new Bank("Bank", new Address(), "medrano", cordinate3,
-				new RangeOfAtention("08:30", "08:30", new ArrayList<String>()));
+		cgp = new CGP("CGP", new Address(), "por ahi", cordinate2, 700.0, new ArrayList<CGPService>());
+		busStation = new BusStation("Parada de Bus", new Address(), "por aca", cordinate2);
+		bank = new Bank("Bank", new Address(), "medrano", cordinate2);
+		bank2 = new Bank("Bank", new Address(), "medrano", cordinate3);
 
 	}
 
