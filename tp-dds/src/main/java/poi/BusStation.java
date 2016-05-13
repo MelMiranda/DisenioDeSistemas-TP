@@ -28,7 +28,7 @@ public class BusStation extends Poi {
 	}
 
 	@Override
-	public boolean isAvailable(Date date) {
+	public boolean isAvailable() {
 		//boolean available =this.getAvailabilityService().isAvailability(date, this.getRangeOfAtention());
 		return true;
 	}

@@ -1,12 +1,8 @@
 package service;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import domain.RangeOfAtention;
 import domain.Schedule;
 
@@ -24,18 +20,15 @@ public class AvailabilityService {
 		}
 		return instance;
 	}
-
 	
-	public boolean isAvailability(Date date, RangeOfAtention range) {
-		
+	public boolean isAvailability(RangeOfAtention range) {
+		Date date= new Date();
 		boolean isAvailability=false;
 		
 
 		if (range.getDaysOfAttention().contains(date.getDay())) {
 			for (Schedule schedule : range.getSchedules()) {
 				if(date.before(schedule.getHourMax()) && (date.after(schedule.getHourMin()))) {
-			
-					
 					isAvailability= true;
 				}
 			}

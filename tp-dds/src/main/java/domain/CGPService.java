@@ -32,7 +32,7 @@ public class CGPService {
 	}
 	
 	public boolean isAvailable(Date date, AvailabilityService availabilityService){
-		boolean available=availabilityService.isAvailability(date, this.getRangeOfAtention());
+		boolean available=availabilityService.isAvailability(this.getRangeOfAtention());
 		return available;		
 	}
 

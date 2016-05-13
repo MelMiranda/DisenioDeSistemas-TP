@@ -60,8 +60,8 @@ public class Bank extends Poi {
 	}
 
 	@Override
-	public boolean isAvailable(Date date) {
-		return this.getAvailabilityService().isAvailability(date, this.getRangeOfAtention());
+	public boolean isAvailable() {
+		return this.getAvailabilityService().isAvailability( this.getRangeOfAtention());
 	}
 	
 	

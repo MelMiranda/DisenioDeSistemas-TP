@@ -29,8 +29,8 @@ public class ComercialShop extends Poi {
 	}
 
 	@Override
-	public boolean isAvailable(Date date) {
-		return category.isAvailable(date,this.getAvailabilityService());
+	public boolean isAvailable() {
+		return category.isAvailable(this.getAvailabilityService());
 	}
 
 }

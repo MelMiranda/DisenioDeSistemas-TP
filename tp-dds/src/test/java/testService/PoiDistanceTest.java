@@ -21,9 +21,10 @@ import junit.framework.Assert;
 import poi.Bank;
 import poi.BusStation;
 import poi.CGP;
-import poi.CategoryShop;
 import poi.ComercialShop;
 import poi.Newspapers;
+import poi.Library;
+import service.AvailabilityService;
 import service.PoiService;
 
 @SuppressWarnings("deprecation")
@@ -40,77 +41,32 @@ public class PoiDistanceTest {
 	private Coordinate cordinate1;
 	private Coordinate cordinate2;
 	private Coordinate cordinate3;
-	private Coordinate cordinateNewspaper;
-	
-	private ComercialShop comercialShop;
+	private ComercialShop newsPapersShop;
 	private Newspapers newspapers;
-
-	// ----->2
-	private CGP cgp2;
-	private CGPService cgpService;
-	private RangeOfAtention range1;
-
-
-	private ArrayList<CGPService> cgpServices;
-	private List<Integer> days1;
-
-	private List<Schedule> schedules1;
+	
 
 	@Before
 	public void initialize() {
-
 		double lat1 = -34.8128118;
 		double lon1 = -58.4516456;
 		double lat2 = -34.81725;
 		double lon2 = -58.4476116;
-
 		cordinate1 = new Coordinate(lat1,lon1);
 		cordinate2 = new Coordinate(lat2, lon2);
 		cordinate3 = new Coordinate(0, 0);
-		cordinateNewspaper=cordinate2;
 		poiService = new PoiService(cordinate1);
-		newspapers= new Newspapers(700);
-		
-		comercialShop= new ComercialShop("Diarios Sistemas", new Address(), cordinateNewspaper, newspapers);
-
+		newspapers= Newspapers.getInstance(700);
+		newsPapersShop= new ComercialShop("Diarios Sistemas", new Address(), cordinate1, newspapers);
 		cgp = new CGP("CGP", new Address(), cordinate2, 700.0, new ArrayList<CGPService>());
 		busStation = new BusStation("Parada de Bus", new Address(), cordinate2);
 		bank = new Bank("Bank", new Address(), cordinate2);
 		bank2 = new Bank("Bank", new Address(),  cordinate3);
 		bank3=new Bank("Bank", new Address(),new Coordinate(-34.813208,-58.451356));
-		
-
-		// ------------->2		
-		
-		schedules1 = new ArrayList<Schedule>();
-		days1=new ArrayList<Integer>();
-
-		//schedules1.add(new Schedule("05:23", "06:37"));
-		schedules1.add(new Schedule("03:00", "19:00"));
-
-		days1.add(1);
-		days1.add(2);
-		days1.add(3);
-		days1.add(4);
-		days1.add(5);
-		days1.add(6);
-		days1.add(7);
-
-		
-		range1=new RangeOfAtention(schedules1, days1);
-		
-		cgpService=new CGPService("cualquiera", range1);
-		cgpServices=new ArrayList<CGPService>();
-		cgpServices.add(cgpService);
-			
-		
-		cgp2=new CGP("mauri", new Address(),  cordinate1, 300.0, cgpServices);
 	}
 
 	@Test
 	public void GoogleServicetest() throws ClientProtocolException, IOException {
 		Assert.assertEquals(632.0, cgp.getGoogleService().getDistance(cordinate1, cordinate2));
-
 	}
 
 	@Test
@@ -134,32 +90,21 @@ public class PoiDistanceTest {
 	}
 	
 	
-	
 	@Test
 	public void testNewspaperNearbyFalse() throws ClientProtocolException, IOException{
-		Assert.assertTrue(poiService.isNearby(comercialShop));
+		Assert.assertTrue(poiService.isNearby(newsPapersShop));
 	}
 	
 
 	@Test
 	public void testBankisNerby() throws ClientProtocolException, IOException {
 		Assert.assertFalse(poiService.isNearby(bank));
-
 	}
 
 	
 	 @Test(expected = UnknownHostException.class)
 	 public void testNoConnection() throws ClientProtocolException, IOException {
 	 Assert.assertFalse(poiService.isNearby(bank)); }
-	 
-
-	@Test
-	public void testBankisAvaiableFalse() throws ClientProtocolException, IOException {
-		Date date=new Date();
-	//	poiService.isavailable(bank, date);
-		LOGGER.info(date.toString());
-		
-		Assert.assertFalse(poiService.isavailable(bank, date));
-		LOGGER.info("");
-	}
+	
+	
 }

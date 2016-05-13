@@ -15,6 +15,6 @@ public interface CategoryShop {
 	public boolean isNearby(Coordinate coordinatePoiService, Coordinate coordinate,
 			GoogleDistanceService googleService) throws ClientProtocolException, IOException;
 
-	public boolean isAvailable(Date date, AvailabilityService availabilityService);
+	public boolean isAvailable(AvailabilityService availabilityService);
 
 }

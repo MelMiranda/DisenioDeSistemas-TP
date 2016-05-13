@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.http.client.ClientProtocolException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import domain.Address;
 import domain.CGPService;
@@ -14,6 +16,7 @@ public class CGP extends Poi {
 
 	private double communeRadius;
 	private ArrayList<CGPService> services;
+	private static final Logger LOGGER= LoggerFactory.getLogger(CGP.class);
 
 	public CGP(String name, Address address, Coordinate coordinate, double communeRadius,
 			ArrayList<CGPService> services) {
@@ -50,7 +53,8 @@ public class CGP extends Poi {
 	}
 
 	@Override
-	public boolean isAvailable(Date date) {
+	public boolean isAvailable() {
+		Date date= new Date();
 		for (CGPService cgpService : services) {
 			if(cgpService.isAvailable(date, this.getAvailabilityService())){
 				return true;
@@ -59,13 +63,15 @@ public class CGP extends Poi {
 		return false ;
 	}
 
-	public boolean isAvailable(Date date, String serviceName) {
+	public boolean isAvailable( String serviceName) {
+		Date date= new Date();
 		int i = 0;
 
 		if (!(this.getServices().isEmpty())) {
-			while (i <= this.getServices().size()) {
-				if (this.getServices().get(i).getServiceName().equals(serviceName)) {
-					return this.getServices().get(i).isAvailable(date, this.getAvailabilityService());
+			for(CGPService currentCGPService :services) {
+				if (currentCGPService.getServiceName().equals(serviceName)) {
+					LOGGER.info(currentCGPService.getServiceName());
+					return currentCGPService.isAvailable(date, this.getAvailabilityService());
 				}
 			}
 		}

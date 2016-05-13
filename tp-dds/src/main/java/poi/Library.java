@@ -1,28 +1,32 @@
 package poi;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
+import org.mockito.internal.util.collections.Sets;
 
 import ExternService.GoogleService.GoogleDistanceService;
 import domain.Coordinate;
 import domain.RangeOfAtention;
+import domain.Schedule;
 import service.AvailabilityService;
 
-public class SchoolLibrary implements CategoryShop {
-	private static SchoolLibrary instance=null;
+public class Library implements CategoryShop {
+	private static Library instance=null;
 	private double distanceMaxInMetters;
 	private RangeOfAtention rangeOfAtention;
 	
-	  protected SchoolLibrary() {
+	  protected Library() {
 	   }
 
-	  public static SchoolLibrary getInstance(double distanceMaxInMetters,RangeOfAtention rangeOfAtention) {
+	  public static Library getInstance(double distanceMaxInMetters) {
 	      if(instance == null) {
-	         instance = new SchoolLibrary();
+	         instance = new Library();
 	         instance.setDistanceMaxInMetters(distanceMaxInMetters);
-	         instance.setRangeOfAtention(rangeOfAtention);
+	         setRangeOfAtention();
 	         
 	      }
 	      return instance;
@@ -54,7 +58,23 @@ public class SchoolLibrary implements CategoryShop {
 	}
 
 	@Override
-	public boolean isAvailable(Date date, AvailabilityService availabilityService) {
-		return availabilityService.isAvailability(date, this.rangeOfAtention);
+	public boolean isAvailable(AvailabilityService availabilityService) {
+		return availabilityService.isAvailability(this.rangeOfAtention);
+	}
+	
+	private static void setRangeOfAtention(){
+		  List<Schedule> schedules= new ArrayList<Schedule>();
+	         Schedule schedule1= new Schedule("09:00","12:00");
+	         Schedule schedule2= new Schedule("16:00","22:00");
+	         schedules.add(schedule1);
+	         schedules.add(schedule2);
+	         List<Integer> days= new ArrayList<Integer>();
+	         days.add(1);
+	         days.add(2);
+	         days.add(3);
+	         days.add(4);
+	         days.add(5);
+	         instance.setRangeOfAtention(new RangeOfAtention(schedules,days));
+		
 	}
 }

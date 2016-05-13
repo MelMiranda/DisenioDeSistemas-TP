@@ -27,7 +27,7 @@ public class PoiService {
 		return poi1.isNearby(this.coordinates);
 	}
 
-	public boolean isavailable(Poi poi, Date date) {
-		return poi.isAvailable(date);
+	public boolean isAvailable(Poi poi) {
+		return poi.isAvailable();
 	}
 }

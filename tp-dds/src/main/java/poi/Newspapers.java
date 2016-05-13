@@ -1,13 +1,16 @@
 package poi;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 
 import ExternService.GoogleService.GoogleDistanceService;
 import domain.Coordinate;
 import domain.RangeOfAtention;
+import domain.Schedule;
 import service.AvailabilityService;
 
 public class Newspapers implements CategoryShop{
@@ -17,15 +20,16 @@ public class Newspapers implements CategoryShop{
 	private RangeOfAtention rangeOfAtention;
 	
 	
+	
 	  protected Newspapers() {
 	   }
 
-	  public static Newspapers getInstance(double distanceMaxInMetters,RangeOfAtention rangeOfAtention)  {
+	  public static Newspapers getInstance(double distanceMaxInMetters)  {
 	      if(instance == null) {
 	         instance = new Newspapers();
 	         instance.setDistanceMaxInMetters(distanceMaxInMetters);
-	         instance.setRangeOfAtention(rangeOfAtention);
 	         
+	         setRangeOfAtention();
 	      }
 	      return instance;
 	   }
@@ -61,8 +65,22 @@ public class Newspapers implements CategoryShop{
 	}
 
 	@Override
-	public boolean isAvailable(Date date, AvailabilityService availabilityService) {
-		return availabilityService.isAvailability(date, this.rangeOfAtention);
+	public boolean isAvailable(AvailabilityService availabilityService) {
+		return availabilityService.isAvailability(this.rangeOfAtention);
+	}
+	
+	private static void setRangeOfAtention(){
+		
+		List<Schedule> schedules= new ArrayList<Schedule>();
+        Schedule schedule= new Schedule("10:00","18:00");
+        schedules.add(schedule);
+        List<Integer> days= new ArrayList<Integer>();
+        days.add(1);
+        days.add(2);
+        days.add(3);
+        days.add(4);
+        days.add(5);
+        instance.setRangeOfAtention(new RangeOfAtention(schedules,days));
 	}
 
 }
