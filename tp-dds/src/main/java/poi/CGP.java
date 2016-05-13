@@ -15,9 +15,9 @@ public class CGP extends Poi {
 	private double communeRadius;
 	private ArrayList<CGPService> services;
 
-	public CGP(String name, Address address, String mainStreet, Coordinate coordinate, double communeRadius,
+	public CGP(String name, Address address, Coordinate coordinate, double communeRadius,
 			ArrayList<CGPService> services) {
-		super(name, address, mainStreet, coordinate);
+		super(name, address, coordinate);
 		this.communeRadius = communeRadius;
 		this.services = services;
 	}

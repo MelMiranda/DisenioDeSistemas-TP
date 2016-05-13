@@ -2,13 +2,17 @@ package service;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
+
 import org.apache.http.client.ClientProtocolException;
+
 import domain.Coordinate;
 import poi.Poi;
 
 public class PoiService {
 
 	private Coordinate coordinates;
+	private List<Poi> allPois;
 
 	public String poiType(Poi poi) {
 		return poi.getType();

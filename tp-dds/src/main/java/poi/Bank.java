@@ -19,20 +19,19 @@ public class Bank extends Poi {
 		super();
 	}
 
-	public Bank(String name, Address address, String mainStreet, Coordinate coordinate){
-		super(name, address, mainStreet, coordinate);
+	public Bank(String name, Address address, Coordinate coordinate){
+		super(name, address, coordinate);
 		
 		List<Schedule> schedules1=new ArrayList<Schedule>();
-		schedules1.add(new Schedule("05:00", "08:00"));
-
+		schedules1.add(new Schedule("10:00", "15:00"));
 		List<Integer> days1=new ArrayList<Integer>();
+		days1.add(0);
 		days1.add(1);
 		days1.add(2);
 		days1.add(3);
 		days1.add(4);
 		days1.add(5);
 		days1.add(6);
-		days1.add(7);
 		
 		this.rangeOfAtention=new RangeOfAtention(schedules1, days1);
 	}

@@ -13,6 +13,7 @@ import domain.Schedule;
 public class AvailabilityService {
 
 	private static AvailabilityService instance = null;
+	private static final Logger LOGGER= LoggerFactory.getLogger(AvailabilityService.class);
 
 	protected AvailabilityService() {
 	}
@@ -26,36 +27,22 @@ public class AvailabilityService {
 
 	
 	public boolean isAvailability(Date date, RangeOfAtention range) {
-		GregorianCalendar cal = new GregorianCalendar();
-		cal.setTime(date);
+		
+		boolean isAvailability=false;
+		
 
-		if (range.getDaysOfAttention().contains(cal.get(Calendar.DAY_OF_WEEK))) {
+		if (range.getDaysOfAttention().contains(date.getDay())) {
 			for (Schedule schedule : range.getSchedules()) {
-				String[] parts = schedule.getHourMax().split(":");
-				int horaMax = Integer.parseInt(parts[0]);
-				int minMax = Integer.parseInt(parts[1]);
-				parts = schedule.getHourMin().split(":");
-				int horaMin = Integer.parseInt(parts[0]);
-				int minMin = Integer.parseInt(parts[1]);
-
-				int minute = cal.get(Calendar.MINUTE);
-				int currentHour = cal.get(Calendar.HOUR_OF_DAY);
-
-				if (currentHour > horaMin && currentHour < horaMax) {
-					return true;
+				if(date.before(schedule.getHourMax()) && (date.after(schedule.getHourMin()))) {
+			
+					
+					isAvailability= true;
 				}
-				if (currentHour == horaMin && minute >= minMin) {
-					return true;
-				}
-				if (currentHour == horaMax && minute <= minMax) {
-					return true;
-				}
-
 			}
-			return false;
-
 		}
-		return false;
+		return isAvailability;
 	}
+	
+	
 
 }

@@ -9,15 +9,11 @@ import domain.Address;
 import domain.Coordinate;
 
 public class BusStation extends Poi {
-	
-	
 
-	public BusStation() {
-		super();
-	}
-
-	public BusStation(String name, Address address, String mainStreet, Coordinate coordinate) {
-		super(name, address, mainStreet, coordinate);
+	public BusStation(String name, Address address,  Coordinate coordinate) {
+		this.name = name;
+		this.address = address;
+		this.coordinate = coordinate;
 	}
 
 	@Override

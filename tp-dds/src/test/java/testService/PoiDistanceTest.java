@@ -71,13 +71,13 @@ public class PoiDistanceTest {
 		poiService = new PoiService(cordinate1);
 		newspapers= new Newspapers(700);
 		
-		comercialShop= new ComercialShop("Diarios Sistemas", new Address(), "mainStreet", cordinateNewspaper, newspapers);
+		comercialShop= new ComercialShop("Diarios Sistemas", new Address(), cordinateNewspaper, newspapers);
 
-		cgp = new CGP("CGP", new Address(), "por ahi", cordinate2, 700.0, new ArrayList<CGPService>());
-		busStation = new BusStation("Parada de Bus", new Address(), "por aca", cordinate2);
-		bank = new Bank("Bank", new Address(), "medrano", cordinate2);
-		bank2 = new Bank("Bank", new Address(), "medrano", cordinate3);
-		bank3=new Bank("Bank", new Address(),"no se",new Coordinate(-34.813208,-58.451356));
+		cgp = new CGP("CGP", new Address(), cordinate2, 700.0, new ArrayList<CGPService>());
+		busStation = new BusStation("Parada de Bus", new Address(), cordinate2);
+		bank = new Bank("Bank", new Address(), cordinate2);
+		bank2 = new Bank("Bank", new Address(),  cordinate3);
+		bank3=new Bank("Bank", new Address(),new Coordinate(-34.813208,-58.451356));
 		
 
 		// ------------->2		
@@ -86,7 +86,7 @@ public class PoiDistanceTest {
 		days1=new ArrayList<Integer>();
 
 		//schedules1.add(new Schedule("05:23", "06:37"));
-		schedules1.add(new Schedule("03:00", "08:00"));
+		schedules1.add(new Schedule("03:00", "19:00"));
 
 		days1.add(1);
 		days1.add(2);
@@ -104,7 +104,7 @@ public class PoiDistanceTest {
 		cgpServices.add(cgpService);
 			
 		
-		cgp2=new CGP("mauri", new Address(), "9 de julio", cordinate1, 300.0, cgpServices);
+		cgp2=new CGP("mauri", new Address(),  cordinate1, 300.0, cgpServices);
 	}
 
 	@Test
@@ -142,7 +142,7 @@ public class PoiDistanceTest {
 	
 
 	@Test
-	public void testBank() throws ClientProtocolException, IOException {
+	public void testBankisNerby() throws ClientProtocolException, IOException {
 		Assert.assertFalse(poiService.isNearby(bank));
 
 	}
@@ -154,10 +154,12 @@ public class PoiDistanceTest {
 	 
 
 	@Test
-	public void testBankisAvaiable() throws ClientProtocolException, IOException {
+	public void testBankisAvaiableFalse() throws ClientProtocolException, IOException {
 		Date date=new Date();
 	//	poiService.isavailable(bank, date);
-		LOGGER.info("Result of test:" + poiService.isavailable(bank, date));
+		LOGGER.info(date.toString());
+		
 		Assert.assertFalse(poiService.isavailable(bank, date));
+		LOGGER.info("");
 	}
 }

@@ -1,29 +1,65 @@
 package domain;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Schedule {
 
-	private String hourMax;
-	private String hourMin;
+	private static final Logger LOGGER = LoggerFactory.getLogger(Schedule.class);
+	private Date hourMax;
+	private Date hourMin;
 
-	public String getHourMax() {
+	public Date getHourMax() {
 		return hourMax;
 	}
 
-	public void setHourMax(String hourMax) {
+	public void setHourMax(Date hourMax) {
 		this.hourMax = hourMax;
 	}
 
-	public String getHourMin() {
+	public Date getHourMin() {
 		return hourMin;
 	}
 
-	public void setHourMin(String hourMin) {
+	public void setHourMin(Date hourMin) {
 		this.hourMin = hourMin;
 	}
 
-	public Schedule(String hourMin, String hourMax) {
-		this.hourMax = hourMax;
-		this.hourMin =  hourMin;
+	public Schedule(String hourMinString, String hourMaxString) {
+	
+		initMinHour(hourMinString);
+		initMaxHour(hourMaxString);
+			
+
+	}
+	
+	private void initMinHour(String hourMinString){
+		
+		String[] hourMinSplit= hourMinString.split(":");
+		int hourMinInt= Integer.parseInt(hourMinSplit[0]);
+		int minuteMinInt= Integer.parseInt(hourMinSplit[1]);
+		this.hourMin =new Date();
+		hourMin.setHours(hourMinInt);
+		hourMin.setMinutes(minuteMinInt);
+		hourMin.setSeconds(0);
+		
+		
+		
+	}
+	
+	private void initMaxHour(String hourMaxString){
+		
+		String[] hourMaxSplit= hourMaxString.split(":");
+		int hour= Integer.parseInt(hourMaxSplit[0]);
+		int minute= Integer.parseInt(hourMaxSplit[1]);
+		this.hourMax =new Date();
+		hourMax.setHours(hour);
+		hourMax.setMinutes(minute);
+		hourMax.setSeconds(0);
 	}
 
 	

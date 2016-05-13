@@ -12,20 +12,18 @@ import service.AvailabilityService;
 
 public abstract class Poi implements PoiInterface {
 
-	private String name;
-	private Address address;
-	private String mainStreet;
-	private Coordinate coordinate;
-	private GoogleDistanceService googleService = GoogleDistanceService.getInstance();
-	private AvailabilityService availabilityService = AvailabilityService.getInstance();
+	protected String name;
+	protected Address address;
+	protected Coordinate coordinate;
+	protected GoogleDistanceService googleService = GoogleDistanceService.getInstance();
+	protected AvailabilityService availabilityService = AvailabilityService.getInstance();
+	
+	public Poi(String name, Address address, Coordinate coordinate){
+		this.name=name;
+		this.address=address;
+		this.coordinate=coordinate;
+	}
 
-	public Poi(String name, Address address, String mainStreet, Coordinate coordinate) {
-		super();
-		this.name = name;
-		this.address = address;
-		this.mainStreet = mainStreet;
-		this.coordinate = coordinate;
-		}
 
 	public GoogleDistanceService getGoogleService() {
 		return googleService;
@@ -61,14 +59,6 @@ public abstract class Poi implements PoiInterface {
 
 	public void setAddress(Address address) {
 		this.address = address;
-	}
-
-	public String getMainStreet() {
-		return mainStreet;
-	}
-
-	public void setMainStreet(String mainStreet) {
-		this.mainStreet = mainStreet;
 	}
 
 	public Coordinate getCoordinate() {

@@ -12,8 +12,8 @@ public class ComercialShop extends Poi {
 
 	private CategoryShop category;
 
-	public ComercialShop(String name, Address address, String mainStreet, Coordinate coordinate, CategoryShop category) {
-		super(name, address, mainStreet, coordinate);
+	public ComercialShop(String name, Address address, Coordinate coordinate, CategoryShop category) {
+		super(name, address, coordinate);
 
 		this.category = category;
 	}
