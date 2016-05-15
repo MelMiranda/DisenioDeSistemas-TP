@@ -44,7 +44,7 @@ public class PoiService {
 		List<Poi> pois=new ArrayList<Poi>();
 		for (Poi poi : allPois) {
 			for (String text : poi.getData()) {
-				if(text.equalsIgnoreCase(string)){
+				if(text.contains(string)){
 					pois.add(poi);
 				}				
 			}			
