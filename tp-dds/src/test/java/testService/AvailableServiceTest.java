@@ -21,6 +21,7 @@ import poi.ComercialShop;
 import poi.Library;
 import poi.Newspapers;
 import poi.Poi;
+import poi.PoiMachine;
 import service.AvailabilityService;
 import service.PoiService;
 import domain.Address;
@@ -54,10 +55,12 @@ public class AvailableServiceTest {
 	private Date date;
 	private BusStation busStation;
 	private CGP cgp;
+	private PoiMachine poiMachine;
 
 	@Before
 	public void initialize() {
 		date= new Date();
+		poiMachine= new PoiMachine(cordinate1);
 
 		double lat1 = -34.8128118;
 		double lon1 = -58.4516456;
@@ -66,7 +69,7 @@ public class AvailableServiceTest {
 
 		cordinate1 = new Coordinate(lat1,lon1);
 		cordinate2 = new Coordinate(lat2, lon2);
-		poiService = new PoiService(cordinate1);
+		poiService = PoiService.getInstance();
 
 		bank = new Bank("Bank", new Address(""), cordinate2);	
 		busStation = new BusStation("Parada de Bus", new Address(""), cordinate2,"114");
@@ -158,10 +161,10 @@ public class AvailableServiceTest {
 	 	
 	 	@Test
 	 	public void rentasHolidaysTest(){
-	 		cgp2.getAvailabilityService().getHolidays().getHolidays().add("15/5");
+	 		availabilityService.getHolidays().getHolidays().add("15/5");
 	 		LOGGER.info(date.toString());
 			Assert.assertFalse(cgp2.isAvailable("rentas"));
-			cgp2.getAvailabilityService().getHolidays().getHolidays().remove("15/5");
+			availabilityService.getHolidays().getHolidays().remove("15/5");
 	 	}
 	
 

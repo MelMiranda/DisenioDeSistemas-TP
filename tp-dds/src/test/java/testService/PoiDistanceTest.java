@@ -24,6 +24,7 @@ import poi.CGP;
 import poi.ComercialShop;
 import poi.Newspapers;
 import poi.Library;
+import poi.PoiMachine;
 import service.AvailabilityService;
 import service.PoiService;
 
@@ -43,6 +44,7 @@ public class PoiDistanceTest {
 	private Coordinate cordinate3;
 	private ComercialShop newsPapersShop;
 	private Newspapers newspapers;
+	private PoiMachine poiMachine;
 	
 
 	@Before
@@ -54,7 +56,8 @@ public class PoiDistanceTest {
 		cordinate1 = new Coordinate(lat1,lon1);
 		cordinate2 = new Coordinate(lat2, lon2);
 		cordinate3 = new Coordinate(0, 0);
-		poiService = new PoiService(cordinate1);
+		poiMachine= new PoiMachine(cordinate1);
+		poiService = PoiService.getInstance();
 		newspapers= Newspapers.getInstance(700);
 		newsPapersShop= new ComercialShop("Diarios Sistemas", new Address(""), cordinate1, newspapers);
 		cgp = new CGP("CGP", new Address(""), cordinate2, 700.0, new ArrayList<CGPService>());
@@ -72,40 +75,40 @@ public class PoiDistanceTest {
 
 	@Test
 	public void test2() throws ClientProtocolException, IOException {
-		Assert.assertTrue(poiService.isNearby(cgp));
+		Assert.assertTrue(poiMachine.isNearBy(cgp));
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void testBadCoordinates() throws ClientProtocolException, IOException {
-		poiService.isNearby(bank2);
+		poiMachine.isNearBy(bank2);
 	}
 
 	@Test
 	public void testBusStationNearByFalse() throws ClientProtocolException, IOException {
-		Assert.assertFalse(poiService.isNearby(busStation));
+		Assert.assertFalse(poiMachine.isNearBy(busStation));
 	}
 	
 	@Test
 	public void testBankNearByTrue() throws ClientProtocolException, IOException{
-		Assert.assertTrue(poiService.isNearby(bank3));
+		Assert.assertTrue(poiMachine.isNearBy(bank3));
 	}
 	
 	
 	@Test
 	public void testNewspaperNearbyFalse() throws ClientProtocolException, IOException{
-		Assert.assertTrue(poiService.isNearby(newsPapersShop));
+		Assert.assertTrue(poiMachine.isNearBy(newsPapersShop));
 	}
 	
 
 	@Test
 	public void testBankisNerby() throws ClientProtocolException, IOException {
-		Assert.assertFalse(poiService.isNearby(bank));
+		Assert.assertFalse(poiMachine.isNearBy(bank));
 	}
 
 	
 	 @Test(expected = UnknownHostException.class)
 	 public void testNoConnection() throws ClientProtocolException, IOException {
-	 Assert.assertFalse(poiService.isNearby(bank)); }
+	 Assert.assertFalse(poiMachine.isNearBy(bank)); }
 	
 	
 }

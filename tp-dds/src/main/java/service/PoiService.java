@@ -8,12 +8,23 @@ import java.util.List;
 import org.apache.http.client.ClientProtocolException;
 
 import domain.Coordinate;
+import domain.Holidays;
 import poi.Poi;
 
 public class PoiService {
 
-	private Coordinate coordinates;
-	private List<Poi> allPois=new ArrayList<Poi>();
+	private static PoiService instance = null;
+	private static List<Poi> allPois;
+	
+	
+	
+	public static PoiService getInstance() {
+		if (instance == null) {
+			instance = new PoiService();
+			allPois=new ArrayList<Poi>();
+		}
+		return instance;
+	}
 	
 
 	public List<Poi> getAllPois() {
@@ -28,13 +39,9 @@ public class PoiService {
 		return poi.getType();
 	}
 
-	public PoiService(Coordinate coordinates) {
-		super();
-		this.coordinates = coordinates;
-	}
 
-	public boolean isNearby(Poi poi1) throws ClientProtocolException, IOException {
-		return poi1.isNearby(this.coordinates);
+	public boolean isNearby(Poi poi1, Coordinate coordinates) throws ClientProtocolException, IOException {
+		return poi1.isNearby(coordinates);
 	}
 
 	public boolean isAvailable(Poi poi) {
