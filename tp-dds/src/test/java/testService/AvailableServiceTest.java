@@ -85,13 +85,15 @@ public class AvailableServiceTest {
 		schoolLibraryShop= new ComercialShop("Carrousel",new Address(""),cordinate2,schoolLibrary);
 		range1=new RangeOfAtention(schedules1, days1);
 		
-		schedulesRentas.add(new Schedule("10:30","20:00"));
+		schedulesRentas.add(new Schedule("00:01","23:59"));
 		
+		rentasDaysAttention.add(0);
 		rentasDaysAttention.add(1);
 		rentasDaysAttention.add(2);
 		rentasDaysAttention.add(3);
 		rentasDaysAttention.add(4);
 		rentasDaysAttention.add(5);
+		rentasDaysAttention.add(6);
 		
 		rentas= new CGPService("rentas",new RangeOfAtention(schedulesRentas,rentasDaysAttention));
 		
@@ -116,7 +118,7 @@ public class AvailableServiceTest {
 	@Test
 	public void testRentasIsAvaiableTrue(){
 		LOGGER.info(date.toString());
-		Assert.assertFalse(cgp2.isAvailable("rentas"));
+		Assert.assertTrue(cgp2.isAvailable("rentas"));
 		
 	}
 	
@@ -124,7 +126,7 @@ public class AvailableServiceTest {
 	@Test
 	public void testAnyIsAvaiable(){
 		LOGGER.info(date.toString());
-		Assert.assertFalse(cgp2.isAvailable());
+		Assert.assertTrue(cgp2.isAvailable());
 	}
 	
 	@Test
@@ -151,6 +153,15 @@ public class AvailableServiceTest {
 	 		}
 	 		System.out.println((poiService.searchPois("114").size()));
 	 		Assert.assertTrue(poiService.searchPois("114").size()==1);
+	 	}
+	 	
+	 	
+	 	@Test
+	 	public void rentasHolidaysTest(){
+	 		cgp2.getAvailabilityService().getHolidays().getHolidays().add("15/5");
+	 		LOGGER.info(date.toString());
+			Assert.assertFalse(cgp2.isAvailable("rentas"));
+			cgp2.getAvailabilityService().getHolidays().getHolidays().remove("15/5");
 	 	}
 	
 

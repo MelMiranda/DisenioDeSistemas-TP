@@ -9,6 +9,7 @@ public class RangeOfAtention {
 	private List<Integer> daysOfAttention;
 	
 	
+	
 	public List<Schedule> getSchedules() {
 		return schedules;
 	}
