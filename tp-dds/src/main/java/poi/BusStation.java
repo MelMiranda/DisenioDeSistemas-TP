@@ -16,11 +16,11 @@ public class BusStation extends Poi {
 
 	
 
-	public BusStation(String name, Address address, Coordinate coordinate, int numberBusStation) {
+	public BusStation(String name, Address address, Coordinate coordinate, String numberBusStation) {
 		super(name, address, coordinate);
-		this.getData().add(this.getName());
-		this.getData().add( String.valueOf(this.getNumberBusStation()));
-		this.getData().add(this.getAddress().getMainStreet());
+		this.getData().add(name);
+		this.getData().add( numberBusStation);
+		this.getData().add(address.getMainStreet());
 		this.getData().add("bus");
 		}
 

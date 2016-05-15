@@ -58,7 +58,7 @@ public class PoiDistanceTest {
 		newspapers= Newspapers.getInstance(700);
 		newsPapersShop= new ComercialShop("Diarios Sistemas", new Address(""), cordinate1, newspapers);
 		cgp = new CGP("CGP", new Address(""), cordinate2, 700.0, new ArrayList<CGPService>());
-		busStation = new BusStation("Parada de Bus", new Address(""), cordinate2,114);
+		busStation = new BusStation("Parada de Bus", new Address(""), cordinate2,"114");
 		bank = new Bank("Bank", new Address(""), cordinate2);
 		bank2 = new Bank("Bank", new Address(""),  cordinate3);
 		bank3=new Bank("Bank", new Address(""),new Coordinate(-34.813208,-58.451356));

@@ -11,8 +11,6 @@ import Dto.appiGoogleDTO.ApiDirectionsGoogleDTO;
 public class TransformToApiGoogleDto {
 	
 	
-
-	
 	public ApiDirectionsGoogleDTO transform(InputStreamReader input){
 		JsonFactory jsonFactory=new JsonFactory();
 		

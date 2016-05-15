@@ -20,6 +20,7 @@ import poi.CGP;
 import poi.ComercialShop;
 import poi.Library;
 import poi.Newspapers;
+import poi.Poi;
 import service.AvailabilityService;
 import service.PoiService;
 import domain.Address;
@@ -51,6 +52,8 @@ public class AvailableServiceTest {
 	private List<Schedule> schedules1;
 	private List<Schedule> schedulesRentas;
 	private Date date;
+	private BusStation busStation;
+	private CGP cgp;
 
 	@Before
 	public void initialize() {
@@ -66,7 +69,8 @@ public class AvailableServiceTest {
 		poiService = new PoiService(cordinate1);
 
 		bank = new Bank("Bank", new Address(""), cordinate2);	
-		
+		busStation = new BusStation("Parada de Bus", new Address(""), cordinate2,"114");
+		cgp = new CGP("CGP", new Address(""), cordinate2, 700.0, new ArrayList<CGPService>());
 		schedules1 = new ArrayList<Schedule>();
 		schedulesRentas= new ArrayList<Schedule>();
 		rentasDaysAttention= new ArrayList<Integer>();
@@ -127,6 +131,27 @@ public class AvailableServiceTest {
 	public void testSchoolLibrary(){
 		Assert.assertTrue(schoolLibrary.isAvailable(availabilityService));
 	}
+	
+	@Test
+	 	public void testSearch(){
+	 		poiService.getAllPois().add(busStation);
+			poiService.getAllPois().add(bank);
+	 		poiService.getAllPois().add(cgp);
+	 		for (Poi poi : poiService.searchPois("")) {
+	 			LOGGER.info("POI---> "+poi.toString());
+	 		}
+	 	Assert.assertFalse(poiService.searchPois("").isEmpty());
+	 	}
+	 		
+	 	@Test
+	 	public void testSearchString2(){
+	 		poiService.getAllPois().add(busStation);
+	 		for (Poi poi : poiService.searchPois("")) {
+	 			LOGGER.info("POI---> "+poi.toString());
+	 		}
+	 		System.out.println((poiService.searchPois("114").size()));
+	 		Assert.assertTrue(poiService.searchPois("114").size()==1);
+	 	}
 	
 
 }
