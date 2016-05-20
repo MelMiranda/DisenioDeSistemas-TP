@@ -1,29 +1,28 @@
-body{
+body {
 	background-image: url("fondo-contacto.png");
 	background-size: 100% auto;
 	padding: 100px;
 }
 
-.selector , .map{
+.selector, .map {
 	text-align: center;
 	padding: 20px 10px;
 }
 
-.mapSites{
+.mapSites {
 	border: 3px solid #8A4C4C;
 	width: 70%;
 	height: 500px;
 }
 
 .selector  p {
-	color:white;
+	color: white;
 	font-size: 1em;
 }
 
 .selector button {
 	color: white;
 	background: #8A4C4C;
-	
 	border-radius: 10px;
 	border: 2px solid transparent;
 	padding: 10px;
@@ -36,12 +35,12 @@ body{
 	transition: all 0.5s;
 }
 
-.searchPoi{
+.searchPoi {
 	padding: 10px;
 	margin: 5px 5px;
-	background: rgba(0,0,0, 0.5)
+	background: rgba(0, 0, 0, 0.5)
 }
 
 .searchPoi input {
-	position: 
+	position:
 }
