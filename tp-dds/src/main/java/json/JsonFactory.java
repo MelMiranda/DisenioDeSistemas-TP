@@ -45,5 +45,13 @@ public class JsonFactory {
 			throw new RuntimeException("Error reading a json", e);
 		}
 	}
+	
+	public <T> T fromJson(String string, TypeReference<T> typeReference) {
+		try {
+			return this.objectMapper.readValue(string, typeReference);
+		} catch (IOException e) {
+			throw new RuntimeException("Error reading a json", e);
+		}
+	}
 
 }

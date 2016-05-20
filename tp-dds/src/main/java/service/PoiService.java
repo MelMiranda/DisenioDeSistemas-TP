@@ -9,12 +9,15 @@ import org.apache.http.client.ClientProtocolException;
 
 import domain.Coordinate;
 import domain.Holidays;
+import externalServices.BankDTO;
+import externalServices.BankService;
 import poi.Poi;
 
 public class PoiService {
 
 	private static PoiService instance = null;
 	private static List<Poi> allPois;
+	private static BankService bankService;
 	
 	
 	
@@ -22,6 +25,7 @@ public class PoiService {
 		if (instance == null) {
 			instance = new PoiService();
 			allPois=new ArrayList<Poi>();
+			bankService= BankService.getInstance();
 		}
 		return instance;
 	}
@@ -57,5 +61,9 @@ public class PoiService {
 			}			
 		}
 		return pois;
-	}	
+	}
+	
+	public List<BankDTO> getBanksFromExternalService(){
+		return bankService.getBanksFromService();
+	}
 }
