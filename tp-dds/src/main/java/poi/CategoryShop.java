@@ -16,5 +16,6 @@ public interface CategoryShop {
 			GoogleDistanceService googleService) throws ClientProtocolException, IOException;
 
 	public boolean isAvailable(AvailabilityService availabilityService);
+	public String getType();
 
 }

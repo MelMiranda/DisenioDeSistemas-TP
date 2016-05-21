@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import domain.Address;
-import domain.CGPService;
 import domain.Coordinate;
 import domain.RangeOfAtention;
 import domain.Schedule;
@@ -21,8 +20,9 @@ import junit.framework.Assert;
 import poi.Bank;
 import poi.BusStation;
 import poi.CGP;
+import poi.CGPService;
 import poi.ComercialShop;
-import poi.Newspapers;
+import poi.Newspaper;
 import poi.Library;
 import poi.PoiMachine;
 import service.AvailabilityService;
@@ -43,7 +43,7 @@ public class PoiDistanceTest {
 	private Coordinate cordinate2;
 	private Coordinate cordinate3;
 	private ComercialShop newsPapersShop;
-	private Newspapers newspapers;
+	private Newspaper newspapers;
 	private PoiMachine poiMachine;
 	
 
@@ -58,7 +58,7 @@ public class PoiDistanceTest {
 		cordinate3 = new Coordinate(0, 0);
 		poiMachine= new PoiMachine(cordinate1);
 		poiService = PoiService.getInstance();
-		newspapers= Newspapers.getInstance(700);
+		newspapers= Newspaper.getInstance(700);
 		newsPapersShop= new ComercialShop("Diarios Sistemas", new Address(""), cordinate1, newspapers);
 		cgp = new CGP("CGP", new Address(""), cordinate2, 700.0, new ArrayList<CGPService>());
 		busStation = new BusStation("Parada de Bus", new Address(""), cordinate2,"114");

@@ -40,7 +40,7 @@ public class BusStation extends Poi {
 
 	@Override
 	public String getType() {
-		return null;
+		return "BusStation";
 	}
 
 	@Override

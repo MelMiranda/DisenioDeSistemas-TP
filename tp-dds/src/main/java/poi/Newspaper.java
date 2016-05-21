@@ -13,26 +13,30 @@ import domain.RangeOfAtention;
 import domain.Schedule;
 import service.AvailabilityService;
 
-public class Newspapers implements CategoryShop{
-	private static Newspapers instance=null;
+public class Newspaper implements CategoryShop{
+	private static Newspaper instance=null;
 	
 	private double distanceMaxInMetters;
 	private RangeOfAtention rangeOfAtention;
 	
 	
 	
-	  protected Newspapers() {
+	  protected Newspaper() {
 	   }
 
-	  public static Newspapers getInstance(double distanceMaxInMetters)  {
+	  public static Newspaper getInstance(double distanceMaxInMetters)  {
 	      if(instance == null) {
-	         instance = new Newspapers();
+	         instance = new Newspaper();
 	         instance.setDistanceMaxInMetters(distanceMaxInMetters);
 	         
 	         setRangeOfAtention();
 	      }
 	      return instance;
 	   }
+	  
+	  public String getType(){
+		  return "Newspaper";
+	  }
 
 	
 	
@@ -52,7 +56,7 @@ public class Newspapers implements CategoryShop{
 		this.rangeOfAtention = rangeOfAtention;
 	}
 
-	public Newspapers(double distanceMaxInMetters) {
+	public Newspaper(double distanceMaxInMetters) {
 		super();
 		this.distanceMaxInMetters = distanceMaxInMetters;
 	}

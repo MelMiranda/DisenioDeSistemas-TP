@@ -31,6 +31,10 @@ public class Library implements CategoryShop {
 	      }
 	      return instance;
 	   }
+	  
+	  public String getType(){
+		  return "Library";
+	  }
 
 	  
 

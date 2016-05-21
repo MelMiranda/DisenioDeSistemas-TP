@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import domain.Address;
-import domain.CGPService;
 import domain.Coordinate;
 
 public class CGP extends Poi {
@@ -55,7 +54,7 @@ public class CGP extends Poi {
 
 	@Override
 	public String getType() {
-		return null;
+		return "CGP";
 	}
 
 	@Override

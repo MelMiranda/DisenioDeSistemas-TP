@@ -46,9 +46,7 @@ public class PoiController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = ("/poi-size"), method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Integer> showPois(
-			@RequestParam(value = "bank", required = true) String bank,
-			@RequestParam(value = "service", required = true) String service) {
+	public ResponseEntity<Integer> showPois() {
 		poiService = PoiService.getInstance();
 		LOGGER.info("--------------------------------------------------------");
 		LOGGER.info("REQUEST");

@@ -1,7 +1,8 @@
-package domain;
+package poi;
 
 import java.util.Date;
 
+import domain.RangeOfAtention;
 import service.AvailabilityService;
 
 public class CGPService {

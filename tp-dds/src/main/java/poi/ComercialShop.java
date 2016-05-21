@@ -20,7 +20,7 @@ public class ComercialShop extends Poi {
 	}
 
 	public String getType() {
-		return "Comercial";
+		return "ComercialShop";
 	}
 
 
