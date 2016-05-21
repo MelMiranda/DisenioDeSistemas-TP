@@ -63,7 +63,7 @@ public class PoiService {
 		return pois;
 	}
 	
-	public List<BankDTO> getBanksFromExternalService(){
-		return bankService.getBanksFromService();
+	public List<BankDTO> getBanksFromExternalService(String bank, String service){
+		return bankService.getBanksFromService(bank,service);
 	}
 }

@@ -27,11 +27,11 @@ public class BankService {
 	}
 
 
-	public List<BankDTO> getBanksFromService() {
-		List<BankDTO> banks = new ArrayList<BankDTO>();
+	public List<BankDTO> getBanksFromService(String bank, String service) {
+		List<BankDTO> banks = null;
 		JsonFactory jsonFactory = new JsonFactory();
 		URLReader urlReader = new URLReader();
-		String url = "http://private-96b476-ddsutn.apiary-mock.com/banks?banco=banco&servicio=servicio";
+		String url = "http://private-96b476-ddsutn.apiary-mock.com/banks?banco=" +bank + "&servicio=" + service;
 		try {
 			banks = jsonFactory.fromJson(urlReader.getStringFromURL(url),
 					new TypeReference<ArrayList<BankDTO>>() {
