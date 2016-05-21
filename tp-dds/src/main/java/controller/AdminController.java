@@ -35,6 +35,7 @@ public class AdminController {
 	public ResponseEntity addPoi(
 			@RequestParam(value = "name", required = true) String name,
 			@RequestParam(value = "type", required = true) String type) {
+		//TODO Agregar muchos parametros y filtrar tipo por type
 
 		
 		Poi poi= new Bank(name,new Address("San Miguel"),new Coordinate(34.654,32.564));
@@ -51,6 +52,16 @@ public class AdminController {
 			@RequestParam(value = "name", required = true) String name) {
 		
 		boolean state= admin.removePoi(name);
+		return new ResponseEntity(state,HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value = ("/poi-modify"), method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity modifyPoi(
+			@RequestParam(value = "name", required = true) String name) {
+		Poi poi=null; //TODO Agregar muchos parametros y filtrar tipo por type
+		boolean state= admin.modifyPoi(poi,name);
 		return new ResponseEntity(state,HttpStatus.OK);
 	}
 	
