@@ -17,6 +17,8 @@
         
         <bean id="jsonFactory" class="json.JsonFactory" /> 
         
+        <bean id="adminController" class="controller.AdminController"></bean>
+        
         <bean id="webConfig" class="webConfig.WebConfig">
 		<constructor-arg ref="jsonFactory" />
 	</bean> 

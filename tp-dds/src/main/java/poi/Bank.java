@@ -15,9 +15,6 @@ import domain.Schedule;
 public class Bank extends Poi {
 	private RangeOfAtention rangeOfAtention;
 
-	public Bank() {
-		super();
-	}
 
 	public Bank(String name, Address address, Coordinate coordinate){
 		super(name, address, coordinate);
