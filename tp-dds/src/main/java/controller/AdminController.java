@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import domain.Address;
 import domain.Coordinate;
+import domain.RangeOfAtention;
 import poi.Bank;
 import poi.BusStation;
 import poi.CGP;
@@ -100,6 +101,25 @@ public class AdminController {
 		admin.addPoi(poi);
 		return new ResponseEntity(HttpStatus.OK);
 	}
+	
+	@RequestMapping(value=("/poi-addCGPServiceInTo"), method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity addPoiCGPService(
+			@RequestParam(value = "nameOfCGP", required = true) String nameOfCGP,
+			@RequestParam (value="serviceName", required= true) String serviceName,
+			@RequestParam(value = "daysOfAttention", required = true) List<Integer> daysOfAttention){
+		
+		
+		for(Integer index :daysOfAttention){
+			System.out.println(index);
+		}
+		CGPService cgpService= new CGPService(serviceName,new RangeOfAtention(null,daysOfAttention));
+		boolean status= admin.addCGPServiceToCGP(nameOfCGP,cgpService);
+		return new ResponseEntity(status,HttpStatus.OK);
+		
+	}
+	
+	
 	
 	
 	

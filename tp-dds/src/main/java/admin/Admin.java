@@ -1,5 +1,7 @@
 package admin;
 
+import poi.CGP;
+import poi.CGPService;
 import poi.Poi;
 import service.PoiService;
 
@@ -43,5 +45,22 @@ public class Admin {
 		}
 		return false;
 	}
+	
+	
+	public boolean addCGPServiceToCGP(String cgpName, CGPService cgpService){
+		
+		for(Poi currentPoi: poiService.getAllPois()){
+			if(currentPoi.getName().equalsIgnoreCase(cgpName) && currentPoi.getType().equalsIgnoreCase("CGP")){
+				
+				CGP cgp= (CGP) currentPoi;
+				cgp.addService(cgpService);
+				return true;
+			}
+			}
+		return false;
+		
+		}
+		
+	
 
 }

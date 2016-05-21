@@ -82,5 +82,9 @@ public class CGP extends Poi {
 		}
 		return false;
 	}
+	
+	public void addService(CGPService cgpService){
+		services.add(cgpService);
+	}
 
 }
