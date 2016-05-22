@@ -28,6 +28,11 @@ public class RangeOfAtention {
 		this.daysOfAttention = daysOfAttention;
 	}
 	
+	public void addSchedule(Schedule schedule){
+		schedules.add(schedule);
+	}
+	
+	
 	
 	
 	

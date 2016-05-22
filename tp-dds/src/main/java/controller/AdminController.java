@@ -119,8 +119,16 @@ public class AdminController {
 		
 	}
 	
-	
-	
+	public ResponseEntity addScheduleToCGPService(
+			@RequestParam(value = "nameOfCGP", required = true) String nameOfCGP,
+			@RequestParam (value="serviceName", required= true) String serviceName,
+			@RequestParam(value = "hourMax", required = true) String hourMax,
+			@RequestParam(value="hourMin", required = true) String hourMin){
+		
+		boolean status =admin.addScheduleToCGPService(nameOfCGP, serviceName, hourMax, hourMin);
+		return new ResponseEntity(status,HttpStatus.OK);
+		
+	}
 	
 	
 	

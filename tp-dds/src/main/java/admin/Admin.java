@@ -1,5 +1,6 @@
 package admin;
 
+import domain.Schedule;
 import poi.CGP;
 import poi.CGPService;
 import poi.Poi;
@@ -60,6 +61,24 @@ public class Admin {
 		return false;
 		
 		}
+	
+	public boolean addScheduleToCGPService(String nameOfCGP,String serviceName,String hourMax,String hourMin){
+		
+		for(Poi currentPoi: poiService.getAllPois()){
+			if(currentPoi.getType()=="CGP" && currentPoi.getName().equalsIgnoreCase(nameOfCGP)){
+				CGP cgp= (CGP) currentPoi;
+				for(CGPService currentService :cgp.getServices()){
+					if(currentService.getServiceName().equalsIgnoreCase(serviceName)){
+						Schedule schedule = new Schedule(hourMin,hourMax);
+						currentService.getRangeOfAtention().addSchedule(schedule);
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+		
+	}
 		
 	
 
