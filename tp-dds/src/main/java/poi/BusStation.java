@@ -11,24 +11,26 @@ import domain.Coordinate;
 
 public class BusStation extends Poi {
 	
-	private int numberBusStation ;
+	private String numberBusStation ;
 
 
 	
 
-	public BusStation(String name, Address address, Coordinate coordinate, String numberBusStation) {
+	public BusStation(String name, Address address, Coordinate coordinate, String aNumberBusStation) {
 		super(name, address, coordinate);
+		numberBusStation = aNumberBusStation;
+		
 		this.getData().add(name);
 		this.getData().add( numberBusStation);
 		this.getData().add(address.getMainStreet());
 		this.getData().add("bus");
 		}
 
-	public int getNumberBusStation() {
+	public String getNumberBusStation() {
 		return numberBusStation;
 	}
 
-	public void setNumberBusStation(int numberBusStation) {
+	public void setNumberBusStation(String numberBusStation) {
 		this.numberBusStation = numberBusStation;
 	}
 

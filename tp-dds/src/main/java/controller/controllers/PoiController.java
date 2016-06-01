@@ -1,5 +1,6 @@
-package controller;
+package controller.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import controller.response.PoiDTO;
+import domain.Address;
+import domain.RangeOfAtention;
+import poi.Bank;
 import poi.Poi;
 import service.PoiService;
 
@@ -23,30 +28,46 @@ public class PoiController {
 
 	private PoiService poiService;
 
-/*	@SuppressWarnings("unchecked")
-	@RequestMapping(value = ("/poi-bank"), method = RequestMethod.GET)
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = ("/poi-show"), method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<List<Poi>> showPois(
-			@RequestParam(value = "bank", required = true) String bank,
-			@RequestParam(value = "service", required = true) String service) {
+	public ResponseEntity<List<PoiDTO>> showPois() {
 		poiService = PoiService.getInstance();
 		LOGGER.info("--------------------------------------------------------");
 		LOGGER.info("REQUEST");
 		LOGGER.info("--------------------------------------------------------");
-
+		List<PoiDTO> poisDTO= new ArrayList<PoiDTO>();
 		List<Poi> pois = poiService.getAllPois();
+		
+		
+		/*
+		 * REFACTOR DE CODIGO SEGUN TIPO, HACER UN POIDTO Y EXTENER LAS DIFERENTES CLASES, LO MISMO CON ADDRESS Y EL RESTO DE MIERDAS
+		 */
+		
+		//TODO
+		for(Poi currentPoi: pois){
+			
+		switch(currentPoi.getType()){
+		case "Bank":
+			Bank bank= (Bank) currentPoi;
+
+			poisDTO.add(new PoiDTO (currentPoi.getName(), currentPoi.getType(),null/* currentPoi.getAddress()*/,
+					bank.getRangeOfAtention(),0,
+					0));
+		}
+		}
 
 		LOGGER.info("--------------------------------------------------------");
 		LOGGER.info("RESPONSE");
 		LOGGER.info("--------------------------------------------------------");
-		return new ResponseEntity<List<Poi>>(pois, HttpStatus.OK);
+		return new ResponseEntity<List<PoiDTO>>(poisDTO, HttpStatus.OK);
 
-	}*/
+	}
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = ("/poi-size"), method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Integer> showPois() {
+	public ResponseEntity<Integer> poiSize() {
 		poiService = PoiService.getInstance();
 		LOGGER.info("--------------------------------------------------------");
 		LOGGER.info("REQUEST");

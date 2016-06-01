@@ -13,18 +13,18 @@
         
     
 
-<bean id="poiController" class="controller.PoiController"></bean>
+<bean id="poiController" class="controller.controllers.PoiController"></bean>
         
         <bean id="jsonFactory" class="json.JsonFactory" /> 
         
-        <bean id="adminController" class="controller.AdminController"></bean>
+        <bean id="adminController" class="controller.controllers.AdminController"></bean>
         
         <bean id="webConfig" class="webConfig.WebConfig">
 		<constructor-arg ref="jsonFactory" />
 	</bean> 
 	
 	<context:annotation-config />
-	    <context:component-scan base-package="controller.PoiController" />
+	    <context:component-scan base-package="controller.controllers.PoiController" />
 <!--    <mvc:default-servlet-handler /> -->
 	
 

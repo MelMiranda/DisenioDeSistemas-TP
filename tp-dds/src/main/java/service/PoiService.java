@@ -58,7 +58,7 @@ public class PoiService {
 				if(text.contains(string)){
 					pois.add(poi);
 				}				
-			}			
+			}
 		}
 		return pois;
 	}

@@ -23,9 +23,7 @@ public class BankService {
 		}else{
 			return instance;
 		}
-		
 	}
-
 
 	public List<BankDTO> getBanksFromService(String bank, String service) {
 		List<BankDTO> banks = null;
@@ -36,6 +34,7 @@ public class BankService {
 			banks = jsonFactory.fromJson(urlReader.getStringFromURL(url),
 					new TypeReference<ArrayList<BankDTO>>() {
 					});
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
