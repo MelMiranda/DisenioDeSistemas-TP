@@ -59,33 +59,6 @@ public class AdminTest {
 
 	}
 	
-	
-	@Test
-	public void bmodifyPoiIntoPoiService(){
-		LOGGER.info("Metodo modifyPoi");
-		
-		LOGGER.info("Tamaño de pois encontrados" + poiService.searchPois(poiName).size());
-		BusStation poiBusStation = (BusStation) poiService.searchPois(poiName).get(0);
-		
-		LOGGER.info(poiBusStation.getNumberBusStation());
-		
-		Assert.assertTrue(poiBusStation.getNumberBusStation().equalsIgnoreCase(busNumber));
-		
-		address = new Address("San Justo 77");
-		coordinate = new Coordinate(-34.76, 56.76);
-		String newBusNumber = "7";
-		busStation = new BusStation(poiName, address, coordinate, newBusNumber);
-		
-		boolean canModify= admin.modifyPoi(busStation, poiName);
-		System.out.println(canModify);
-		LOGGER.info("Tamaño de pois encontrados" + poiService.searchPois(poiName).size() );
-		
-		poiBusStation = (BusStation) poiService.searchPois(poiName).get(0);
-		
-		LOGGER.info(poiBusStation.getNumberBusStation());
-		Assert.assertTrue(poiBusStation.getNumberBusStation().equalsIgnoreCase(newBusNumber));
-		
-	}
 
 	@Test
 	public void cremovePoiIntoPoiService() {
