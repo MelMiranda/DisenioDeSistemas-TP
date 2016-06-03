@@ -64,7 +64,7 @@ public class AdminTest {
 	public void bmodifyPoiIntoPoiService(){
 		LOGGER.info("Metodo modifyPoi");
 		
-		LOGGER.info("Tamaño de pois encontrados" + poiService.searchPois(poiName).size() );
+		LOGGER.info("Tamaño de pois encontrados" + poiService.searchPois(poiName).size());
 		BusStation poiBusStation = (BusStation) poiService.searchPois(poiName).get(0);
 		
 		LOGGER.info(poiBusStation.getNumberBusStation());

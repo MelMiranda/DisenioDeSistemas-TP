@@ -11,6 +11,7 @@ import domain.Coordinate;
 import domain.Holidays;
 import externalServices.BankDTO;
 import externalServices.BankService;
+import poi.Bank;
 import poi.Poi;
 
 public class PoiService {
@@ -60,10 +61,16 @@ public class PoiService {
 				}				
 			}
 		}
+		pois.addAll(getBanksFromExternalService("", ""));
 		return pois;
 	}
 	
-	public List<BankDTO> getBanksFromExternalService(String bank, String service){
+	public List<Bank> searchBank(String bank, String service){
+		return getBanksFromExternalService(bank, service);
+		
+	}
+	
+	public List<Bank> getBanksFromExternalService(String bank, String service){
 		return bankService.getBanksFromService(bank,service);
 	}
 }

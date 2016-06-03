@@ -7,38 +7,50 @@ import java.util.List;
 
 import org.springframework.core.ParameterizedTypeReference;
 
+import poi.Bank;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import reader.URLReader;
 import json.JsonFactory;
 
 public class BankService {
-	
-	private static BankService instance=null;
-	
-	public static BankService getInstance(){
-		if(instance==null){
-			instance= new BankService() ;
+
+	private static BankService instance = null;
+	private static BankExternalConvertToJson bankConverter;
+
+	public static BankService getInstance() {
+		if (instance == null) {
+			instance = new BankService();
+			bankConverter = new BankExternalConvertToJson();
 			return instance;
-		}else{
+		} else {
 			return instance;
 		}
 	}
 
-	public List<BankDTO> getBanksFromService(String bank, String service) {
+	public List<Bank> getBanksFromService(String bank, String service) {
 		List<BankDTO> banks = null;
 		JsonFactory jsonFactory = new JsonFactory();
 		URLReader urlReader = new URLReader();
-		String url = "http://private-96b476-ddsutn.apiary-mock.com/banks?banco=" +bank + "&servicio=" + service;
+		String url;
+		if (!bank.isEmpty() && !service.isEmpty()) {
+			url = "http://private-96b476-ddsutn.apiary-mock.com/banks?banco="
+					+ bank + "&servicio=" + service;
+		} else {
+			url = "http://private-96b476-ddsutn.apiary-mock.com/banks?";
+		}
+
 		try {
 			banks = jsonFactory.fromJson(urlReader.getStringFromURL(url),
 					new TypeReference<ArrayList<BankDTO>>() {
 					});
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return banks;
+
+		return bankConverter.convertToDomain(banks);
 	}
 
 }
