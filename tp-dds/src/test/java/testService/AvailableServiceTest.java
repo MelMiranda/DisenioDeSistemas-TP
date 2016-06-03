@@ -152,7 +152,6 @@ public class AvailableServiceTest {
 	 	public void testSearchString2(){
 	 		poiService.getAllPois().add(busStation);
 	 		for (Poi poi : poiService.searchPois("")) {
-	 			LOGGER.info("POI---> "+poi.toString());
 	 		}
 	 		System.out.println((poiService.searchPois("114").size()));
 	 		Assert.assertTrue(poiService.searchPois("114").size()==1);

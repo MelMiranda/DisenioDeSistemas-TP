@@ -61,9 +61,9 @@ public class PoiService {
 				}				
 			}
 		}
-		pois.addAll(getBanksFromExternalService("", ""));
 		return pois;
 	}
+	
 	
 	public List<Bank> searchBank(String bank, String service){
 		return getBanksFromExternalService(bank, service);
