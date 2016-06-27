@@ -1,36 +1,42 @@
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 
-
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import json.JsonFactory;
 
 public class parseCiudadDtoJson {
-	private JsonFactory jsonFactory=new JsonFactory();
+	public static final ObjectMapper JSON_MAPPER = new ObjectMapper();
+
 	
-	
-	
-	public CiudadesDto  parseJson(){
-		
-		
-		InputStream inputStream = Prueba2.class.getResourceAsStream("/ciudadesJson.json");
-		
-		CiudadesDto ciudadDto=this.jsonFactory.fromJson(new InputStreamReader(inputStream), new TypeReference<CiudadesDto>() {
-		});		
+	public CiudadesDto  parseJson() throws JsonParseException, JsonMappingException, IOException{
 		
 		
 		
-	
+		CiudadesDto ciudadDto;
+		ciudadDto=JSON_MAPPER.readValue(new File("/home/mauriciofigueroa/Escritorio/tpDds/TP-DDS/tp-dds/src/main/resources/ciudadesJson.json"), CiudadesDto.class);
+		
 		return ciudadDto;
 		
 		
 	}
-
-
-
-	public parseCiudadDtoJson() {
-		super();
+	public limitPoints parseLimit() throws JsonParseException, JsonMappingException, IOException{
+		
+	
+		
+		 limitPoints lpoint=JSON_MAPPER.readValue(new File("/home/mauriciofigueroa/Escritorio/tpDds/TP-DDS/tp-dds/src/main/resources/ciudades2.json"), limitPoints.class);
+			
+		 
+		 return lpoint;
+	
+		
 	}
+	
+	
 }
