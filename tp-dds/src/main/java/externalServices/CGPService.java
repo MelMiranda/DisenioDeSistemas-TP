@@ -13,12 +13,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 public class CGPService {
 
 	private static CGPService instance = null;
-	private static CGPExternalConvertToJson cgpConverter;
+	//private static CGPExternalConvertToJson cgpConverter;
 
 	public static CGPService getInstance() {
 		if (instance == null) {
 			instance = new CGPService();
-			cgpConverter = new CGPExternalConvertToJson();
+//			cgpConverter = new CGPExternalConvertToJson();
 			return instance;
 		} else {
 			return instance;
@@ -46,6 +46,7 @@ public class CGPService {
 			e.printStackTrace();
 		}
 
-		return cgpConverter.convertToDomain(cgps);
+	//	return cgpConverter.convertToDomain(cgps);
+		return null;
 	}
 }
