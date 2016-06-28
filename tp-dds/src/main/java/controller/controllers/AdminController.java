@@ -19,7 +19,7 @@ import poi.BusStation;
 import poi.CGP;
 import poi.CGPService;
 import poi.Poi;
-import admin.Admin;
+import users.Admin;
 
 @Controller
 public class AdminController {

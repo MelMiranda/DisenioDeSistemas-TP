@@ -20,7 +20,7 @@ public class CGPService {
 	public static CGPService getInstance() {
 		if (instance == null) {
 			instance = new CGPService();
-//			cgpConverter = new CGPExternalConvertToJson();
+		//	cgpConverter = new CGPExternalConvertToJson();
 			return instance;
 		} else {
 			return instance;

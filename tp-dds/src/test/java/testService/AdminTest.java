@@ -15,7 +15,7 @@ import domain.Coordinate;
 import internalService.PoiService;
 import poi.BusStation;
 import poi.Poi;
-import admin.Admin;
+import users.Admin;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AdminTest {
