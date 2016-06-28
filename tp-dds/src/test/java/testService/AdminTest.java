@@ -12,9 +12,9 @@ import org.springframework.core.annotation.Order;
 
 import domain.Address;
 import domain.Coordinate;
+import internalService.PoiService;
 import poi.BusStation;
 import poi.Poi;
-import service.PoiService;
 import admin.Admin;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

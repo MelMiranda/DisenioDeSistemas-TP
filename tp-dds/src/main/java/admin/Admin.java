@@ -1,10 +1,10 @@
 package admin;
 
 import domain.Schedule;
+import internalService.PoiService;
 import poi.CGP;
 import poi.CGPService;
 import poi.Poi;
-import service.PoiService;
 
 public class Admin {
 

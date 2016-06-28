@@ -1,4 +1,4 @@
-package externalServices;
+package Dto.bankDto;
 
 import java.util.List;
 

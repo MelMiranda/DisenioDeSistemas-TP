@@ -11,7 +11,7 @@ import ExternService.GoogleService.GoogleDistanceService;
 import domain.Coordinate;
 import domain.RangeOfAtention;
 import domain.Schedule;
-import service.AvailabilityService;
+import internalService.AvailabilityService;
 
 public class Newspaper implements CategoryShop{
 	private static Newspaper instance=null;

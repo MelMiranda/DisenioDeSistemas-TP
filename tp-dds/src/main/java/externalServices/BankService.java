@@ -11,6 +11,7 @@ import poi.Bank;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import Dto.bankDto.BankDTO;
 import reader.URLReader;
 import json.JsonFactory;
 

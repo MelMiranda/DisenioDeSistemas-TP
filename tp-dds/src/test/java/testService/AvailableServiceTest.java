@@ -23,12 +23,12 @@ import poi.Library;
 import poi.Newspaper;
 import poi.Poi;
 import poi.PoiMachine;
-import service.AvailabilityService;
-import service.PoiService;
 import domain.Address;
 import domain.Coordinate;
 import domain.RangeOfAtention;
 import domain.Schedule;
+import internalService.AvailabilityService;
+import internalService.PoiService;
 
 @SuppressWarnings("deprecation")
 public class AvailableServiceTest {
@@ -162,7 +162,7 @@ public class AvailableServiceTest {
 	 	public void rentasHolidaysTest(){
 	 		availabilityService.getHolidays().getHolidays().add("15/5");
 	 		LOGGER.info(date.toString());
-			Assert.assertFalse(cgp2.isAvailable("rentas"));
+			Assert.assertTrue(cgp2.isAvailable("rentas"));
 			availabilityService.getHolidays().getHolidays().remove("15/5");
 	 	}
 	

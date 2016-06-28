@@ -3,6 +3,7 @@ package externalServices;
 import java.util.ArrayList;
 import java.util.List;
 
+import Dto.bankDto.BankDTO;
 import domain.Address;
 import domain.Coordinate;
 import poi.Bank;

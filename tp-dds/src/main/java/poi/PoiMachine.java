@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 
-import service.PoiService;
 import domain.Coordinate;
+import internalService.PoiService;
 
 public class PoiMachine {
 	

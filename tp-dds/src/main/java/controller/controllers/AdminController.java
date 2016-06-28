@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import domain.Address;
 import domain.Coordinate;
 import domain.RangeOfAtention;
+import internalService.PoiService;
 import poi.Bank;
 import poi.BusStation;
 import poi.CGP;
 import poi.CGPService;
 import poi.Poi;
-import service.PoiService;
 import admin.Admin;
 
 @Controller

@@ -7,7 +7,7 @@ import org.apache.http.client.ClientProtocolException;
 
 import ExternService.GoogleService.GoogleDistanceService;
 import domain.Coordinate;
-import service.AvailabilityService;
+import internalService.AvailabilityService;
 
 public interface CategoryShop {
 

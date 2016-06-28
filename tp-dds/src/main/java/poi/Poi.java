@@ -8,7 +8,7 @@ import org.apache.http.client.ClientProtocolException;
 import ExternService.GoogleService.GoogleDistanceService;
 import domain.Address;
 import domain.Coordinate;
-import service.AvailabilityService;
+import internalService.AvailabilityService;
 
 public abstract class Poi implements PoiInterface {
 

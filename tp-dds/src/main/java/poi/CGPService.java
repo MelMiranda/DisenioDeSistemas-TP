@@ -3,7 +3,7 @@ package poi;
 import java.util.Date;
 
 import domain.RangeOfAtention;
-import service.AvailabilityService;
+import internalService.AvailabilityService;
 
 public class CGPService {
 

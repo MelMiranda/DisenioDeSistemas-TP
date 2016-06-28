@@ -16,6 +16,8 @@ import domain.Address;
 import domain.Coordinate;
 import domain.RangeOfAtention;
 import domain.Schedule;
+import internalService.AvailabilityService;
+import internalService.PoiService;
 import junit.framework.Assert;
 import poi.Bank;
 import poi.BusStation;
@@ -25,8 +27,6 @@ import poi.ComercialShop;
 import poi.Newspaper;
 import poi.Library;
 import poi.PoiMachine;
-import service.AvailabilityService;
-import service.PoiService;
 
 @SuppressWarnings("deprecation")
 public class PoiDistanceTest {

@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import controller.response.PoiDTO;
 import domain.Address;
 import domain.RangeOfAtention;
+import internalService.PoiService;
 import poi.Bank;
 import poi.Poi;
-import service.PoiService;
 
 @Controller
 public class PoiController {

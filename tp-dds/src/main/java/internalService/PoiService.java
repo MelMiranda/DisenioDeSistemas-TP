@@ -1,4 +1,4 @@
-package service;
+package internalService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 
+import Dto.bankDto.BankDTO;
 import domain.Coordinate;
 import domain.Holidays;
-import externalServices.BankDTO;
 import externalServices.BankService;
 import poi.Bank;
 import poi.Poi;

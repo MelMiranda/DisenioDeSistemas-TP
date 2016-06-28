@@ -1,4 +1,4 @@
-package service;
+package internalService;
 
 import java.util.Date;
 import java.util.List;
