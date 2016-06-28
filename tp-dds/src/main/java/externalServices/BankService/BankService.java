@@ -1,4 +1,4 @@
-package externalServices;
+package externalServices.BankService;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

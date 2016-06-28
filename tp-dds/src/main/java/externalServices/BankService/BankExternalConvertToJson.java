@@ -1,4 +1,4 @@
-package externalServices;
+package externalServices.BankService;
 
 import java.util.ArrayList;
 import java.util.List;

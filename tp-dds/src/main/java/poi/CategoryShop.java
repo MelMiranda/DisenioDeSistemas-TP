@@ -5,8 +5,8 @@ import java.util.Date;
 
 import org.apache.http.client.ClientProtocolException;
 
-import ExternService.GoogleService.GoogleDistanceService;
 import domain.Coordinate;
+import externalServices.GoogleDistanceService.GoogleDistanceService;
 import internalService.AvailabilityService;
 
 public interface CategoryShop {

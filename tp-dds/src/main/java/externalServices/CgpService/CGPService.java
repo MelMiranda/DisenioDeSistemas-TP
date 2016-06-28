@@ -1,4 +1,4 @@
-package externalServices;
+package externalServices.CgpService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,6 +9,8 @@ import poi.Bank;
 import reader.URLReader;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+
+import Dto.cgpDto.CgpDto;
 
 public class CGPService {
 
@@ -26,7 +28,7 @@ public class CGPService {
 	}
 
 	public List<Bank> getCGPFromService(String bank, String service) {
-		List<CentroDTO> cgps = null;
+		List<CgpDto> cgps = null;
 		JsonFactory jsonFactory = new JsonFactory();
 		URLReader urlReader = new URLReader();
 		String url;
@@ -39,7 +41,7 @@ public class CGPService {
 
 		try {
 			cgps = jsonFactory.fromJson(urlReader.getStringFromURL(url),
-					new TypeReference<ArrayList<CentroDTO>>() {
+					new TypeReference<ArrayList<CgpDto>>() {
 					});
 
 		} catch (IOException e) {

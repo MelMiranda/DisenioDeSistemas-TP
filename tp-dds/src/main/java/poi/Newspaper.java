@@ -7,10 +7,10 @@ import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 
-import ExternService.GoogleService.GoogleDistanceService;
 import domain.Coordinate;
 import domain.RangeOfAtention;
 import domain.Schedule;
+import externalServices.GoogleDistanceService.GoogleDistanceService;
 import internalService.AvailabilityService;
 
 public class Newspaper implements CategoryShop{

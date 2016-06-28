@@ -10,7 +10,7 @@ import org.apache.http.client.ClientProtocolException;
 import Dto.bankDto.BankDTO;
 import domain.Coordinate;
 import domain.Holidays;
-import externalServices.BankService;
+import externalServices.BankService.BankService;
 import poi.Bank;
 import poi.Poi;
 

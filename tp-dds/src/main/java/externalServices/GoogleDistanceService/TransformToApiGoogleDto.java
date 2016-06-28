@@ -1,4 +1,4 @@
-package ExternService.GoogleService;
+package externalServices.GoogleDistanceService;
 
 import java.io.InputStreamReader;
 

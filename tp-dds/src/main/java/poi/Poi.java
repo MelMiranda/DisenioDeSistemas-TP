@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.apache.http.client.ClientProtocolException;
-import ExternService.GoogleService.GoogleDistanceService;
+
 import domain.Address;
 import domain.Coordinate;
+import externalServices.GoogleDistanceService.GoogleDistanceService;
 import internalService.AvailabilityService;
 
 public abstract class Poi implements PoiInterface {
