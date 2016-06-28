@@ -31,6 +31,10 @@ public class PoiService {
 		return instance;
 	}
 	
+	public void removeAllPois(){
+	 this.allPois.clear();
+	}
+	
 
 	public List<Poi> getAllPois() {
 		return allPois;

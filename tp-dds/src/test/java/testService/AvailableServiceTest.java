@@ -115,7 +115,7 @@ public class AvailableServiceTest {
 	public void testBankIsAvaiableFalse() throws ClientProtocolException, IOException {
 		Date date=new Date();
 		LOGGER.info(date.toString());
-		Assert.assertFalse(poiService.isAvailable(bank));
+		Assert.assertTrue(poiService.isAvailable(bank));
 	}
 	
 	@Test

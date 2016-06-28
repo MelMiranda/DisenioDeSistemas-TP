@@ -40,6 +40,7 @@ public class AdminTest {
 		poiName = "Parada 144, San Justo";
 		busNumber = "144";
 		busStation = new BusStation(poiName, address, coordinate, busNumber);
+		this.poiService.removeAllPois();
 
 	}
 
@@ -48,13 +49,15 @@ public class AdminTest {
 		
 		LOGGER.info("Metodo addPoi");
 		LOGGER.info("" + poiService.getAllPois().size());
-
+		
+				
 		Assert.assertTrue(poiService.getAllPois().isEmpty());
 
 		admin.addPoi(busStation);
 
-		LOGGER.info("" + poiService.getAllPois().size());
 		
+		LOGGER.info("" + poiService.getAllPois().size());
+
 		Assert.assertTrue(poiService.getAllPois().size() == 1);
 
 	}
@@ -62,6 +65,8 @@ public class AdminTest {
 
 	@Test
 	public void cremovePoiIntoPoiService() {
+		admin.addPoi(busStation);
+
 		LOGGER.info("Metodo removePoi");
 
 		Assert.assertTrue(poiService.getAllPois().size() == 1);

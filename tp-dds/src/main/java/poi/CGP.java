@@ -27,6 +27,10 @@ public class CGP extends Poi {
 			this.getData().add(cgpService.getServiceName());
 		}
 		this.getData().add("cgp");
+		for (CGPService cgpService : services) {
+			this.getData().add(cgpService.getServiceName());
+		}
+		
 	}
 	
 
