@@ -13,10 +13,13 @@ import domain.ReportePorTerminal;
 public class ReportService {
 
 	private static ReportService instance;
-	private List<ReportePorTerminal> reportes = new ArrayList<ReportePorTerminal>();
+	private static List<ReportePorTerminal> reportes;
+	private static Map<String, Integer> mapaResultados;
 
 	public static ReportService getInstance() {
 		if (instance == null) {
+			reportes = new ArrayList<ReportePorTerminal>();
+			mapaResultados=new HashMap<String, Integer>();
 			return new ReportService();
 		}
 		return instance;
@@ -31,20 +34,24 @@ public class ReportService {
 	}
 
 	public void addReporte(String nombreTerminal, String palabraBuscada, Integer cantPoisBusqueda) {
+		int i = 0;
 		for (ReportePorTerminal currentReport : reportes) {
 			if (currentReport.getNombreTerminal().equals(nombreTerminal)) {
 				currentReport.agregarLineaMapa(cantPoisBusqueda, palabraBuscada);
-			} else {
-				ReportePorTerminal reporte = new ReportePorTerminal(nombreTerminal);
-				reporte.agregarLineaMapa(cantPoisBusqueda, palabraBuscada);
-				reportes.add(reporte);
+				i = 1;
 			}
+		}
+		if (i == 0) {
+			ReportePorTerminal reporte = new ReportePorTerminal(nombreTerminal);
+			reporte.agregarLineaMapa(cantPoisBusqueda, palabraBuscada);
+			reportes.add(reporte);
 		}
 	}
 
 	public Map<String, Integer> getReportesTotalesPorFecha() {
 
-		Map<String, Integer> mapaResultados = new HashMap<String, Integer>();
+		
+		System.out.println(mapaResultados);
 		int n;
 		int suma;
 		for (ReportePorTerminal reportePorTerminal : reportes) {
