@@ -87,4 +87,9 @@ public class PoiService {
 	public List<Bank> getBanksFromExternalService(String bank, String service) {
 		return bankService.getBanksFromService(bank, service);
 	}
+	
+	public void resetReports(){
+		reportService.resetReports();
+		
+	}
 }

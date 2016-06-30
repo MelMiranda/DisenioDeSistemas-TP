@@ -49,9 +49,6 @@ public class ReportService {
 	}
 
 	public Map<String, Integer> getReportesTotalesPorFecha() {
-
-		
-		System.out.println(mapaResultados);
 		int n;
 		int suma;
 		for (ReportePorTerminal reportePorTerminal : reportes) {
@@ -71,5 +68,10 @@ public class ReportService {
 			}
 		}
 		return mapaResultados;
+	}
+
+	public void resetReports() {
+		reportes=new ArrayList<ReportePorTerminal>();
+		
 	}
 }

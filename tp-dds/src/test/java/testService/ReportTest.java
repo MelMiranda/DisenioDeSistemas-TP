@@ -28,11 +28,12 @@ public class ReportTest {
 
 	@Before
 	public void setup() {
-		poiService = PoiService.getInstance();
-		admin = new Admin();
+		this.poiService = PoiService.getInstance();
+		this.admin = new Admin();
+		this.poiService.resetReports();
 
-		admin.addPoi(new Bank("BancoNAcion", new Address("Paraguay 2815"), new Coordinate(1.2, 21.3)));
-		admin.addPoi(new ComercialShop("libreria de libros ajajaj", new Address("al lado de la utn"),
+		this.admin.addPoi(new Bank("BancoNAcion", new Address("Paraguay 2815"), new Coordinate(1.2, 21.3)));
+		this.admin.addPoi(new ComercialShop("libreria de libros ajajaj", new Address("al lado de la utn"),
 				new Coordinate(1.2, 21.3), Newspaper.getInstance(32)));
 
 	}
@@ -45,7 +46,9 @@ public class ReportTest {
 
 		Map<String, Integer> resultados = this.poiService.obtenerReportesFecha();
 
+	
 	    Assert.assertEquals((Integer) 2, resultados.get("30/6/2016"));
+	    Assert.assertNotNull(resultados);
 
 	}
 
