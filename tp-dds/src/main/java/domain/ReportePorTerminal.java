@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -37,7 +38,7 @@ public class ReportePorTerminal {
 	}
 
 	public void agregarLineaMapa(int cantPoisBusqueda,String palabraBuscada) {
-		busquedas.add(new LineaReporte(new DateTime(), cantPoisBusqueda, palabraBuscada));
+		busquedas.add(new LineaReporte(new Date(), cantPoisBusqueda, palabraBuscada));
 	}
 
 }

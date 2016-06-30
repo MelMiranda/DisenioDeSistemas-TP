@@ -1,10 +1,12 @@
 package domain;
 
+import java.util.Date;
+
 import org.joda.time.DateTime;
 
 public class LineaReporte {
 	
-	private DateTime fechaBusqueda;
+	private Date fechaBusqueda;
 	private int cantPoisBusqueda ;
 	private String palabraBuscada;
 	
@@ -16,16 +18,16 @@ public class LineaReporte {
 	public void setPalabraBuscada(String palabraBuscada) {
 		this.palabraBuscada = palabraBuscada;
 	}
-	public LineaReporte(DateTime fechaBusqueda, int cantPoisBusqueda,String palabraBscada) {
+	public LineaReporte(Date fechaBusqueda, int cantPoisBusqueda,String palabraBscada) {
 		super();
 		this.fechaBusqueda = fechaBusqueda;
 		this.cantPoisBusqueda = cantPoisBusqueda;
 		this.palabraBuscada=palabraBscada;
 	}
-	public DateTime getFechaBusqueda() {
+	public Date getFechaBusqueda() {
 		return fechaBusqueda;
 	}
-	public void setFechaBusqueda(DateTime fechaBusqueda) {
+	public void setFechaBusqueda(Date fechaBusqueda) {
 		this.fechaBusqueda = fechaBusqueda;
 	}
 	public int getCantPoisBusqueda() {
