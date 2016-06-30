@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.security.auth.Subject;
+
 import org.apache.http.client.ClientProtocolException;
 
 import Dto.bankDto.BankDTO;
 import domain.Coordinate;
 import domain.Holidays;
 import externalServices.BankService.BankService;
+import observers.subjectBusqueda.SubjectBusquedas;
 import poi.Bank;
 import poi.Poi;
 
@@ -19,6 +22,7 @@ public class PoiService {
 	private static PoiService instance = null;
 	private static List<Poi> allPois;
 	private static BankService bankService;
+	private SubjectBusquedas subjectBusquedas=SubjectBusquedas.getInstance() ;
 	
 	
 	
@@ -56,7 +60,7 @@ public class PoiService {
 	public boolean isAvailable(Poi poi) {
 		return poi.isAvailable();
 	}
-	public List<Poi> searchPois(String string){
+	public List<Poi> searchPois(String string,String nombreTerminal){
 		List<Poi> pois=new ArrayList<Poi>();
 		for (Poi poi : allPois) {
 			for (String text : poi.getData()) {
@@ -65,6 +69,7 @@ public class PoiService {
 				}				
 			}
 		}
+		this.subjectBusquedas.notifiicarObservador();
 		return pois;
 	}
 	

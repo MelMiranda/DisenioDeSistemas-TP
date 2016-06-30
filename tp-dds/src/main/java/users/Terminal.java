@@ -1,4 +1,4 @@
-package poi;
+package users;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,14 +8,26 @@ import org.apache.http.client.ClientProtocolException;
 
 import domain.Coordinate;
 import internalService.PoiService;
+import poi.Bank;
+import poi.Poi;
 
-public class PoiMachine {
+public class Terminal {
 	
-	
+	private String nombre;
 	private Coordinate coordinates;
 	private PoiService poiService;
 	
 	
+	public String getNombre() {
+		return nombre;
+	}
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
 	public Coordinate getCoordinates() {
 		return coordinates;
 	}
@@ -24,10 +36,7 @@ public class PoiMachine {
 	public void setCoordinates(Coordinate coordinates) {
 		this.coordinates = coordinates;
 	}
-	
-	public List<Poi> searchPois(String string){
-		return poiService.searchPois(string);
-	}
+
 	
 	
 	public List<Bank> searchBank(String bank, String service){
@@ -47,13 +56,17 @@ public class PoiMachine {
 	}
 
 
-	public PoiMachine(Coordinate coordinates){
+	public Terminal(Coordinate coordinates){
 		this.coordinates=coordinates;
 		poiService= PoiService.getInstance();
 	}
 	
 	public boolean isAvailable(Poi poi) {
 		return poiService.isAvailable(poi);
+	}
+	
+	public List<Poi> searchPoi(String textoBuscado){
+		return this.poiService.searchPois(textoBuscado,this.getNombre());
 	}
 	
 	

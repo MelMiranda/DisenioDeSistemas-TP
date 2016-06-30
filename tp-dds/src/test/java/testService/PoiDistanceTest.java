@@ -25,8 +25,8 @@ import poi.CGP;
 import poi.CGPService;
 import poi.ComercialShop;
 import poi.Newspaper;
+import users.Terminal;
 import poi.Library;
-import poi.PoiMachine;
 
 @SuppressWarnings("deprecation")
 public class PoiDistanceTest {
@@ -44,7 +44,7 @@ public class PoiDistanceTest {
 	private Coordinate cordinate3;
 	private ComercialShop newsPapersShop;
 	private Newspaper newspapers;
-	private PoiMachine poiMachine;
+	private Terminal poiMachine;
 	
 
 	@Before
@@ -56,7 +56,7 @@ public class PoiDistanceTest {
 		cordinate1 = new Coordinate(lat1,lon1);
 		cordinate2 = new Coordinate(lat2, lon2);
 		cordinate3 = new Coordinate(0, 0);
-		poiMachine= new PoiMachine(cordinate1);
+		poiMachine= new Terminal(cordinate1);
 		poiService = PoiService.getInstance();
 		newspapers= Newspaper.getInstance(700);
 		newsPapersShop= new ComercialShop("Diarios Sistemas", new Address(""), cordinate1, newspapers);

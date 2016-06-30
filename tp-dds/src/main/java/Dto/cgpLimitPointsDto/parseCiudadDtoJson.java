@@ -13,6 +13,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import json.JsonFactory;
 
 public class parseCiudadDtoJson {
+	
+	
 	public static final ObjectMapper JSON_MAPPER = new ObjectMapper();
 
 	
@@ -21,7 +23,7 @@ public class parseCiudadDtoJson {
 		
 		
 		CiudadesDto ciudadDto;
-		ciudadDto=JSON_MAPPER.readValue(new File("/home/mauriciofigueroa/Escritorio/tpDds/TP-DDS/tp-dds/src/main/resources/ciudadesJson.json"), CiudadesDto.class);
+		ciudadDto=JSON_MAPPER.readValue(new File("src/main/resources/ciudadesJson.json"), CiudadesDto.class);
 		
 		return ciudadDto;
 		
@@ -36,6 +38,24 @@ public class parseCiudadDtoJson {
 		 
 		 return lpoint;
 	
+		
+	}
+	
+	
+	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
+		CiudadesDto ciudad=new CiudadesDto();
+		
+		parseCiudadDtoJson parse =new parseCiudadDtoJson();
+		
+		ciudad=parse.parseJson();
+		for (Ciudade ciudade : ciudad.getCiudades()) {
+			
+			System.out.println(ciudade.getCity());
+			
+		}
+		
+		
+		
 		
 	}
 	
