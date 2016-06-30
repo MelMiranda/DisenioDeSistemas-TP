@@ -2,10 +2,12 @@ package observers.subjectBusqueda;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 import observers.busqueda.AlmacenarResultado;
 import observers.busqueda.NotificarAdmin;
 import observers.busqueda.ObserverBusqueda;
+import poi.Poi;
 
 public class SubjectBusquedas implements Subject {
 	
@@ -40,8 +42,11 @@ public class SubjectBusquedas implements Subject {
 	}
 
 	@Override
-	public void notifiicarObservador() {
-		// TODO Auto-generated method stub
+	public void notifiicarObservador(String stringBuscado, String nombreTerminal, List<Poi> poisEncontrados) {
+		for (ObserverBusqueda currentObserver : observers) {
+			currentObserver.update(stringBuscado,nombreTerminal,poisEncontrados.size());
+			
+		}
 		
 	}
 

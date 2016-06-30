@@ -69,7 +69,7 @@ public class PoiService {
 				}				
 			}
 		}
-		this.subjectBusquedas.notifiicarObservador();
+		this.subjectBusquedas.notifiicarObservador(string,nombreTerminal,pois);
 		return pois;
 	}
 	
