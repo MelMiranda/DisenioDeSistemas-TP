@@ -2,17 +2,10 @@ package internalService;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import javax.security.auth.Subject;
-
 import org.apache.http.client.ClientProtocolException;
-
-import Dto.bankDto.BankDTO;
 import domain.Coordinate;
-import domain.Holidays;
 import externalServices.BankService.BankService;
 import observers.subjectBusqueda.SubjectBusquedas;
 import poi.Bank;
@@ -37,7 +30,7 @@ public class PoiService {
 	}
 
 	public void removeAllPois() {
-		this.allPois.clear();
+		allPois.clear();
 	}
 
 	public List<Poi> getAllPois() {
@@ -45,7 +38,7 @@ public class PoiService {
 	}
 
 	public void setAllPois(List<Poi> allPois) {
-		this.allPois = allPois;
+		allPois = allPois;
 	}
 
 	public String poiType(Poi poi) {
@@ -78,18 +71,26 @@ public class PoiService {
 
 	}
 	
-	public Map<String,Integer> obtenerReportesFecha(){
+	public Map<String,Integer> getReportesTotalesPorFecha(){
 		return reportService.getReportesTotalesPorFecha();
 	}
 	
-	
+	public Map<String, Integer> getParcialesPorTerminal(String nombreTerminal){
+		return reportService.getParcialesPorTerminal(nombreTerminal);
+	}
 
 	public List<Bank> getBanksFromExternalService(String bank, String service) {
 		return bankService.getBanksFromService(bank, service);
 	}
 	
+	
 	public void resetReports(){
 		reportService.resetReports();
+		
+	}
+
+	public void resetAllPois() {
+		allPois=new ArrayList<Poi>();
 		
 	}
 }

@@ -1,55 +1,80 @@
 package testService;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
-
-import javax.annotation.processing.SupportedAnnotationTypes;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.test.AssertThrows;
-
 import domain.Address;
 import domain.Coordinate;
-import domain.RangeOfAtention;
-import domain.Schedule;
 import internalService.PoiService;
 import junit.framework.Assert;
 import poi.Bank;
-import poi.CGPService;
+
 import poi.ComercialShop;
 import poi.Newspaper;
 import users.Admin;
+import users.Terminal;
 
+@SuppressWarnings("deprecation")
 public class ReportTest {
 	private PoiService poiService;
 	private Admin admin;
+	private String date;
+	private Terminal terminal;
 
 	@Before
 	public void setup() {
 		this.poiService = PoiService.getInstance();
 		this.admin = new Admin();
 		this.poiService.resetReports();
+		this.poiService.resetAllPois();
 
 		this.admin.addPoi(new Bank("BancoNAcion", new Address("Paraguay 2815"), new Coordinate(1.2, 21.3)));
 		this.admin.addPoi(new ComercialShop("libreria de libros ajajaj", new Address("al lado de la utn"),
 				new Coordinate(1.2, 21.3), Newspaper.getInstance(32)));
 
+		Date fecha = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
+		this.date = sdf.format(fecha);
+
+		terminal = new Terminal("terminalAbasto", this.poiService);
+
 	}
 
-
 	@Test
-	public void testReportes() {
+	public void testReportesTotales() {
 		this.poiService.searchPois("BancoNAcion", "banco1");
 		this.poiService.searchPois("al lado de la utn", "banco1");
 
-		Map<String, Integer> resultados = this.poiService.obtenerReportesFecha();
+		Map<String, Integer> resultadosTotales = this.poiService.getReportesTotalesPorFecha();
 
-	
-	    Assert.assertEquals((Integer) 2, resultados.get("30/6/2016"));
-	    Assert.assertNotNull(resultados);
+		// System.out.println(resultadosTotales);
 
+		Assert.assertEquals((Integer) 2, resultadosTotales.get(date));
+		Assert.assertNotNull(resultadosTotales);
 	}
 
+	@Test
+	public void testReportesParcialesPorTerminal() {
+
+		Map<String, Integer> resultadoPorTerminalAbasto = this.poiService.getParcialesPorTerminal("terminalAbasto");
+		this.terminal.searchPoi("BancoNAcion");
+		this.terminal.searchPoi("al lado de la utn");
+		resultadoPorTerminalAbasto = this.poiService.getParcialesPorTerminal("terminalAbasto");
+
+		Assert.assertEquals((Integer) 2, resultadoPorTerminalAbasto.get(date));
+		Assert.assertNotNull(resultadoPorTerminalAbasto);
+
+		this.admin.addPoi(new Bank("acaNomas", new Address("cngvjhgj"), new Coordinate(1.2, 21.3)));
+		this.admin.addPoi(new ComercialShop("hgkhjk", new Address("acaNomas"), new Coordinate(1.2, 21.3),
+				Newspaper.getInstance(32)));
+
+		this.terminal.searchPoi("acaNomas");
+		
+				
+		// verificar aca esta dando los datos mal
+		resultadoPorTerminalAbasto = this.poiService.getParcialesPorTerminal("terminalAbasto");
+		Assert.assertEquals((Integer) 6, resultadoPorTerminalAbasto.get(date));
+		Assert.assertNotNull(resultadoPorTerminalAbasto);
+	}
 }

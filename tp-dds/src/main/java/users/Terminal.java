@@ -1,7 +1,6 @@
 package users;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
@@ -18,6 +17,15 @@ public class Terminal {
 	private PoiService poiService;
 	
 	
+	
+	
+	public Terminal(String nombre, PoiService poiService) {
+		super();
+		this.nombre = nombre;
+		this.poiService = PoiService.getInstance();
+	}
+
+
 	public String getNombre() {
 		return nombre;
 	}
