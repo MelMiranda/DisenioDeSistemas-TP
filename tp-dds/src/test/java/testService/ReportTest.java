@@ -21,6 +21,7 @@ public class ReportTest {
 	private Admin admin;
 	private String date;
 	private Terminal terminal;
+	private Terminal terminal2;
 
 	@Before
 	public void setup() {
@@ -37,7 +38,8 @@ public class ReportTest {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
 		this.date = sdf.format(fecha);
 
-		terminal = new Terminal("terminalAbasto", this.poiService);
+		terminal  = new Terminal("terminalAbasto", this.poiService);
+		terminal2 =new Terminal("terminalPalermo",this.poiService);
 
 	}
 
@@ -77,4 +79,27 @@ public class ReportTest {
 		Assert.assertEquals((Integer) 6, resultadoPorTerminalAbasto.get(date));
 		Assert.assertNotNull(resultadoPorTerminalAbasto);
 	}
+	
+	@Test
+	public void testReportesTotalesTodasLasTerminales(){
+		Map<String, Integer> resultadoPorTerminalAbasto = this.poiService.getParcialesPorTerminal("terminalAbasto");
+		this.terminal.searchPoi("BancoNAcion");
+		this.terminal.searchPoi("al lado de la utn");
+		resultadoPorTerminalAbasto = this.poiService.getParcialesPorTerminal("terminalAbasto");
+
+		
+		Map<String, Integer> resultadoPorTerminalPalermo;
+		this.terminal2.searchPoi("BancoNAcion");
+		this.terminal2.searchPoi("al lado de la utn");
+		resultadoPorTerminalPalermo = this.poiService.getParcialesPorTerminal("terminalPalermo");
+
+		
+		System.out.println("=============================");
+
+		System.out.println("=============================");
+
+	
+	}
+	
+	
 }

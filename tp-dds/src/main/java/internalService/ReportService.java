@@ -1,9 +1,11 @@
 package internalService;
 
+import java.security.KeyStore.Entry;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +23,7 @@ public class ReportService {
 		if (instance == null) {
 			reportes = new ArrayList<ReportePorTerminal>();
 			mapaResultadosTotales = new HashMap<String, Integer>();
-			mapaResultadoParcialPorTerminal= new HashMap<String, Integer>();
+			mapaResultadoParcialPorTerminal = new HashMap<String, Integer>();
 			return new ReportService();
 		}
 		return instance;
@@ -67,7 +69,7 @@ public class ReportService {
 				} else {
 					mapaResultadosTotales.put(date, lineaReporte.getCantPoisBusqueda());
 				}
-				 n=0;
+				n = 0;
 			}
 		}
 		return mapaResultadosTotales;
@@ -81,8 +83,8 @@ public class ReportService {
 	public Map<String, Integer> getParcialesPorTerminal(String nombreTerminal) {
 		int suma;
 		int n;
-		ReportePorTerminal reporte=this.buscarReporteTerminal(nombreTerminal);
-		if(reporte!=null){
+		ReportePorTerminal reporte = this.buscarReporteTerminal(nombreTerminal);
+		if (reporte != null) {
 			for (LineaReporte lineaReporte : reporte.getBusquedas()) {
 				Date fecha = lineaReporte.getFechaBusqueda();
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
@@ -96,9 +98,9 @@ public class ReportService {
 				} else {
 					mapaResultadoParcialPorTerminal.put(date, lineaReporte.getCantPoisBusqueda());
 				}
-				n=0;
-			}			
-		}	
+				n = 0;
+			}
+		}
 		return mapaResultadoParcialPorTerminal;
 	}
 
@@ -112,23 +114,34 @@ public class ReportService {
 		return reporte;
 
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Map<String, Integer> getReportesTotalesTodasLasTerminales() {
-		Map<String, Integer> resultadosTotales=new HashMap<String, Integer>();
+		Map<String, Integer> resultadosTotales = new HashMap<String, Integer>();
 		int suma;
 		for (ReportePorTerminal reportePorTerminal : reportes) {
-			Map<String, Integer> resultadosPorTerminal=this.getParcialesPorTerminal(reportePorTerminal.getNombreTerminal());
-			suma=0;
-			
-			List<String> keys=(List<String>) this.getParcialesPorTerminal(reportePorTerminal.getNombreTerminal()).keySet();
-			for (String key : keys) {
-				suma=suma+resultadosPorTerminal.get(key);
+			Map<String, Integer> resultadosPorTerminal = this
+					.getParcialesPorTerminal(reportePorTerminal.getNombreTerminal());
+			suma = 0;
+
+			List<String> keys = new ArrayList<String>();
+
+			for (final Iterator<java.util.Map.Entry<String, Integer>> it = resultadosPorTerminal.entrySet()
+					.iterator(); it.hasNext();) {
+				final java.util.Map.Entry<String, Integer> entry = it.next();
+				final String numero = entry.getKey();
+				keys.add(numero);
+				;
+
+
+				for (String key : keys) {
+					suma = suma + resultadosPorTerminal.get(key);
+				}
+				resultadosTotales.put(reportePorTerminal.getNombreTerminal(), suma);
+
 			}
-			resultadosTotales.put(reportePorTerminal.getNombreTerminal(), suma);
-			
+
 		}
-		
 		return resultadosTotales;
 	}
 }
