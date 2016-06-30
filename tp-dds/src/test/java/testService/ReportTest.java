@@ -29,6 +29,7 @@ public class ReportTest {
 		this.admin = new Admin();
 		this.poiService.resetReports();
 		this.poiService.resetAllPois();
+		this.poiService.removeAllPois();
 
 		this.admin.addPoi(new Bank("BancoNAcion", new Address("Paraguay 2815"), new Coordinate(1.2, 21.3)));
 		this.admin.addPoi(new ComercialShop("libreria de libros ajajaj", new Address("al lado de la utn"),

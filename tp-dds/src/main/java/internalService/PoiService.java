@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import org.apache.http.client.ClientProtocolException;
 import domain.Coordinate;
+import domain.Reloj;
 import externalServices.BankService.BankService;
 import observers.subjectBusqueda.SubjectBusquedas;
 import poi.Bank;
@@ -54,6 +55,8 @@ public class PoiService {
 	}
 
 	public List<Poi> searchPois(String string, String nombreTerminal) {
+		Reloj reloj=new Reloj();
+		reloj.Contar();
 		List<Poi> pois = new ArrayList<Poi>();
 		for (Poi poi : allPois) {
 			for (String text : poi.getData()) {
@@ -62,6 +65,8 @@ public class PoiService {
 				}
 			}
 		}
+		reloj.Detener();
+		int segundosQueTardo=reloj.getSegundos();
 		this.subjectBusquedas.notifiicarObservador(string, nombreTerminal, pois);
 		return pois;
 	}
