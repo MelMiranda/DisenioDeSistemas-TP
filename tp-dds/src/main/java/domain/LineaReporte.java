@@ -6,12 +6,21 @@ public class LineaReporte {
 	
 	private DateTime fechaBusqueda;
 	private int cantPoisBusqueda ;
+	private String palabraBuscada;
 	
 	
-	public LineaReporte(DateTime fechaBusqueda, int cantPoisBusqueda) {
+	
+	public String getPalabraBuscada() {
+		return palabraBuscada;
+	}
+	public void setPalabraBuscada(String palabraBuscada) {
+		this.palabraBuscada = palabraBuscada;
+	}
+	public LineaReporte(DateTime fechaBusqueda, int cantPoisBusqueda,String palabraBscada) {
 		super();
 		this.fechaBusqueda = fechaBusqueda;
 		this.cantPoisBusqueda = cantPoisBusqueda;
+		this.palabraBuscada=palabraBscada;
 	}
 	public DateTime getFechaBusqueda() {
 		return fechaBusqueda;
