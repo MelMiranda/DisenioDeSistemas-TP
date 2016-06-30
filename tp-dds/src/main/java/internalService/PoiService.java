@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.security.auth.Subject;
 
@@ -77,10 +78,8 @@ public class PoiService {
 
 	}
 	
-	public void obtenerReportesFecha(){
-		return reportService.getReportesFecha();
-		
-		
+	public Map<String,Integer> obtenerReportesFecha(){
+		return reportService.getReportesTotalesPorFecha();
 	}
 	
 	

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import domain.LineaReporte;
-import domain.ReporteFecha;
 import domain.ReportePorTerminal;
 
 public class ReportService {
@@ -43,7 +42,7 @@ public class ReportService {
 		}
 	}
 
-	public Object getReportesFecha() {
+	public Map<String, Integer> getReportesTotalesPorFecha() {
 
 		Map<String, Integer> mapaResultados = new HashMap<String, Integer>();
 		int n;
