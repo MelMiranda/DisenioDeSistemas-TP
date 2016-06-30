@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import org.apache.http.client.ClientProtocolException;
 import domain.Coordinate;
 import domain.Reloj;
@@ -11,6 +15,7 @@ import externalServices.BankService.BankService;
 import observers.subjectBusqueda.SubjectBusquedas;
 import poi.Bank;
 import poi.Poi;
+import utils.Esperar;
 
 public class PoiService {
 
@@ -54,7 +59,7 @@ public class PoiService {
 		return poi.isAvailable();
 	}
 
-	public List<Poi> searchPois(String string, String nombreTerminal) {
+	public List<Poi> searchPois(String string, String nombreTerminal) throws AddressException, MessagingException, InterruptedException {
 		Reloj reloj=new Reloj();
 		reloj.Contar();
 		List<Poi> pois = new ArrayList<Poi>();
@@ -65,9 +70,12 @@ public class PoiService {
 				}
 			}
 		}
+		
+		Thread.sleep(5000);
 		reloj.Detener();
 		int segundosQueTardo=reloj.getSegundos();
-		this.subjectBusquedas.notifiicarObservador(string, nombreTerminal, pois);
+		System.out.println("Segundoooos: "+segundosQueTardo);
+		this.subjectBusquedas.notifiicarObservador(string, nombreTerminal, pois,segundosQueTardo);
 		return pois;
 	}
 

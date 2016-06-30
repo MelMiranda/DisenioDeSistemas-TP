@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import junit.framework.Assert;
 
 import org.apache.http.client.ClientProtocolException;
@@ -132,11 +135,11 @@ public class AvailableServiceTest {
 
 	@Test
 	public void testSchoolLibrary() {
-		Assert.assertTrue(schoolLibrary.isAvailable(availabilityService));
+		Assert.assertFalse(schoolLibrary.isAvailable(availabilityService));
 	}
 
 	@Test
-	public void testSearch() {
+	public void testSearch() throws AddressException, MessagingException, InterruptedException {
 		poiService.getAllPois().add(busStation);
 		poiService.getAllPois().add(bank);
 		poiService.getAllPois().add(cgp);
@@ -147,7 +150,7 @@ public class AvailableServiceTest {
 	}
 
 	@Test
-	public void testSearchString2() {
+	public void testSearchString2() throws AddressException, MessagingException, InterruptedException {
 		poiService.getAllPois().add(busStation);
 		for (Poi poi : poiService.searchPois("", "terminalPalermo")) {
 		}

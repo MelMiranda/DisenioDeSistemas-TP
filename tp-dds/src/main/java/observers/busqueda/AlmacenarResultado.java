@@ -10,7 +10,7 @@ public class AlmacenarResultado implements ObserverBusqueda {
 
 
 	@Override
-	public void update(String palabraBuscada, String nombreTerminal, int cantPoisBusqueda) {
+	public void update(String palabraBuscada, String nombreTerminal, int cantPoisBusqueda,int segundosQueTardo) {
 		reportService.addReporte(nombreTerminal, palabraBuscada, cantPoisBusqueda);		
 	}
 

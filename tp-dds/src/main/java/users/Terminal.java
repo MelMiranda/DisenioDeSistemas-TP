@@ -3,6 +3,9 @@ package users;
 import java.io.IOException;
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import org.apache.http.client.ClientProtocolException;
 
 import domain.Coordinate;
@@ -73,7 +76,7 @@ public class Terminal {
 		return poiService.isAvailable(poi);
 	}
 	
-	public List<Poi> searchPoi(String textoBuscado){
+	public List<Poi> searchPoi(String textoBuscado) throws AddressException, MessagingException, InterruptedException{
 		return this.poiService.searchPois(textoBuscado,this.getNombre());
 	}
 	

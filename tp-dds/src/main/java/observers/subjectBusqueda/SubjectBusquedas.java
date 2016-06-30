@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import observers.busqueda.AlmacenarResultado;
 import observers.busqueda.NotificarAdmin;
 import observers.busqueda.ObserverBusqueda;
@@ -42,9 +45,9 @@ public class SubjectBusquedas implements Subject {
 	}
 
 	@Override
-	public void notifiicarObservador(String stringBuscado, String nombreTerminal, List<Poi> poisEncontrados) {
+	public void notifiicarObservador(String stringBuscado, String nombreTerminal, List<Poi> poisEncontrados,int segundosQueTardo) throws AddressException, MessagingException {
 		for (ObserverBusqueda currentObserver : observers) {
-			currentObserver.update(stringBuscado,nombreTerminal,poisEncontrados.size());
+			currentObserver.update(stringBuscado,nombreTerminal,poisEncontrados.size(),segundosQueTardo);
 			
 		}
 		

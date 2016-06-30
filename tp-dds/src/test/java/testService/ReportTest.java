@@ -2,6 +2,10 @@ package testService;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import org.junit.Before;
 import org.junit.Test;
 import domain.Address;
@@ -45,20 +49,18 @@ public class ReportTest {
 	}
 
 	@Test
-	public void testReportesTotales() {
+	public void testReportesTotales() throws AddressException, MessagingException, InterruptedException {
 		this.poiService.searchPois("BancoNAcion", "banco1");
 		this.poiService.searchPois("al lado de la utn", "banco1");
 
 		Map<String, Integer> resultadosTotales = this.poiService.getReportesTotalesPorFecha();
-
-		// System.out.println(resultadosTotales);
 
 		Assert.assertEquals((Integer) 2, resultadosTotales.get(date));
 		Assert.assertNotNull(resultadosTotales);
 	}
 
 	@Test
-	public void testReportesParcialesPorTerminal() {
+	public void testReportesParcialesPorTerminal() throws AddressException, MessagingException, InterruptedException {
 
 		Map<String, Integer> resultadoPorTerminalAbasto = this.poiService.getParcialesPorTerminal("terminalAbasto");
 		this.terminal.searchPoi("BancoNAcion");
@@ -82,12 +84,14 @@ public class ReportTest {
 	}
 	
 	@Test
-	public void testReportesTotalesTodasLasTerminales(){
-		this.terminal.searchPoi("BancoNAcion");
-		this.terminal.searchPoi("al lado de la utn");	
-		
-		this.terminal2.searchPoi("BancoNAcion");
-		this.terminal2.searchPoi("al lado de la utn");		
+	public void testReportesTotalesTodasLasTerminales() throws AddressException, MessagingException, InterruptedException{
+
+			this.terminal.searchPoi("BancoNAcion");
+			this.terminal.searchPoi("al lado de la utn");	
+			
+			this.terminal2.searchPoi("BancoNAcion");
+			this.terminal2.searchPoi("al lado de la utn");	
+	
 		
 		Assert.assertEquals((Integer) 2, this.poiService.getReportesTodasLasTerminales().get("terminalAbasto"));
 		Assert.assertEquals((Integer) 4, this.poiService.getReportesTodasLasTerminales().get("terminalPalermo"));
