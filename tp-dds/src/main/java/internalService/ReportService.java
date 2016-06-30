@@ -112,4 +112,23 @@ public class ReportService {
 		return reporte;
 
 	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Integer> getReportesTotalesTodasLasTerminales() {
+		Map<String, Integer> resultadosTotales=new HashMap<String, Integer>();
+		int suma;
+		for (ReportePorTerminal reportePorTerminal : reportes) {
+			Map<String, Integer> resultadosPorTerminal=this.getParcialesPorTerminal(reportePorTerminal.getNombreTerminal());
+			suma=0;
+			
+			List<String> keys=(List<String>) this.getParcialesPorTerminal(reportePorTerminal.getNombreTerminal()).keySet();
+			for (String key : keys) {
+				suma=suma+resultadosPorTerminal.get(key);
+			}
+			resultadosTotales.put(reportePorTerminal.getNombreTerminal(), suma);
+			
+		}
+		
+		return resultadosTotales;
+	}
 }

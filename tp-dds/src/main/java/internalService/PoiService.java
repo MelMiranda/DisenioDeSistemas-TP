@@ -79,6 +79,13 @@ public class PoiService {
 		return reportService.getParcialesPorTerminal(nombreTerminal);
 	}
 
+	public Map<String, Integer> getReportesTodasLasTerminales(){
+		return this.reportService.getReportesTotalesTodasLasTerminales();
+	}
+	
+	
+	
+
 	public List<Bank> getBanksFromExternalService(String bank, String service) {
 		return bankService.getBanksFromService(bank, service);
 	}
