@@ -18,12 +18,14 @@ public class ReportService {
 	private static List<ReportePorTerminal> reportes;
 	private static Map<String, Integer> mapaResultadosTotales;
 	private static Map<String, Integer> mapaResultadoParcialPorTerminal;
+	private static Map<String, Integer> mapaResultadoTotalesTodasLasTerminales;
 
 	public static ReportService getInstance() {
 		if (instance == null) {
 			reportes = new ArrayList<ReportePorTerminal>();
 			mapaResultadosTotales = new HashMap<String, Integer>();
 			mapaResultadoParcialPorTerminal = new HashMap<String, Integer>();
+			mapaResultadoTotalesTodasLasTerminales= new HashMap<String, Integer>();
 			return new ReportService();
 		}
 		return instance;
@@ -77,8 +79,11 @@ public class ReportService {
 
 	public void resetReports() {
 		reportes = new ArrayList<ReportePorTerminal>();
-
 	}
+	public void resetReportesTotales(){
+		mapaResultadoParcialPorTerminal=new HashMap<String, Integer>();
+	}
+	
 
 	public Map<String, Integer> getParcialesPorTerminal(String nombreTerminal) {
 		int suma;
@@ -117,7 +122,7 @@ public class ReportService {
 
 	@SuppressWarnings("unchecked")
 	public Map<String, Integer> getReportesTotalesTodasLasTerminales() {
-		Map<String, Integer> resultadosTotales = new HashMap<String, Integer>();
+		this.resetReportesTotales();
 		int suma;
 		for (ReportePorTerminal reportePorTerminal : reportes) {
 			Map<String, Integer> resultadosPorTerminal = this
@@ -125,23 +130,21 @@ public class ReportService {
 			suma = 0;
 
 			List<String> keys = new ArrayList<String>();
-
+			
+			//flashada por que me ate mucho a los map, pero funciona
 			for (final Iterator<java.util.Map.Entry<String, Integer>> it = resultadosPorTerminal.entrySet()
 					.iterator(); it.hasNext();) {
 				final java.util.Map.Entry<String, Integer> entry = it.next();
 				final String numero = entry.getKey();
 				keys.add(numero);
-				;
-
-
-				for (String key : keys) {
-					suma = suma + resultadosPorTerminal.get(key);
-				}
-				resultadosTotales.put(reportePorTerminal.getNombreTerminal(), suma);
-
+				;				
 			}
+			for (String key : keys) {
+				suma = suma + resultadosPorTerminal.get(key);
+			}
+			mapaResultadoTotalesTodasLasTerminales.put(reportePorTerminal.getNombreTerminal(), suma);
 
 		}
-		return resultadosTotales;
+		return mapaResultadoTotalesTodasLasTerminales;
 	}
 }

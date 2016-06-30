@@ -82,24 +82,15 @@ public class ReportTest {
 	
 	@Test
 	public void testReportesTotalesTodasLasTerminales(){
-		Map<String, Integer> resultadoPorTerminalAbasto = this.poiService.getParcialesPorTerminal("terminalAbasto");
 		this.terminal.searchPoi("BancoNAcion");
-		this.terminal.searchPoi("al lado de la utn");
-		resultadoPorTerminalAbasto = this.poiService.getParcialesPorTerminal("terminalAbasto");
-
+		this.terminal.searchPoi("al lado de la utn");	
 		
-		Map<String, Integer> resultadoPorTerminalPalermo;
 		this.terminal2.searchPoi("BancoNAcion");
-		this.terminal2.searchPoi("al lado de la utn");
-		resultadoPorTerminalPalermo = this.poiService.getParcialesPorTerminal("terminalPalermo");
-
+		this.terminal2.searchPoi("al lado de la utn");		
 		
-		System.out.println("=============================");
+		Assert.assertEquals((Integer) 2, this.poiService.getReportesTodasLasTerminales().get("terminalAbasto"));
+		Assert.assertEquals((Integer) 4, this.poiService.getReportesTodasLasTerminales().get("terminalPalermo"));
 
-		System.out.println("=============================");
-
-	
-	}
-	
+	}	
 	
 }
