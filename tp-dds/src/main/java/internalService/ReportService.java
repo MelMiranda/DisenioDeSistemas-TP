@@ -37,13 +37,13 @@ public class ReportService {
 		int i = 0;
 		for (ReportePorTerminal currentReport : reportes) {
 			if (currentReport.getNombreTerminal().equals(nombreTerminal)) {
-				currentReport.agregarLineaMapa(cantPoisBusqueda, palabraBuscada);
+				currentReport.agregarReporteAterminal(cantPoisBusqueda, palabraBuscada);
 				i = 1;
 			}
 		}
 		if (i == 0) {
 			ReportePorTerminal reporte = new ReportePorTerminal(nombreTerminal);
-			reporte.agregarLineaMapa(cantPoisBusqueda, palabraBuscada);
+			reporte.agregarReporteAterminal(cantPoisBusqueda, palabraBuscada);
 			reportes.add(reporte);
 		}
 	}
@@ -63,7 +63,7 @@ public class ReportService {
 				if (mapaResultados.containsKey(date)) {
 					n = mapaResultados.get(date);
 					mapaResultados.remove(date);
-					suma = n = lineaReporte.getCantPoisBusqueda();
+					suma = n + lineaReporte.getCantPoisBusqueda();
 					mapaResultados.put(date, suma);
 				} else {
 					mapaResultados.put(date, lineaReporte.getCantPoisBusqueda());
