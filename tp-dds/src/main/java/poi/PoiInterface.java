@@ -1,10 +1,7 @@
 package poi;
 
 import java.io.IOException;
-import java.util.Date;
-
 import org.apache.http.client.ClientProtocolException;
-
 import domain.Coordinate;
 
 

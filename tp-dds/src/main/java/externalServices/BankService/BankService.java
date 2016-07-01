@@ -1,16 +1,10 @@
 package externalServices.BankService;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.core.ParameterizedTypeReference;
-
 import poi.Bank;
-
 import com.fasterxml.jackson.core.type.TypeReference;
-
 import Dto.bankDto.BankDTO;
 import reader.URLReader;
 import json.JsonFactory;

@@ -74,8 +74,6 @@ public class CGP extends Poi {
 
 	public boolean isAvailable( String serviceName) {
 		Date date= new Date();
-		int i = 0;
-
 		if (!(this.getServices().isEmpty())) {
 			for(CGPService currentCGPService :services) {
 				if (currentCGPService.getServiceName().equals(serviceName)) {

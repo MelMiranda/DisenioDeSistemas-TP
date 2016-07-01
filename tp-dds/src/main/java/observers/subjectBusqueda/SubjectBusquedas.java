@@ -2,11 +2,8 @@ package observers.subjectBusqueda;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
-
 import observers.busqueda.AlmacenarResultado;
 import observers.busqueda.NotificarAdmin;
 import observers.busqueda.ObserverBusqueda;

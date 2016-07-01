@@ -17,7 +17,7 @@ import observers.subjectBusqueda.SubjectBusquedas;
 import poi.Bank;
 import poi.Poi;
 import users.Terminal;
-import utils.Esperar;
+
 
 public class PoiService {
 
@@ -112,7 +112,7 @@ public class PoiService {
 			}
 		}
 		
-		Thread.sleep(5000);
+		Thread.sleep(6000);
 		reloj.Detener();
 		int segundosQueTardo=reloj.getSegundos();
 		System.out.println("Segundoooos: "+segundosQueTardo);

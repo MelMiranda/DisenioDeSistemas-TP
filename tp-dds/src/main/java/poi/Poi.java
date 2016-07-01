@@ -2,10 +2,8 @@ package poi;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.apache.http.client.ClientProtocolException;
-
 import domain.Address;
 import domain.Coordinate;
 import externalServices.GoogleDistanceService.GoogleDistanceService;

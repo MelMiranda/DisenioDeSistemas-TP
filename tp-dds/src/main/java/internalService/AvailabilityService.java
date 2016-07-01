@@ -33,6 +33,7 @@ public class AvailabilityService {
 		return instance;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public boolean isAvailability(RangeOfAtention range) {
 		Date date= new Date();
 		boolean isAvailability=false;
