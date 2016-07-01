@@ -15,15 +15,15 @@ public class ReportService {
 
 	private static ReportService instance;
 	private static List<ReportePorTerminal> reportes;
-	private static Map<String, Integer> mapaResultadosTotales;
-	private static Map<String, Integer> mapaResultadoParcialPorTerminal;
+
+
 	private static Map<String, Integer> mapaResultadoTotalesTodasLasTerminales;
 
 	public static ReportService getInstance() {
 		if (instance == null) {
 			reportes = new ArrayList<ReportePorTerminal>();
-			mapaResultadosTotales = new HashMap<String, Integer>();
-			mapaResultadoParcialPorTerminal = new HashMap<String, Integer>();
+			
+			
 			mapaResultadoTotalesTodasLasTerminales= new HashMap<String, Integer>();
 			return new ReportService();
 		}
@@ -54,55 +54,45 @@ public class ReportService {
 	}
 
 	public Map<String, Integer> getReportesTotalesPorFecha() {
-		int n;
-		int suma;
+		Map<String, Integer> mapaResultadosTotales = new HashMap<String, Integer>();
+		int suma=0;
+		List<ReportePorTerminal> reporsss= reportes;
 		for (ReportePorTerminal reportePorTerminal : reportes) {
 			for (LineaReporte lineaReporte : reportePorTerminal.getBusquedas()) {
 				Date fecha = lineaReporte.getFechaBusqueda();
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
 				String date = sdf.format(fecha);
-
-				if (mapaResultadosTotales.containsKey(date)) {
-					n = mapaResultadosTotales.get(date);
-					mapaResultadosTotales.remove(date);
-					suma = n + lineaReporte.getCantPoisBusqueda();
-					mapaResultadosTotales.put(date, suma);
-				} else {
-					mapaResultadosTotales.put(date, lineaReporte.getCantPoisBusqueda());
+				int cantPoisResult= lineaReporte.getCantPoisBusqueda()/2;
+				suma = suma +cantPoisResult;
+				mapaResultadosTotales.put(date, suma);
 				}
-				n = 0;
+				
 			}
-		}
 		return mapaResultadosTotales;
-	}
+		}
+		
+	
 
 	public void resetReports() {
 		reportes = new ArrayList<ReportePorTerminal>();
 	}
-	public void resetReportesTotales(){
-		mapaResultadoParcialPorTerminal=new HashMap<String, Integer>();
-	}
+
 	
 
 	public Map<String, Integer> getParcialesPorTerminal(String nombreTerminal) {
-		int suma;
-		int n;
+		int suma=0;
+		 Map<String, Integer> mapaResultadoParcialPorTerminal = new HashMap<String, Integer>();
+		
 		ReportePorTerminal reporte = this.buscarReporteTerminal(nombreTerminal);
 		if (reporte != null) {
 			for (LineaReporte lineaReporte : reporte.getBusquedas()) {
 				Date fecha = lineaReporte.getFechaBusqueda();
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
 				String date = sdf.format(fecha);
-
-				if (mapaResultadoParcialPorTerminal.containsKey(date)) {
-					n = mapaResultadoParcialPorTerminal.get(date);
-					mapaResultadoParcialPorTerminal.remove(date);
-					suma = n + lineaReporte.getCantPoisBusqueda();
+				int cantPoisResult= lineaReporte.getCantPoisBusqueda()/2;
+					suma = suma +cantPoisResult;
 					mapaResultadoParcialPorTerminal.put(date, suma);
-				} else {
-					mapaResultadoParcialPorTerminal.put(date, lineaReporte.getCantPoisBusqueda());
-				}
-				n = 0;
+				
 			}
 		}
 		return mapaResultadoParcialPorTerminal;
@@ -120,7 +110,6 @@ public class ReportService {
 	}
 
 	public Map<String, Integer> getReportesTotalesTodasLasTerminales() {
-		this.resetReportesTotales();
 		int suma;
 		for (ReportePorTerminal reportePorTerminal : reportes) {
 			Map<String, Integer> resultadosPorTerminal = this
