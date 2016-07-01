@@ -2,13 +2,17 @@ package testService;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import domain.Address;
 import domain.Coordinate;
 import internalService.PoiService;
+import internalService.ReportService;
 import junit.framework.Assert;
 import poi.Bank;
 import poi.ComercialShop;
@@ -49,25 +53,23 @@ public class ReportTest {
 
 	@Test
 	public void testReportesTotales() throws AddressException, MessagingException, InterruptedException {
-		this.poiService.searchPois("BancoNAcion", "banco1");
-		this.poiService.searchPois("al lado de la utn", "banco1");
+		this.poiService.searchPois("BancoNAcion", "terminalAbasto");
+		this.poiService.searchPois("al lado de la utn", "terminalPalermo");
+		terminal.searchPoi("BancoNAcion");
+		
+		ReportService report= poiService.getReportService();
+		
+		
 
-		Map<String, Integer> resultadosTotales = this.poiService.getReportesTotalesPorFecha();
-
-		Assert.assertEquals((Integer) 2, resultadosTotales.get(date));
+		Map<String, Integer> resultadosTotales =report.getReportesTotalesPorFecha();
+System.out.println(resultadosTotales.get(date));
+System.out.println(resultadosTotales);
+		Assert.assertEquals( (Integer)3, resultadosTotales.get(date));
 		Assert.assertNotNull(resultadosTotales);
 	}
 
 	@Test
 	public void testReportesParcialesPorTerminal() throws AddressException, MessagingException, InterruptedException {
-
-		Map<String, Integer> resultadoPorTerminalAbasto = this.poiService.getParcialesPorTerminal("terminalAbasto");
-		this.terminal.searchPoi("BancoNAcion");
-		this.terminal.searchPoi("al lado de la utn");
-		resultadoPorTerminalAbasto = this.poiService.getParcialesPorTerminal("terminalAbasto");
-
-		Assert.assertEquals((Integer) 2, resultadoPorTerminalAbasto.get(date));
-		Assert.assertNotNull(resultadoPorTerminalAbasto);
 
 		this.admin.addPoi(new Bank("acaNomas", new Address("cngvjhgj"), new Coordinate(1.2, 21.3)));
 		this.admin.addPoi(new ComercialShop("hgkhjk", new Address("acaNomas"), new Coordinate(1.2, 21.3),
@@ -76,10 +78,7 @@ public class ReportTest {
 		this.terminal.searchPoi("acaNomas");
 		
 				
-		// verificar aca esta dando los datos mal
-		resultadoPorTerminalAbasto = this.poiService.getParcialesPorTerminal("terminalAbasto");
-		Assert.assertEquals((Integer) 6, resultadoPorTerminalAbasto.get(date));
-		Assert.assertNotNull(resultadoPorTerminalAbasto);
+		Assert.assertEquals( (Integer)2, (this.poiService.getParcialesPorTerminal("terminalAbasto").get(date)));
 	}
 	
 	@Test
@@ -90,9 +89,9 @@ public class ReportTest {
 			
 			this.terminal2.searchPoi("BancoNAcion");
 			this.terminal2.searchPoi("al lado de la utn");	
-		
+		System.out.println(poiService.getReportesTodasLasTerminales());
 		Assert.assertEquals((Integer) 2, this.poiService.getReportesTodasLasTerminales().get("terminalAbasto"));
-		Assert.assertEquals((Integer) 4, this.poiService.getReportesTodasLasTerminales().get("terminalPalermo"));
+		Assert.assertEquals((Integer) 2, this.poiService.getReportesTodasLasTerminales().get("terminalPalermo"));
 	}	
 	
 	

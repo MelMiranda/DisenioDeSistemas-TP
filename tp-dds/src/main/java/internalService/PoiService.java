@@ -28,6 +28,19 @@ public class PoiService {
 	private static ReportService reportService;
 	private static List<Terminal> terminales;
 
+	
+	public Terminal searchTerminal(String terminalName){
+		Terminal searchTerminal= null;
+		for(Terminal currentTerminal: terminales){
+			if (currentTerminal.getNombre().equalsIgnoreCase(terminalName)){
+				searchTerminal= currentTerminal;
+			}
+		}
+		return searchTerminal;
+		
+	}
+	
+	
 	public static BankService getBankService() {
 		return bankService;
 	}
@@ -105,14 +118,16 @@ public class PoiService {
 		reloj.Contar();
 		List<Poi> pois = new ArrayList<Poi>();
 		for (Poi poi : allPois) {
+			
 			for (String text : poi.getData()) {
 				if (text.contains(string)) {
 					pois.add(poi);
+					break;
 				}
 			}
 		}
-		
-		Thread.sleep(6000);
+		System.out.println(pois.size());
+		//Thread.sleep(6000);
 		reloj.Detener();
 		int segundosQueTardo=reloj.getSegundos();
 		System.out.println("Segundoooos: "+segundosQueTardo);

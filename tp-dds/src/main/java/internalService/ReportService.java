@@ -17,14 +17,12 @@ public class ReportService {
 	private static List<ReportePorTerminal> reportes;
 
 
-	private static Map<String, Integer> mapaResultadoTotalesTodasLasTerminales;
-
 	public static ReportService getInstance() {
 		if (instance == null) {
 			reportes = new ArrayList<ReportePorTerminal>();
 			
 			
-			mapaResultadoTotalesTodasLasTerminales= new HashMap<String, Integer>();
+			
 			return new ReportService();
 		}
 		return instance;
@@ -41,7 +39,7 @@ public class ReportService {
 	public void addReporte(String nombreTerminal, String palabraBuscada, Integer cantPoisBusqueda) {
 		int i = 0;
 		for (ReportePorTerminal currentReport : reportes) {
-			if (currentReport.getNombreTerminal().equals(nombreTerminal)) {
+			if (currentReport.getNombreTerminal().equalsIgnoreCase(nombreTerminal)) {
 				currentReport.agregarReporteAterminal(cantPoisBusqueda, palabraBuscada);
 				i = 1;
 			}
@@ -62,7 +60,7 @@ public class ReportService {
 				Date fecha = lineaReporte.getFechaBusqueda();
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
 				String date = sdf.format(fecha);
-				int cantPoisResult= lineaReporte.getCantPoisBusqueda()/2;
+				int cantPoisResult= lineaReporte.getCantPoisBusqueda();
 				suma = suma +cantPoisResult;
 				mapaResultadosTotales.put(date, suma);
 				}
@@ -89,7 +87,7 @@ public class ReportService {
 				Date fecha = lineaReporte.getFechaBusqueda();
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
 				String date = sdf.format(fecha);
-				int cantPoisResult= lineaReporte.getCantPoisBusqueda()/2;
+				int cantPoisResult= lineaReporte.getCantPoisBusqueda();
 					suma = suma +cantPoisResult;
 					mapaResultadoParcialPorTerminal.put(date, suma);
 				
@@ -101,7 +99,7 @@ public class ReportService {
 	private ReportePorTerminal buscarReporteTerminal(String nombreTerminal) {
 		ReportePorTerminal reporte = null;
 		for (ReportePorTerminal reportePorTerminal : reportes) {
-			if (reportePorTerminal.getNombreTerminal().equals(nombreTerminal)) {
+			if (reportePorTerminal.getNombreTerminal().equalsIgnoreCase(nombreTerminal)) {
 				reporte = reportePorTerminal;
 			}
 		}
@@ -111,6 +109,9 @@ public class ReportService {
 
 	public Map<String, Integer> getReportesTotalesTodasLasTerminales() {
 		int suma;
+
+
+		Map<String, Integer> mapaResultadoTotalesTodasLasTerminales= new HashMap<String, Integer>();
 		for (ReportePorTerminal reportePorTerminal : reportes) {
 			Map<String, Integer> resultadosPorTerminal = this
 					.getParcialesPorTerminal(reportePorTerminal.getNombreTerminal());
@@ -118,13 +119,13 @@ public class ReportService {
 
 			List<String> keys = new ArrayList<String>();
 			
-			//flashada por que me ate mucho a los map, pero funciona
+			
 			for (final Iterator<java.util.Map.Entry<String, Integer>> it = resultadosPorTerminal.entrySet()
 					.iterator(); it.hasNext();) {
 				final java.util.Map.Entry<String, Integer> entry = it.next();
 				final String numero = entry.getKey();
 				keys.add(numero);
-				;				
+								
 			}
 			for (String key : keys) {
 				suma = suma + resultadosPorTerminal.get(key);
