@@ -2,8 +2,6 @@ package domain;
 
 import java.util.Date;
 
-import org.joda.time.DateTime;
-
 public class LineaReporte {
 	
 	private Date fechaBusqueda;

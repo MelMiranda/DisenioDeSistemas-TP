@@ -119,7 +119,6 @@ public class ReportService {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	public Map<String, Integer> getReportesTotalesTodasLasTerminales() {
 		this.resetReportesTotales();
 		int suma;

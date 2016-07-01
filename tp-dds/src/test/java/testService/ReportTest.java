@@ -2,10 +2,8 @@ package testService;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
-
 import org.junit.Before;
 import org.junit.Test;
 import domain.Address;
@@ -13,11 +11,11 @@ import domain.Coordinate;
 import internalService.PoiService;
 import junit.framework.Assert;
 import poi.Bank;
-
 import poi.ComercialShop;
 import poi.Newspaper;
 import users.Admin;
 import users.Terminal;
+
 
 @SuppressWarnings("deprecation")
 public class ReportTest {
@@ -26,6 +24,7 @@ public class ReportTest {
 	private String date;
 	private Terminal terminal;
 	private Terminal terminal2;
+	
 
 	@Before
 	public void setup() {
@@ -91,11 +90,11 @@ public class ReportTest {
 			
 			this.terminal2.searchPoi("BancoNAcion");
 			this.terminal2.searchPoi("al lado de la utn");	
-	
 		
 		Assert.assertEquals((Integer) 2, this.poiService.getReportesTodasLasTerminales().get("terminalAbasto"));
 		Assert.assertEquals((Integer) 4, this.poiService.getReportesTodasLasTerminales().get("terminalPalermo"));
-
 	}	
+	
+	
 	
 }

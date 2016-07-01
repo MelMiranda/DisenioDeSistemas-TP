@@ -2,12 +2,8 @@ package poi;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 import org.apache.http.client.ClientProtocolException;
-import org.mockito.internal.util.collections.Sets;
-
 import domain.Coordinate;
 import domain.RangeOfAtention;
 import domain.Schedule;

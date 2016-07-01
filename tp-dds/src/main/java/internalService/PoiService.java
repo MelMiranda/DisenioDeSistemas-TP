@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
-
 import org.apache.http.client.ClientProtocolException;
 import domain.Coordinate;
 import domain.Reloj;
@@ -15,7 +13,6 @@ import externalServices.BankService.BankService;
 import observers.subjectBusqueda.SubjectBusquedas;
 import poi.Bank;
 import poi.Poi;
-import utils.Esperar;
 
 public class PoiService {
 
@@ -71,7 +68,7 @@ public class PoiService {
 			}
 		}
 		
-		Thread.sleep(5000);
+		Thread.sleep(6000);
 		reloj.Detener();
 		int segundosQueTardo=reloj.getSegundos();
 		System.out.println("Segundoooos: "+segundosQueTardo);
