@@ -2,6 +2,8 @@ package controller.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import poi.CGP;
 import poi.CGPService;
 import poi.Poi;
 import users.Admin;
+import users.Terminal;
 
 @Controller
 public class AdminController {
@@ -29,6 +32,70 @@ public class AdminController {
 	public AdminController() {
 		admin = new Admin();
 	}
+	
+	
+	@RequestMapping(value = ("/terminal-add"), method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity addTerminal(
+			@RequestParam(value = "name", required = true) String name,
+			@RequestParam(value = "lat", required = true) double lat,
+			@RequestParam(value = "lon", required = true) double lon) {
+
+		boolean state = admin.addTerminal(new Terminal(name,new Coordinate(lat,lon)));
+		return new ResponseEntity(state, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = ("/show-terminal"), method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity showTerminals() {
+
+		List<String> terminals= new ArrayList<String>();
+		for (Terminal currentTerminal: admin.getPoiService().getTerminales()){
+			terminals.add(currentTerminal.getNombre());
+		}
+		return new ResponseEntity(terminals, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = ("/terminal-remove"), method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity removeTerminal(
+			@RequestParam(value = "name", required = true) String name) {
+
+		boolean state = admin.removeTerminal(name);
+		return new ResponseEntity(state, HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value = ("/reportByDate"), method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity reportByDate() {
+
+		Map<String, Integer> reportsByDate= PoiService.getReportService().getReportesTotalesPorFecha();
+		return new ResponseEntity(reportsByDate, HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value = ("/reportByTerminal"), method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity reportByTerminal(
+			@RequestParam(value = "name", required = true) String name) {
+
+		Map<String, Integer> reportsByDate= PoiService.getReportService().getParcialesPorTerminal(name);
+		return new ResponseEntity(reportsByDate, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = ("/all-reports"), method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity allReports() {
+		Map<String, Integer> reportsByDate= PoiService.getReportService().getReportesTotalesTodasLasTerminales();
+		return new ResponseEntity(reportsByDate, HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
+	
 
 
 	@RequestMapping(value = ("/poi-remove"), method = RequestMethod.GET)

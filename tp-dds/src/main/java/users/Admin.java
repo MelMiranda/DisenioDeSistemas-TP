@@ -1,5 +1,10 @@
 package users;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.omg.CORBA.Current;
+
 import domain.Schedule;
 import internalService.PoiService;
 import poi.CGP;
@@ -9,10 +14,34 @@ import poi.Poi;
 public class Admin {
 
 	private PoiService poiService;
+	
 
 	public Admin() {
 		poiService = PoiService.getInstance();
+		
 	}
+	
+	
+	public boolean addTerminal(Terminal terminal){
+		poiService.getTerminales().add(terminal);
+		return true;
+	}
+	
+	
+	
+	public boolean removeTerminal(String name){
+		int index=0;
+		boolean status=false;
+		for(Terminal currenTerminal:poiService.getTerminales()){
+			if(currenTerminal.getNombre().equalsIgnoreCase(name)){
+				poiService.getTerminales().remove(index);
+				status=true;
+			}
+			index++;
+		}
+		return status;
+	}
+	
 
 	public boolean removePoi(String poiName) {
 		int index = 0;

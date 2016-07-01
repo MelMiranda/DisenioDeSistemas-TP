@@ -22,9 +22,9 @@ public class Terminal {
 	
 	
 	
-	public Terminal(String nombre, PoiService poiService) {
-		super();
+	public Terminal(String nombre,Coordinate coordinate) {
 		this.nombre = nombre;
+		this.coordinates=coordinate;
 		this.poiService = PoiService.getInstance();
 	}
 

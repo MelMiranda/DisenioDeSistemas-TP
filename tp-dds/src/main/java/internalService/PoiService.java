@@ -9,12 +9,14 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
 import org.apache.http.client.ClientProtocolException;
+
 import domain.Coordinate;
 import domain.Reloj;
 import externalServices.BankService.BankService;
 import observers.subjectBusqueda.SubjectBusquedas;
 import poi.Bank;
 import poi.Poi;
+import users.Terminal;
 import utils.Esperar;
 
 public class PoiService {
@@ -24,6 +26,43 @@ public class PoiService {
 	private static BankService bankService;
 	private SubjectBusquedas subjectBusquedas = SubjectBusquedas.getInstance();
 	private static ReportService reportService;
+	private static List<Terminal> terminales;
+
+	public static BankService getBankService() {
+		return bankService;
+	}
+
+	public static void setBankService(BankService bankService) {
+		PoiService.bankService = bankService;
+	}
+
+	public SubjectBusquedas getSubjectBusquedas() {
+		return subjectBusquedas;
+	}
+
+	public void setSubjectBusquedas(SubjectBusquedas subjectBusquedas) {
+		this.subjectBusquedas = subjectBusquedas;
+	}
+
+	public static ReportService getReportService() {
+		return reportService;
+	}
+
+	public static void setReportService(ReportService reportService) {
+		PoiService.reportService = reportService;
+	}
+
+	public static List<Terminal> getTerminales() {
+		return terminales;
+	}
+
+	public static void setTerminales(List<Terminal> terminales) {
+		PoiService.terminales = terminales;
+	}
+
+	public static void setInstance(PoiService instance) {
+		PoiService.instance = instance;
+	}
 
 	public static PoiService getInstance() {
 		if (instance == null) {
@@ -31,6 +70,8 @@ public class PoiService {
 			allPois = new ArrayList<Poi>();
 			bankService = BankService.getInstance();
 			reportService=ReportService.getInstance();
+			terminales=new ArrayList<Terminal>();
+			
 		}
 		return instance;
 	}
@@ -44,7 +85,7 @@ public class PoiService {
 	}
 
 	public void setAllPois(List<Poi> allPois) {
-		allPois = allPois;
+		this.allPois = allPois;
 	}
 
 	public String poiType(Poi poi) {
@@ -75,7 +116,7 @@ public class PoiService {
 		reloj.Detener();
 		int segundosQueTardo=reloj.getSegundos();
 		System.out.println("Segundoooos: "+segundosQueTardo);
-		this.subjectBusquedas.notifiicarObservador(string, nombreTerminal, pois,segundosQueTardo);
+		this.subjectBusquedas.notificarObservador(string, nombreTerminal, pois,segundosQueTardo);
 		return pois;
 	}
 

@@ -43,8 +43,8 @@ public class ReportTest {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
 		this.date = sdf.format(fecha);
 
-		terminal  = new Terminal("terminalAbasto", this.poiService);
-		terminal2 =new Terminal("terminalPalermo",this.poiService);
+		terminal  = new Terminal("terminalAbasto", new Coordinate(53.54,12.54));
+		terminal2 =new Terminal("terminalPalermo", new Coordinate(54.14,45.54));
 
 	}
 

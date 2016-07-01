@@ -45,7 +45,7 @@ public class SubjectBusquedas implements Subject {
 	}
 
 	@Override
-	public void notifiicarObservador(String stringBuscado, String nombreTerminal, List<Poi> poisEncontrados,int segundosQueTardo) throws AddressException, MessagingException {
+	public void notificarObservador(String stringBuscado, String nombreTerminal, List<Poi> poisEncontrados,int segundosQueTardo) throws AddressException, MessagingException {
 		for (ObserverBusqueda currentObserver : observers) {
 			currentObserver.update(stringBuscado,nombreTerminal,poisEncontrados.size(),segundosQueTardo);
 			

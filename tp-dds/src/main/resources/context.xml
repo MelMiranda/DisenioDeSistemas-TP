@@ -14,10 +14,11 @@
     
 
 <bean id="poiController" class="controller.controllers.PoiController"></bean>
-        
+        <bean id="terminalController" class="controller.controllers.TerminalController"></bean>
         <bean id="jsonFactory" class="json.JsonFactory" /> 
         
         <bean id="adminController" class="controller.controllers.AdminController"></bean>
+        
         
         <bean id="webConfig" class="webConfig.WebConfig">
 		<constructor-arg ref="jsonFactory" />
