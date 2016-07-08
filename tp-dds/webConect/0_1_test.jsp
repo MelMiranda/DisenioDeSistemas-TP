@@ -19,6 +19,8 @@
 
 <body class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
+<button class="icon-login" type="button" name="button" onclick="openModal()" >Iniciar Sesión</button>
+
 
 
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 map">
@@ -63,11 +65,27 @@
 	</div>
 
 
+<div id="modal" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 modal">
+
+	<div class="modal-inner">
+		<p>
+			Modo Administrador
+		</p>
+		<input class="log-input" type="button" name="name" value="">
+	<button class="log-button" type="button" name="button">Enviar</button>
+	<input class="log-input"  type="button" name="name" value="">
+		<button class="log-button" type="button" name="button">Enviar</button>
+
+	</div>
+
+</div>
+
+
 </body>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbx3ox75shr0gNruHyXzmV6CHOP275qIE&libraries=places&callback=initAutocomplete"
          async defer>
-         	
+
  </script>
 
 <!-- COPY PASTE  - PRUEBA CON NUEVO FRONT -->
@@ -133,6 +151,20 @@
     map.fitBounds(bounds);
   });
 }
+ </script>
+
+
+ <script >
+ function openModal(){
+ var modal = document.getElementById("modal")
+	 modal.style.display = "block";
+	 console.log("test");
+
+	 if (event.target == modal) {
+			 modal.style.display = "none";
+	 }
+ }
+
  </script>
 
 </html>
