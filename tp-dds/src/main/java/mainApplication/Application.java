@@ -1,4 +1,11 @@
 package mainApplication;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import DataBaseConnection.dbConnection;
 
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
@@ -16,6 +23,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 		public static void main(String[] args) {
 			LOGGER.info("Starting the application...");
+			dbConnection conex= new dbConnection();
 			DispatcherServlet dispatcherServlet = new DispatcherServlet();
 			dispatcherServlet.setContextConfigLocation("classpath:context.xml");
 
