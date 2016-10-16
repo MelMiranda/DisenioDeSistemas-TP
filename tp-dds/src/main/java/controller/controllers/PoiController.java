@@ -1,6 +1,7 @@
 package controller.controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -17,51 +18,65 @@ import controller.response.PoiDTO;
 import domain.Address;
 import domain.RangeOfAtention;
 import internalService.PoiService;
-import poi.Bank;
-import poi.Poi;
+import poi.*;
 
 @Controller
 public class PoiController {
 
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(PoiController.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(PoiController.class);
 
-	private PoiService poiService;
+    private PoiService poiService;
 
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = ("/poi-show"), method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<List<PoiDTO>> showPois() {
-		poiService = PoiService.getInstance();
-		LOGGER.info("--------------------------------------------------------");
-		LOGGER.info("REQUEST");
-		LOGGER.info("--------------------------------------------------------");
-		List<PoiDTO> poisDTO= new ArrayList<PoiDTO>();
-		List<Poi> pois = poiService.getAllPois();
-		
+    @SuppressWarnings("unchecked")
+    @RequestMapping(value = ("/poi-show"), method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<PoiDTO>> showPois() {
+        poiService = PoiService.getInstance();
+        LOGGER.info("--------------------------------------------------------");
+        LOGGER.info("REQUEST");
+        LOGGER.info("--------------------------------------------------------");
+        List<PoiDTO> poisDTO = new ArrayList<PoiDTO>();
+        List<Poi> pois = poiService.getAllPois();
+
 		
 		/*
 		 * REFACTOR DE CODIGO SEGUN TIPO, HACER UN POIDTO Y EXTENER LAS DIFERENTES CLASES, LO MISMO CON ADDRESS Y EL RESTO DE MIERDAS
 		 */
-		
+
 		//TODO
-		for(Poi currentPoi: pois){
-			
-		switch(currentPoi.getType()){
-		case "Bank":
-			Bank bank= (Bank) currentPoi;
+		for (Poi currentPoi : pois) {
 
-			poisDTO.add(new PoiDTO (currentPoi.getName(), currentPoi.getType(),null/* currentPoi.getAddress()*/,
-					bank.getRangeOfAtention(),0,
-					0));
-		}
-		}
+			switch (currentPoi.getType()) {
+				case "Bank":
+					Bank bank = (Bank) currentPoi;
 
+					poisDTO.add(new PoiDTO (bank.getIcon(),bank.getType() ,  bank.getAddress().getMainStreet(),  bank.getAddress().getMainStreet(), bank.getServices()));
+					break;
+
+				case "BusStation":
+					BusStation busStation=(BusStation) currentPoi;
+					poisDTO.add(new PoiDTO(busStation.getIcon(),busStation.getType(),busStation.getNumberBusStation()));
+					break;
+				case "CGP":
+					CGP cgp= (CGP) currentPoi;
+					HashMap<String, List<Integer>> cgpService= new HashMap<String, List<Integer>>();
+					cgp.getServices().forEach(service -> cgpService.put(service.getServiceName(),service.getRangeOfAtention().getDaysOfAttention()));
+					poisDTO.add(new PoiDTO (cgp.getIcon(),cgp.getType() , cgp.getAddress().getMainStreet(),  cgp.getAddress().getMainStreet(), cgpService));
+					break;
+
+				case "ComercialShop":
+					ComercialShop comercial= (ComercialShop) currentPoi;
+					poisDTO.add(new PoiDTO(comercial.getIcon(),comercial.getType() , comercial.getAddress().getMainStreet(),  comercial.getAddress().getMainStreet(),comercial.getCategory().getType()));
+
+					break;
+			}
+
+		}
 		LOGGER.info("--------------------------------------------------------");
 		LOGGER.info("RESPONSE");
 		LOGGER.info("--------------------------------------------------------");
 		return new ResponseEntity<List<PoiDTO>>(poisDTO, HttpStatus.OK);
-
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -81,5 +96,6 @@ public class PoiController {
 		return new ResponseEntity<Integer>(size, HttpStatus.OK);
 
 	}
+
 
 }

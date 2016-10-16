@@ -1,6 +1,8 @@
 package testService;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.mail.MessagingException;
@@ -38,7 +40,7 @@ public class ReportTest {
 		this.poiService.resetAllPois();
 		this.poiService.removeAllPois();
 
-		this.admin.addPoi(new Bank("BancoNAcion", new Address("Paraguay 2815"), new Coordinate(1.2, 21.3)));
+		this.admin.addPoi(new Bank("BancoNAcion", new Address("Paraguay 2815"), new Coordinate(1.2, 21.3),"pago,retiro"));
 		this.admin.addPoi(new ComercialShop("libreria de libros ajajaj", new Address("al lado de la utn"),
 				new Coordinate(1.2, 21.3), Newspaper.getInstance(32)));
 
@@ -46,8 +48,8 @@ public class ReportTest {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
 		this.date = sdf.format(fecha);
 
-		terminal  = new Terminal("terminalAbasto", new Coordinate(53.54,12.54));
-		terminal2 =new Terminal("terminalPalermo", new Coordinate(54.14,45.54));
+		terminal  = new Terminal("terminalAbasto", new Coordinate(53.54,12.54),null);
+		terminal2 =new Terminal("terminalPalermo", new Coordinate(54.14,45.54),null);
 
 	}
 
@@ -71,7 +73,7 @@ System.out.println(resultadosTotales);
 	@Test
 	public void testReportesParcialesPorTerminal() throws AddressException, MessagingException, InterruptedException {
 
-		this.admin.addPoi(new Bank("acaNomas", new Address("cngvjhgj"), new Coordinate(1.2, 21.3)));
+		this.admin.addPoi(new Bank("acaNomas", new Address("cngvjhgj"), new Coordinate(1.2, 21.3),"pago,retiro"));
 		this.admin.addPoi(new ComercialShop("hgkhjk", new Address("acaNomas"), new Coordinate(1.2, 21.3),
 				Newspaper.getInstance(32)));
 

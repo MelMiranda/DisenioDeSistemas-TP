@@ -1,10 +1,11 @@
 package users;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
-import org.omg.CORBA.Current;
-
+import domain.EmailErrorProcessResolution;
+import domain.ErrorProcessResolution;
+import domain.RepeatErrorProcessResolution;
 import domain.Schedule;
 import internalService.PoiService;
 import poi.CGP;
@@ -13,14 +14,116 @@ import poi.Poi;
 
 public class Admin {
 
+	private long id;
+	private List<List<String>> actions;
+	private String nombre;
 	private PoiService poiService;
+	private String mail;
+	private ErrorProcessResolution errorResolution;
+
+
+
+	public Admin(List<List<String>> actions, String nombre,String mail,String resolutionType) {
+		
+		this.actions = actions;
+		this.nombre = nombre;
+		this.mail=mail;
+		this.poiService = PoiService.getInstance();
+
+		if (resolutionType=="Email"){
+			errorResolution=new EmailErrorProcessResolution();
+		}else if(resolutionType=="Repeat") {
+			errorResolution=new RepeatErrorProcessResolution();
+		}
+	}
+	
+	
+	public void turnOffAPoi(){
+		Admin admin=this;
+		errorResolution.errorResolution(poiService.getProcessService().turnOffAPoi(this),this,new Callable<String>(){
+			
+			@Override
+			public String call(){
+			return	poiService.getProcessService().turnOffAPoi(admin);}
+		});
+	}
+
+	public void updateComercialShops(String path){
+		Admin admin=this;
+		new Thread(() -> 
+		errorResolution.errorResolution(poiService.getProcessService().updateComercialShops(path,this),this,new Callable<String>(){
+			
+			@Override
+			public String call(){
+			return poiService.getProcessService().updateComercialShops(path,admin);
+			}
+			})).start();
+		
+	}
+	
+	public void addActionsToUser(String nombre,String type,List actions){
+		Admin admin=this;
+		new Thread(() -> 
+		errorResolution.errorResolution(poiService.getProcessService().addActionsToUser(nombre,type,actions,this),this,new Callable<String>(){
+			@Override
+			public String call(){
+			return poiService.getProcessService().addActionsToUser(nombre,type,actions,admin);
+			}
+		})).start();
+
+		}
+	
+	public void multiplyProcess(List<Runnable> process ){
+		process.forEach(methods -> methods.run() );
+	}
+	
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public ErrorProcessResolution getErrorResolution() {
+		return errorResolution;
+	}
+
+	public void setErrorResolution(ErrorProcessResolution errorResolution) {
+		this.errorResolution = errorResolution;
+	}
+
+	
+	
+	
+
+	public List<List<String>> getActions() {
+		return actions;
+	}
+
+	public void setActions(List<List<String>> actions) {
+		this.actions = actions;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+
 	
 
 	public Admin() {
 		poiService = PoiService.getInstance();
 		
 	}
-	
 	
 	public boolean addTerminal(Terminal terminal){
 		poiService.getTerminales().add(terminal);
@@ -58,7 +161,7 @@ public class Admin {
 	}
 
 	public void addPoi(Poi poi) {
-		poiService.getAllPois().add(poi);
+		poiService.addPoi(poi);
 	}
 
 	// Consultar o interpretar otras formas.
@@ -121,6 +224,15 @@ public class Admin {
 		}
 		return false;
 
+	}
+	
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

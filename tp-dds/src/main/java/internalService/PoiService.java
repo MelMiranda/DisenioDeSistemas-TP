@@ -16,6 +16,7 @@ import externalServices.BankService.BankService;
 import observers.subjectBusqueda.SubjectBusquedas;
 import poi.Bank;
 import poi.Poi;
+import users.Admin;
 import users.Terminal;
 
 
@@ -27,8 +28,39 @@ public class PoiService {
 	private SubjectBusquedas subjectBusquedas = SubjectBusquedas.getInstance();
 	private static ReportService reportService;
 	private static List<Terminal> terminales;
-
+	private static List<Admin> admins;
+	private static ProcessService processService;
 	
+	
+	public static PoiService getInstance() {
+		if (instance == null) {
+			instance = new PoiService();
+			allPois = new ArrayList<Poi>();
+			bankService = BankService.getInstance();
+			reportService=ReportService.getInstance();
+			terminales=new ArrayList<Terminal>();
+			processService= ProcessService.getInstance();
+			
+		}
+		return instance;
+	}
+
+	public static List<Admin> getAdmins() {
+		return admins;
+	}
+
+	public static void setAdmins(List<Admin> admins) {
+		PoiService.admins = admins;
+	}
+
+	public static ProcessService getProcessService() {
+		return processService;
+	}
+
+	public static void setProcessService(ProcessService processService) {
+		PoiService.processService = processService;
+	}
+
 	public Terminal searchTerminal(String terminalName){
 		Terminal searchTerminal= null;
 		for(Terminal currentTerminal: terminales){
@@ -77,17 +109,7 @@ public class PoiService {
 		PoiService.instance = instance;
 	}
 
-	public static PoiService getInstance() {
-		if (instance == null) {
-			instance = new PoiService();
-			allPois = new ArrayList<Poi>();
-			bankService = BankService.getInstance();
-			reportService=ReportService.getInstance();
-			terminales=new ArrayList<Terminal>();
-			
-		}
-		return instance;
-	}
+
 
 	public void removeAllPois() {
 		allPois.clear();
@@ -95,6 +117,10 @@ public class PoiService {
 
 	public List<Poi> getAllPois() {
 		return allPois;
+	}
+
+	public void addPoi(Poi poi){
+		allPois.add(poi);
 	}
 
 	public void setAllPois(List<Poi> allPois) {
@@ -162,11 +188,15 @@ public class PoiService {
 	
 	public void resetReports(){
 		reportService.resetReports();
-		
 	}
 
 	public void resetAllPois() {
 		allPois=new ArrayList<Poi>();
+		
+	}
+	
+	public void resetAllTerminals() {
+		terminales= new ArrayList<Terminal>();
 		
 	}
 }
