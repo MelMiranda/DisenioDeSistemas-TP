@@ -1,29 +1,30 @@
 package testService;
 
-import static org.junit.Assert.*;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.sun.deploy.util.StringUtils;
+import controller.controllers.AdminController;
+import dao.model.Action;
+import domain.Address;
+import domain.Coordinate;
+import domain.EnumActions;
 import internalService.PoiService;
 import internalService.ProcessService;
-
-import org.apache.http.client.ClientProtocolException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import domain.Address;
-import domain.Coordinate;
-import domain.EnumActions;
 import poi.Bank;
 import poi.BusStation;
 import poi.Poi;
 import users.Admin;
 import users.Terminal;
+import users.User;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ProcessServiceTest {
 	
@@ -33,7 +34,9 @@ public class ProcessServiceTest {
 	private Bank santander;
 	private Bank icbc;
 	private BusStation stop114;
+	private User adminUser;
 	private Admin admin;
+
 	@Rule
 	public final ExpectedException exception = ExpectedException.none();
 
@@ -46,7 +49,7 @@ public class ProcessServiceTest {
 		stop114= new BusStation("Parada 114", new Address("Mozart 2300"),  new Coordinate(2,4),114);
 		icbc.setId(122);
 		santander.setId(123);
-		admin= new Admin(null,"Gabo","gabriel.dyck@despegar.com","Email");
+		admin= new Admin(null,"Gabo","asdf","gabriel.dyck@despegar.com","Email");
 		
 		
 	}
@@ -69,7 +72,7 @@ public class ProcessServiceTest {
 		admin.turnOffAPoi();
 		toCheck= poiService.getAllPois().stream().filter(poi -> poi.isActived()).collect(Collectors.toList());
 		assertTrue(toCheck.isEmpty() || !processService.getProcessStories().stream().filter(story -> story.getResult()=="Error").collect(Collectors.toList()).isEmpty());
-		admin= new Admin(null,"Gabo","gabriel.dyck@despegar.com","Repeat");
+		adminUser= new User(null,"Gabo","sdaf","gabriel.dyck@despegar.com","Repeat");
 		admin.turnOffAPoi();
 		
 	}
@@ -79,13 +82,14 @@ public class ProcessServiceTest {
 	public void addActionToUser(){
 	List<String> actionInitialize= new ArrayList<String>();
 	actionInitialize.add(EnumActions.ADDPOI.toString());
-	List<List<String>> actions= new ArrayList<List<String>>();
-	actions.add(actionInitialize);
-	poiService.getTerminales().add(new Terminal("Terminal Gabo", new Coordinate(43.23,54.23),actions));
+	List<Action> actions= new ArrayList<>();
+		Action action= new Action(StringUtils.join(actions,","));
+		actions.add(action);
+	poiService.getTerminales().add(new Terminal("Terminal Gabo","asdf", new Coordinate(43.23,54.23),actions,"TERMINAL"));
 	List<String> actionValidate= new ArrayList<String>();
 	actionValidate.add(EnumActions.ADDTERMINAL.toString());
-	processService.addActionsToUser("Terminal Gabo", "Terminal",actionValidate,admin);
-	assertTrue(poiService.getTerminales().get(0).getActions().size()==2);
+	processService.addActionsToUser("Terminal Gabo",actionValidate,admin);
+	assertTrue(poiService.searchTerminalByName("Terminal Gabo").getActions().size()==2);
 
 	}
 	
@@ -101,14 +105,17 @@ public class ProcessServiceTest {
 	public void multiplyProcess(){
 		List<String> actionInitialize= new ArrayList<String>();
 		actionInitialize.add(EnumActions.ADDPOI.toString());
-		List<List<String>> actions= new ArrayList<List<String>>();
-		actions.add(actionInitialize);
-		poiService.getTerminales().add(new Terminal("Terminal Gabo", new Coordinate(43.23,54.23),actions));
+
+		List<Action> actions= new ArrayList<>();
+		Action action= new Action(StringUtils.join(actions,","));
+		actions.add(action);
+		AdminController controller= new AdminController();
+		controller.addTerminal("Terminal Gabo","asdfs",43.23,54.23,actionInitialize,"TERMINAL",null,null);
 
 		List<String> actionValidate= new ArrayList<String>();
 		actionValidate.add(EnumActions.ADDTERMINAL.toString());
 		
-		Runnable run1= () -> { processService.addActionsToUser("Terminal Gabo", "Terminal", actionValidate,admin);
+		Runnable run1= () -> { processService.addActionsToUser("Terminal Gabo", actionValidate,admin);
 	};
 		Runnable run2= () -> { processService.undoAddActionToUser("Terminal Gabo", "Terminal",admin);
 	};

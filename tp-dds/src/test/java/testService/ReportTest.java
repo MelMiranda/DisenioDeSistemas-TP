@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
+import dao.MongoDBManager;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,13 +49,14 @@ public class ReportTest {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
 		this.date = sdf.format(fecha);
 
-		terminal  = new Terminal("terminalAbasto", new Coordinate(53.54,12.54),null);
-		terminal2 =new Terminal("terminalPalermo", new Coordinate(54.14,45.54),null);
+		terminal  = new Terminal("terminalAbasto","asd", new Coordinate(53.54,12.54),null,"TERMINAL");
+		terminal2 =new Terminal("terminalPalermo","asd", new Coordinate(54.14,45.54),null,"TERMINAL");
 
 	}
 
 	@Test
 	public void testReportesTotales() throws AddressException, MessagingException, InterruptedException {
+		MongoDBManager.removeAllDocuments();
 		this.poiService.searchPois("BancoNAcion", "terminalAbasto");
 		this.poiService.searchPois("al lado de la utn", "terminalPalermo");
 		terminal.searchPoi("BancoNAcion");
@@ -72,7 +74,7 @@ System.out.println(resultadosTotales);
 
 	@Test
 	public void testReportesParcialesPorTerminal() throws AddressException, MessagingException, InterruptedException {
-
+		MongoDBManager.removeAllDocuments();
 		this.admin.addPoi(new Bank("acaNomas", new Address("cngvjhgj"), new Coordinate(1.2, 21.3),"pago,retiro"));
 		this.admin.addPoi(new ComercialShop("hgkhjk", new Address("acaNomas"), new Coordinate(1.2, 21.3),
 				Newspaper.getInstance(32)));
@@ -85,7 +87,7 @@ System.out.println(resultadosTotales);
 	
 	@Test
 	public void testReportesTotalesTodasLasTerminales() throws AddressException, MessagingException, InterruptedException{
-
+		MongoDBManager.removeAllDocuments();
 			this.terminal.searchPoi("BancoNAcion");
 			this.terminal.searchPoi("al lado de la utn");	
 			

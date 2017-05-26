@@ -1,6 +1,8 @@
 package observers.busqueda;
 
 import internalService.ReportService;
+import org.apache.commons.lang3.StringUtils;
+import java.util.List;
 
 public class AlmacenarResultado implements ObserverBusqueda {
 	
@@ -10,8 +12,8 @@ public class AlmacenarResultado implements ObserverBusqueda {
 
 
 	@Override
-	public void update(String palabraBuscada, String nombreTerminal, int cantPoisBusqueda,int segundosQueTardo) {
-		reportService.addReporte(nombreTerminal, palabraBuscada, cantPoisBusqueda);		
+	public void update(List<String> palabraBuscada, String nombreTerminal, int cantPoisBusqueda, int segundosQueTardo) {
+		reportService.addReporte(nombreTerminal, StringUtils.join(palabraBuscada,","), cantPoisBusqueda);
 	}
 
 }

@@ -1,63 +1,37 @@
 package users;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
-
-import org.apache.http.client.ClientProtocolException;
-
+import dao.model.Action;
 import domain.Coordinate;
 import internalService.PoiService;
+import org.apache.http.client.ClientProtocolException;
 import poi.Bank;
 import poi.Poi;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import java.io.IOException;
+import java.util.List;
 
-public class Terminal {
 
-    private long id;
+public class Terminal extends User{
+
+
     private String nombre;
+    private String contrasenia;
+    private List<Action> actions;
     private Coordinate coordinates;
     private PoiService poiService;
-    private List<List<String>> actions;
 
-    public Terminal(String nombre, Coordinate coordinate, List<List<String>> actions) {
-        this.nombre = nombre;
+
+
+    public Terminal(String nombre,String contrasenia, Coordinate coordinate, List<Action> actions,String type) {
+        this.nombre=nombre;
+        this.contrasenia=contrasenia;
+        this.actions=actions;
         this.coordinates = coordinate;
-        this.actions = actions;
         this.poiService = PoiService.getInstance();
     }
 
-
-    public long getId() {
-        return id;
-    }
-
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-
-    public List<List<String>> getActions() {
-        return actions;
-    }
-
-
-    public void setActions(List<List<String>> actions) {
-        this.actions = actions;
-    }
-
-
-    public String getNombre() {
-        return nombre;
-    }
-
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public Terminal() {
     }
 
 
@@ -95,8 +69,12 @@ public class Terminal {
         return poiService.isAvailable(poi);
     }
 
-    public List<Poi> searchPoi(String textoBuscado) throws AddressException, MessagingException, InterruptedException {
-        return this.poiService.searchPois(textoBuscado, this.getNombre());
+    public List<Poi> searchPoi(List<String> textosBuscados) throws AddressException, MessagingException, InterruptedException {
+        return this.poiService.searchPois(textosBuscados, this.getNombre());
+    }
+
+    public List<Poi> searchPoi(String textosBuscados) throws AddressException, MessagingException, InterruptedException {
+        return this.poiService.searchPois(textosBuscados, this.getNombre());
     }
 
 
@@ -104,4 +82,33 @@ public class Terminal {
         return poiService.isNearby(poi, coordinates);
     }
 
+    @Override
+    public String getNombre() {
+        return nombre;
+    }
+
+    @Override
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    @Override
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    @Override
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+
+    @Override
+    public List<Action> getActions() {
+        return actions;
+    }
+
+    @Override
+    public void setActions(List<Action> actions) {
+        this.actions = actions;
+    }
 }

@@ -7,13 +7,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import com.sun.deploy.util.StringUtils;
+import dao.EntityManagerProvider;
+import dao.UserDao;
+import dao.model.Action;
 import org.apache.http.client.ClientProtocolException;
 
 import json.JsonFactory;
@@ -33,6 +33,9 @@ import domain.ProcessSearchInterfaz;
 import domain.ProcessSearchTerminal;
 import domain.ProcessStory;
 import externalServices.BankService.BankService;
+import users.User;
+
+import javax.persistence.EntityManager;
 
 public class ProcessService {
 
@@ -169,23 +172,21 @@ public class ProcessService {
 		
 	}
 
-	public String addActionsToUser(String nombre,String type,List<String> actions,Admin admin){
+	public String addActionsToUser(String nombre,List<String> actions,Admin admin){
+        EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
+        UserDao userDAO= new UserDao(entityManager);
 		Calendar initDate= Calendar.getInstance();
 		Calendar endDate=null;
 		String processName="AddActions";
 		String userRan= admin.getNombre();
 		String result=null;
 		String errorMessage=null;
-		
-		System.out.println("ADD");
-		if (type =="Terminal"){
-			ProcessSearchInterfaz searchTerminal= new ProcessSearchTerminal();
-			List<Terminal> terminales = (List<Terminal>) searchTerminal.search(nombre);
-			terminales.get(0).getActions().add( actions);
-		}else{
-			ProcessSearchInterfaz searchAdmin= new ProcessSearchAdmin();
-			List<Admin> admins =(List<Admin>) searchAdmin.search(nombre);
-			admins.get(0).getActions().add(actions);
+
+			User userSelect = userDAO.getByName(nombre);
+			Action action= new Action(StringUtils.join(actions,","));
+			if(userSelect!=null) {
+                userSelect.getActions().add(action);
+                userDAO.saveOrUpdate(userSelect);
 		}
 		
 		endDate=Calendar.getInstance();
@@ -223,20 +224,12 @@ public class ProcessService {
 		String userRan= admin.getNombre();
 		String result=null;
 		String errorMessage=null;
-		
-		System.out.println("UNDO AAAAAAAAADD");
-		if (type =="Terminal"){
-			ProcessSearchInterfaz searchTerminal= new ProcessSearchTerminal();
-			List<Terminal> terminales = (List<Terminal>) searchTerminal.search(nombre);
-			int indexToErase=terminales.get(0).getActions().size()-1;
-			terminales.get(0).getActions().remove(indexToErase);
-			
-	}else{
+
 		ProcessSearchInterfaz searchAdmin= new ProcessSearchAdmin();
-		List<Admin> admins =(List<Admin>) searchAdmin.search(nombre);
+		List<User> admins =(List<User>) searchAdmin.search(nombre);
 		int indexToErase=admins.get(0).getActions().size()-1;
 		admins.get(0).getActions().remove(indexToErase);
-	}
+
 		endDate=Calendar.getInstance();
 		result="SUCCESS";
 		ProcessStory story = new ProcessStory(initDate, endDate, processName, userRan, result, errorMessage);

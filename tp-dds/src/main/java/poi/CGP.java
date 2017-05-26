@@ -3,6 +3,7 @@ package poi;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 import org.slf4j.Logger;
@@ -11,14 +12,27 @@ import org.slf4j.LoggerFactory;
 import domain.Address;
 import domain.Coordinate;
 
-public class CGP extends Poi {
+import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 
-    private double communeRadius;
-    private ArrayList<CGPService> services;
+@Entity
+@Table(name = "cgp")
+public class CGP extends Poi {
+public CGP() {
+    }
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CGP.class);
 
+    @Column(name = "communeRadius")
+    private double communeRadius;
+
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<CGPService> services;
+
     public CGP(String name, Address address, Coordinate coordinate, double communeRadius,
-               ArrayList<CGPService> services) {
+               List<CGPService> services) {
         super(name, address, coordinate);
         this.type = this.getClass().getSimpleName();
         this.communeRadius = communeRadius;
@@ -31,7 +45,7 @@ public class CGP extends Poi {
         for (CGPService cgpService : services) {
             this.getData().add(cgpService.getServiceName());
         }
-        icon = "http://www.cgp-mutuelle.lu/attachments/Image/CGP-couleur.jpg?template=generic";
+        icon = "cgp";
 
     }
 
@@ -44,7 +58,7 @@ public class CGP extends Poi {
         this.communeRadius = communeRadius;
     }
 
-    public ArrayList<CGPService> getServices() {
+    public List<CGPService> getServices() {
         return services;
     }
 

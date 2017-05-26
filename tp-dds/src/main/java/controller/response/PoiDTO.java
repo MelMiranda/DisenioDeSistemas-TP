@@ -1,28 +1,46 @@
 package controller.response;
 
+import javax.persistence.*;
 import java.util.HashMap;
 import java.util.List;
 
+@Entity
+@Table(name = "poi_dto")
 public class PoiDTO {
 
+    public PoiDTO() {
+    }
 
-    public String icon;
+    @Id@GeneratedValue
+    private long id;
+
+    @Transient
+    private String icon;
+    @Transient
     public int numberLine;
+    @Transient
     public String type;
+    @Transient
     public String direccion;
+    @Transient
     public String zone;
+    @Transient
     public HashMap<String, List<Integer>> cgpServices;
+    @Transient
     public List<String> bankServices;
+    @Column(name="name_poi")
     public String name;
+    @Transient
     public String activity;
 
 
-    public PoiDTO(String icon, String type, String direccion, String zone, List<String> bankServices) {
+    public PoiDTO(String icon, String type, String direccion, String zone, List<String> bankServices,String name ) {
         this.icon = icon;
         this.type = type;
         this.direccion = direccion;
         this.zone = zone;
         this.bankServices = bankServices;
+        this.name=name;
     }
 
 
@@ -34,7 +52,8 @@ public class PoiDTO {
         this.cgpServices = cgpServices;
     }
 
-    public PoiDTO(String icon, String type, int numberLine) {
+    public PoiDTO(String name,String icon, String type, int numberLine) {
+        this.name=name;
         this.icon = icon;
         this.type = type;
         this.numberLine = numberLine;
@@ -123,4 +142,11 @@ public class PoiDTO {
     }
 
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }

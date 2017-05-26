@@ -1,72 +1,77 @@
 package domain;
 
-import com.sun.javafx.scene.control.skin.LabeledImpl;
-
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "Address")
 public class Address {
 
-	
-	private String mainStreet;
-	private int number;
-	private List<String> betweenStreet;
-	private Town town;
-	 
-	
-	
-	public Address(String mainStreet) {
-		this.mainStreet = mainStreet;
-		this.number=123;
-		this.betweenStreet= new ArrayList<String>();
-	
-	}
+    @Id
+    @GeneratedValue
+    private long id;
 
-	public Address(String mainStreet, int number, List<String> betweenStreets){
-		this.betweenStreet=betweenStreets;
-		this.number=number;
-		this.mainStreet = mainStreet;
-	}
+    @Column(name = "mainStreet")
+    private String mainStreet;
+
+    @Column(name = "number")
+    private int number;
 
 
-	public String getMainStreet() {
-		return mainStreet;
-	}
+    // private List<String> betweenStreet;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "town")
+    private Town town;
 
-	public void setMainStreet(String mainStreet) {
-		this.mainStreet = mainStreet;
-	}
+    public Address() {
+    }
 
-	public int getNumber() {
-		return number;
-	}
+    public Address(String mainStreet) {
+        this.mainStreet = mainStreet;
+        this.number = 123;
+        //  this.betweenStreet = new ArrayList<String>();
 
-	public void setNumber(int number) {
-		this.number = number;
-	}
+    }
 
-	public List<String> getBetweenStreet() {
-		return betweenStreet;
-	}
+    public Address(String mainStreet, int number, List<String> betweenStreets) {
+        //  this.betweenStreet = betweenStreets;
+        this.number = number;
+        this.mainStreet = mainStreet;
+    }
 
-	public void setBetweenStreet(List<String> betweenStreet) {
-		this.betweenStreet = betweenStreet;
-	}
 
-	public Town getTown() {
-		return town;
-	}
+    public String getMainStreet() {
+        return mainStreet;
+    }
 
-	public void setTown(Town town) {
-		this.town = town;
-	}
+    public void setMainStreet(String mainStreet) {
+        this.mainStreet = mainStreet;
+    }
 
-	public String getAddress(){
-	return ("Address: " + mainStreet+ " " + number + " .Between streets " + betweenStreet.get(0) + " and " + betweenStreet.get(1)+ "." );
-	}
-	
-/*	public String getFullAddress(){
-		return (getAddress() + town.getFullAddress());
-	}
-	*/
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    //  public List<String> getBetweenStreet() {
+    //     return betweenStreet;
+    //  }
+
+    // public void setBetweenStreet(List<String> betweenStreet) {
+    //     this.betweenStreet = betweenStreet;
+    //}
+
+     public Town getTown() {
+       return town;
+     }
+
+    public void setTown(Town town) {
+       this.town = town;
+     }
+
+
 }

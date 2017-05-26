@@ -23,10 +23,16 @@
 
 
 
-<link rel="stylesheet" href="stylesheet_java.css">
+<link rel="stylesheet" href="style.css">
 </head>
 
-<body class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<body class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-fit">
+
+<button class="icon-login close-sesion" type="button" name="button" onclick="cerrarSesion()" >Cerrar Sesion</button>
+
+	<div class="welcome">
+		<h1>Bienvenido al modo administrador</h1>
+	</div>
 
   <div class="button-admin">
 
@@ -86,12 +92,6 @@
 
           </div>
 
-          <div class=" col col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                <h2>Detalle de POIS</h2>
-								<div id="detallePoi" class="detallePoi col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-								</div>
-          </div>
         </div>
 
 
@@ -105,11 +105,11 @@
         </div>
 
 				<div class="">
-					<select id="usuarios">
+					<select class="black" id="usuarios">
 								<option value="" selected disabled>Elegir  usuario</option>
-								<option  id="0" class="8" value="">Usuario 1</option>
-								<option id="1"value="1">Usuario 2</option>
-								<option id="2" value="2">Usuario 3</option>
+								<!-- <option  id="0" value="3">terminalMel</option>
+								<option id="1"value="1">terminalMau</option>
+								<option id="2" value="2">terminalGabi</option> -->
 
 					</select>
 
@@ -117,16 +117,16 @@
 
 				</div>
 
-        <select id="listPermisos">
-              <option value="" selected disabled>Elegir permisos</option>
-              <option  id="1" class="8" value="">Buscar poi</option>
+        <select class="black"  id="listPermisos">
+            <option value="" selected disabled>Elegir permisos</option>
+          <!--       <option  id="1"  value="8">Buscar poi</option>
 							<option id="2"value="1">Consultar cercanía</option>
 							<option id="3" value="2">Consultar disponibilidad</option>
 							<option id="4" value="3">Agregar Poi</option>
 							<option id="5" value="4">Agregar Terminal</option>
 							<option id="6" value="5">Modificar Poi</option>
 							<option id="7" value="6">Remover Terminal</option>
-							<option id="8" value="7">Remover Poi</option>
+							<option id="8" value="7">Remover Poi</option> -->
 
         </select>
 
@@ -161,6 +161,7 @@
 $( document ).ready(function() {
    initialize();
 	 mostrarPoi();
+
 });
 
 </script>

@@ -1,26 +1,35 @@
 package poi;
 
-import java.io.IOException;
-
-import org.apache.http.client.ClientProtocolException;
 import domain.Address;
 import domain.Coordinate;
+import org.apache.http.client.ClientProtocolException;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.IOException;
+
+@Entity
+@Table(name = "busStation")
 public class BusStation extends Poi {
 
-    private Integer numberBusStation;
+    public BusStation() {
+    }
 
+
+    @Column(name = "numberBusStation")
+    private Integer numberBusStation;
 
     public BusStation(String name, Address address, Coordinate coordinate, Integer aNumberBusStation) {
         super(name, address, coordinate);
         numberBusStation = aNumberBusStation;
-        icon="http://www.clker.com/cliparts/L/B/N/E/8/K/bus-station-red-hi.png";
+        icon = "bus";
 
 
         this.type = this.getClass().getSimpleName();
         this.getData().add(name);
         this.getData().add(numberBusStation.toString());
-       // this.getData().add(address.getMainStreet());
+        // this.getData().add(address.getMainStreet());
         this.getData().add("bus");
     }
 
@@ -45,7 +54,7 @@ public class BusStation extends Poi {
 
     @Override
     public int getNumber() {
-        return  this.numberBusStation;
+        return this.numberBusStation;
     }
 
     @Override

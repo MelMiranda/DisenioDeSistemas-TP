@@ -1,15 +1,19 @@
 package internalService;
 
+import dao.EntityManagerProvider;
+import dao.UserDao;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
-
-
+import javax.persistence.EntityManager;
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
 public class UsuarioService {
+    EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
+
+
+    UserDao userDAO= new UserDao(entityManager);
 
     private Map<String, String> users;
 
@@ -18,17 +22,39 @@ public class UsuarioService {
     }
 
 
-    public void addUser(String name, String password) {
-        this.users.put(name, password);
+
+    public int existeUsuario2(String user, String password) {
+      if(userDAO.filterAdmin(user,password)){
+          return 2;
+      }
+      if(userDAO.filterTerminals(user,password)){
+          return 1;
+      }
+      return 0;
     }
 
-    public boolean existeUsuario(String user, String password) {
-        try {
-            return this.users.get(user).equalsIgnoreCase(password) ? true : false;
-        } catch (NullPointerException e) {
-            return false;
-        }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
     }
 
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
+    public UserDao getUserDAO() {
+        return userDAO;
+    }
+
+    public void setUserDAO(UserDao userDAO) {
+        this.userDAO = userDAO;
+    }
+
+    public Map<String, String> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Map<String, String> users) {
+        this.users = users;
+    }
 }

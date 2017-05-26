@@ -1,10 +1,4 @@
 package mainApplication;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
@@ -16,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.DispatcherServlet;
 
 
-	public class Application {
+public class Application {
 
 		private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
@@ -44,6 +38,10 @@ import org.springframework.web.servlet.DispatcherServlet;
 				LOGGER.error("Error starting the application", exception);
 				System.exit(1);
 			}
+
+
+
+
 			LOGGER.info("Application started");
 		}
 

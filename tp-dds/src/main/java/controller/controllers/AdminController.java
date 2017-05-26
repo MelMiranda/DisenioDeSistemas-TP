@@ -1,15 +1,17 @@
 package controller.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.stream.Collectors;
 
 import controller.response.BusquedaDTO;
+import dao.EntityManagerProvider;
+import dao.UserDao;
+import dao.model.Action;
 import domain.*;
 import org.apache.commons.lang3.EnumUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,9 @@ import internalService.PoiService;
 import poi.*;
 import users.Admin;
 import users.Terminal;
+import users.User;
+
+import javax.persistence.EntityManager;
 
 @Controller
 public class AdminController {
@@ -29,22 +34,63 @@ public class AdminController {
         admin = new Admin();
     }
 
-    @RequestMapping(value = ("/terminal-add"), method = RequestMethod.GET)
+
+    @RequestMapping(value = ("/register-admin"), method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity registerAdmin(@RequestParam(value="user", required = true) String user,
+                                        @RequestParam(value="pass",required = true) String pass,
+                                        @RequestParam(value="mail",required = true) String mail){
+        EntityManager entityManager= EntityManagerProvider.getInstance().getEntityManager();
+        UserDao userDao= new UserDao(entityManager);
+        User adminToReg= new User(new ArrayList<Action>(),user,pass,"email","ADMIN");
+        User userAdded= userDao.saveOrUpdate(adminToReg);
+        return new ResponseEntity(userAdded.getId(),HttpStatus.OK);
+    }
+
+    @RequestMapping(value = ("/add-user"), method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity addTerminal(
             @RequestParam(value = "name", required = true) String name,
-            @RequestParam(value = "lat", required = true) double lat,
-            @RequestParam(value = "lon", required = true) double lon,
-            @RequestParam(value = "action", required = false) List<String> actions) {
+            @RequestParam(value = "password", required = true) String password,
+            @RequestParam(value = "lat", required = false) Double lat,
+            @RequestParam(value = "lon", required = false) Double lon,
+            @RequestParam(value = "action", required = false) List<String> actions,
+            @RequestParam(value = "type", required = true)String type,
+            @RequestParam(value = "mail", required = false)String mail,
+            @RequestParam(value = "resolutionType", required = false)String resolutionType) {
 
+        if(type.equalsIgnoreCase("TERMINAL")){
         if (actions.stream().allMatch(action -> EnumUtils.isValidEnum(EnumActions.class, action))) {
-            List<List<String>> listOfActions = new ArrayList<List<String>>();
-            listOfActions.add(actions);
-            boolean state = admin.addTerminal(new Terminal(name, new Coordinate(lat, lon), listOfActions));
+            List<Action> listOfActions = new ArrayList<>();
+            Action action= new Action(com.sun.deploy.util.StringUtils.join(actions,","));
+            listOfActions.add(action);
+            User user=new User(name,password, new Coordinate(lat, lon), listOfActions);
+            Terminal terminal=new Terminal(name,password, new Coordinate(lat, lon), listOfActions,"TERMINAL");
+            boolean state = admin.addTerminal(terminal);
+            EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
+            UserDao userDao = new UserDao(entityManager);
+            userDao.saveOrUpdate(user);
             return new ResponseEntity(state, HttpStatus.OK);
         } else {
             String error = "ACTIONS MUST BE " + EnumActions.values();
             return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
+        }
+        }else{
+            if (actions.stream().allMatch(action -> EnumUtils.isValidEnum(EnumActions.class, action))) {
+                List<Action> listOfActions = new ArrayList<>();
+                Action action= new Action(com.sun.deploy.util.StringUtils.join(actions,","));
+                listOfActions.add(action);
+                User user=new User(listOfActions,name,password,mail, resolutionType);
+                boolean state=true;
+                EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
+                UserDao userDao = new UserDao(entityManager);
+                userDao.saveOrUpdate(user);
+                return new ResponseEntity(state, HttpStatus.OK);
+            } else {
+                String error = "ACTIONS MUST BE " + EnumActions.values();
+                return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
+            }
+
         }
     }
 
@@ -115,7 +161,7 @@ public class AdminController {
             List<BusquedaDTO> busquedas = new ArrayList<>();
 
             for (LineaReporte currentRow : reporte.getBusquedas()) {
-                BusquedaDTO busquedaDto = new BusquedaDTO(name, currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
+                BusquedaDTO busquedaDto = new BusquedaDTO(name, currentRow.getFechaBusqueda().toString(), StringUtils.join(currentRow.getPalabraBuscada(),","), currentRow.getCantPoisBusqueda());
                 busquedas.add(busquedaDto);
             }
 
@@ -128,7 +174,7 @@ public class AdminController {
             List<BusquedaDTO> busquedas = new ArrayList<>();
 
             for (LineaReporte currentRow : reporte.getBusquedas()) {
-                BusquedaDTO busquedaDto = new BusquedaDTO(name, currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
+                BusquedaDTO busquedaDto = new BusquedaDTO(name, currentRow.getFechaBusqueda().toString(), StringUtils.join(currentRow.getPalabraBuscada(),","), currentRow.getCantPoisBusqueda());
 
 
                 try {
@@ -155,7 +201,7 @@ public class AdminController {
             List<BusquedaDTO> busquedas = new ArrayList<>();
 
             for (LineaReporte currentRow : reporte.getBusquedas()) {
-                BusquedaDTO busquedaDto = new BusquedaDTO(name, currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
+                BusquedaDTO busquedaDto = new BusquedaDTO(name, currentRow.getFechaBusqueda().toString(),StringUtils.join(currentRow.getPalabraBuscada(),","), currentRow.getCantPoisBusqueda());
 
                 try {
                     Date date = formatter.parse(hasta);
@@ -180,7 +226,7 @@ public class AdminController {
             List<BusquedaDTO> busquedas = new ArrayList<>();
 
             for (LineaReporte currentRow : reporte.getBusquedas()) {
-                BusquedaDTO busquedaDto = new BusquedaDTO(name, currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
+                BusquedaDTO busquedaDto = new BusquedaDTO(name, currentRow.getFechaBusqueda().toString(), StringUtils.join(currentRow.getPalabraBuscada(),","), currentRow.getCantPoisBusqueda());
 
                 try {
                     Date dateDesde = formatter.parse(desde);
@@ -220,7 +266,7 @@ public class AdminController {
 
 
                 for (LineaReporte currentRow : currentReport.getBusquedas()) {
-                    BusquedaDTO busquedaDto = new BusquedaDTO(currentReport.getNombreTerminal(), currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
+                    BusquedaDTO busquedaDto = new BusquedaDTO(currentReport.getNombreTerminal(), currentRow.getFechaBusqueda().toString(),StringUtils.join(currentRow.getPalabraBuscada(),","), currentRow.getCantPoisBusqueda());
                     busquedas.add(busquedaDto);
                 }
 
@@ -231,7 +277,7 @@ public class AdminController {
 
 
                 for (LineaReporte currentRow : currentReport.getBusquedas()) {
-                    BusquedaDTO busquedaDto = new BusquedaDTO(currentReport.getNombreTerminal(), currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
+                    BusquedaDTO busquedaDto = new BusquedaDTO(currentReport.getNombreTerminal(), currentRow.getFechaBusqueda().toString(), StringUtils.join(currentRow.getPalabraBuscada(),","), currentRow.getCantPoisBusqueda());
 
 
                     try {
@@ -255,7 +301,7 @@ public class AdminController {
 
 
                 for (LineaReporte currentRow : currentReport.getBusquedas()) {
-                    BusquedaDTO busquedaDto = new BusquedaDTO(currentReport.getNombreTerminal(), currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
+                    BusquedaDTO busquedaDto = new BusquedaDTO(currentReport.getNombreTerminal(), currentRow.getFechaBusqueda().toString(), StringUtils.join(currentRow.getPalabraBuscada(),","), currentRow.getCantPoisBusqueda());
 
                     try {
                         Date date = formatter.parse(hasta);
@@ -275,7 +321,7 @@ public class AdminController {
 
 
                 for (LineaReporte currentRow : currentReport.getBusquedas()) {
-                    BusquedaDTO busquedaDto = new BusquedaDTO(currentReport.getNombreTerminal(), currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
+                    BusquedaDTO busquedaDto = new BusquedaDTO(currentReport.getNombreTerminal(), currentRow.getFechaBusqueda().toString(), StringUtils.join(currentRow.getPalabraBuscada(),","), currentRow.getCantPoisBusqueda());
 
                     try {
                         Date dateDesde = formatter.parse(desde);
@@ -424,6 +470,43 @@ public class AdminController {
         admin.addPoi(poi);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @RequestMapping(value = ("/get-users"), method = RequestMethod.GET)
+    @ResponseBody
+    public List<User> getUsers(){
+        EntityManager entityManager= EntityManagerProvider.getInstance().getEntityManager();
+        UserDao userDao= new UserDao(entityManager);
+        List<User> users= userDao.getAll();
+        return users;
+    }
+
+    @RequestMapping(value = ("/get-actions"), method = RequestMethod.GET)
+    @ResponseBody
+    public List<EnumActions> getActions(){
+        return Arrays.asList(EnumActions.values());
+    }
+
+
+
+    @RequestMapping(value = ("/addActionToUser"), method = RequestMethod.GET)
+    @ResponseBody
+    public void addActionToUser(
+            @RequestParam(value = "adminName", required = true) String adminName,
+            @RequestParam(value = "user", required = true) String user,
+            @RequestParam(value = "actions", required = true) String actions ){
+
+        String[] parts = actions.split(",");
+        EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
+        UserDao userDAO= new UserDao(entityManager);
+        User userSelected= userDAO.getAdminByName(adminName);
+
+        List<String> actions2 =new ArrayList<>(Arrays.asList(parts));
+
+
+        Admin admin= new Admin(userSelected.getActions(), userSelected.getNombre(), userSelected.getContrasenia(), userSelected.getMail(), userSelected.getResolutionType());
+        admin.addActionsToUser(user,actions2);
+    }
+
 
 
 }

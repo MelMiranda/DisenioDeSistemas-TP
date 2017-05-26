@@ -3,137 +3,156 @@ package poi;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.http.client.ClientProtocolException;
 import domain.Address;
 import domain.Coordinate;
 import externalServices.GoogleDistanceService.GoogleDistanceService;
 import internalService.AvailabilityService;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "poi")
 public abstract class Poi implements PoiInterface {
 
-	protected long id;
-	protected boolean actived;
-	public boolean isActived() {
-		return actived;
-	}
-	protected String type;
-	protected List<String> servicios;
-	protected String icon;
+    @Id
+    @GeneratedValue
+    protected long id;
 
-	public void setActived(boolean actived) {
-		this.actived = actived;
-	}
+    @Column(name = "actived")
+    protected boolean actived;
 
-	protected String name;
-	protected Address address;
-	protected Coordinate coordinate;
-	protected GoogleDistanceService googleService = GoogleDistanceService.getInstance();
-	protected AvailabilityService availabilityService = AvailabilityService.getInstance();
-	private List<String> data=new ArrayList<String>();
+    @Column(name = "type")
+    protected String type;
 
-	public Poi(String name, Address address, Coordinate coordinate) {
-		this.name = name;
-		this.address = address;
-		this.coordinate = coordinate;
-		this.actived=true;
-	}
+    @Transient
+    protected String icon;
 
-	@Override
-	public String getType() {
-		return type;
-	}
+    public void setActived(boolean actived) {
+        this.actived = actived;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    @Column(name = "name")
+    protected String name;
 
-	public List<String> getServicios() {
-		return servicios;
-	}
 
-	public void setServicios(List<String> servicios) {
-		this.servicios = servicios;
-	}
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_address")
+    protected Address address;
 
-	public String getIcon() {
-		return icon;
-	}
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cordinate")
+    protected Coordinate coordinate;
 
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
+    @Transient
+    protected GoogleDistanceService googleService = GoogleDistanceService.getInstance();
+    @Transient
+    protected AvailabilityService availabilityService = AvailabilityService.getInstance();
+    @Transient
+    private List<String> data = new ArrayList<String>();
 
-	@Override
-	public String toString() {
-		return "Poi [name=" + name + ", coordinate=" + coordinate + "]";
-	}
+    public Poi(String name, Address address, Coordinate coordinate) {
+        this.name = name;
+        this.address = address;
+        this.coordinate = coordinate;
+        this.actived = true;
+    }
 
-	public List<String> getData() {
-		return data;
-	}
+    @Override
+    public String getType() {
+        return type;
+    }
 
-	public void setData(List<String> data) {
-		this.data = data;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public GoogleDistanceService getGoogleService() {
-		return googleService;
-	}
 
-	public void setGoogleService(GoogleDistanceService googleService) {
-		this.googleService = googleService;
-	}
+    public boolean isActived() {
+        return actived;
+    }
 
-	public AvailabilityService getAvailabilityService() {
-		return availabilityService;
-	}
 
-	public void setAvailabilityService(AvailabilityService availabilityService) {
-		this.availabilityService = availabilityService;
-	}
+    public String getIcon() {
+        return icon;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Override
+    public String toString() {
+        return "Poi [name=" + name + ", coordinate=" + coordinate + "]";
+    }
 
-	public Poi() {
-		super();
-	}
+    public List<String> getData() {
+        return data;
+    }
 
-	public Address getAddress() {
-		return address;
-	}
+    public void setData(List<String> data) {
+        this.data = data;
+    }
 
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+    public GoogleDistanceService getGoogleService() {
+        return googleService;
+    }
 
-	public Coordinate getCoordinate() {
-		return coordinate;
-	}
+    public void setGoogleService(GoogleDistanceService googleService) {
+        this.googleService = googleService;
+    }
 
-	public void setCoordinate(Coordinate cordinate) {
-		this.coordinate = cordinate;
-	}
+    public AvailabilityService getAvailabilityService() {
+        return availabilityService;
+    }
 
-	public boolean isNearby(Coordinate cordinate) throws ClientProtocolException, IOException {
-		return this.googleService.getDistance(this.coordinate, cordinate) < 500;
-	}
+    public void setAvailabilityService(AvailabilityService availabilityService) {
+        this.availabilityService = availabilityService;
+    }
 
-	public boolean isAvailable() {
-		return false;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public long getId() {
-		return id;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public Poi() {
+        super();
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(Coordinate cordinate) {
+        this.coordinate = cordinate;
+    }
+
+    public boolean isNearby(Coordinate cordinate) throws ClientProtocolException, IOException {
+        return this.googleService.getDistance(this.coordinate, cordinate) < 500;
+    }
+
+    public boolean isAvailable() {
+        return false;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
 }
